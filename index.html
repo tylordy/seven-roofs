@@ -1,7 +1,9 @@
 <!doctype html>
 <html lang="en">
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <title>Seven Roofs</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -88,6 +90,48 @@ body.cursoraim #game canvas { cursor: none; }
 #again:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 #play:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 .note { font-size: 11px; color: var(--dim); }
+/* touch devices */
+body:not(.touch) .touchkeys, body.touch .mousekeys, body.touch #clock .esc { display: none !important; }
+body.touch { touch-action: manipulation; -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; }
+body.touch #game canvas { touch-action: none; }
+#touchUI, #rotate { display: none; }
+body.touch.playing #touchUI { display: block; }
+#touchUI { position: fixed; inset: 0; z-index: 2; pointer-events: none; touch-action: none; user-select: none; -webkit-user-select: none; }
+#stickZone { position: absolute; left: 0; bottom: 0; width: 42%; height: 62%; pointer-events: auto; touch-action: none; }
+#stickBase { position: absolute; left: calc(30px + env(safe-area-inset-left, 0px)); bottom: calc(26px + env(safe-area-inset-bottom, 0px)); width: 120px; height: 120px; border-radius: 50%; background: rgba(12,20,24,0.4); border: 2px solid rgba(236,230,214,0.4); }
+#stickBase.on { border-color: var(--lamp); }
+.stickLbl { position: absolute; left: 0; right: 0; top: calc(100% + 2px); text-align: center; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
+#stickKnob { position: absolute; left: 50%; top: 50%; width: 54px; height: 54px; margin: -27px 0 0 -27px; border-radius: 50%; background: rgba(236,230,214,0.6); box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+#aimZone { position: absolute; left: calc(14px + env(safe-area-inset-left, 0px)); bottom: calc(6px + env(safe-area-inset-bottom, 0px)); width: 160px; height: 160px; pointer-events: auto; touch-action: none; }
+#aimBase { position: absolute; left: 24px; top: 14px; width: 112px; height: 112px; border-radius: 50%; background: rgba(12,20,24,0.4); border: 2px solid rgba(242,165,65,0.55); }
+#aimBase.on { border-color: var(--lamp); }
+#aimBase::before { content: ''; position: absolute; left: 50%; top: 50%; width: 22px; height: 22px; margin: -11px 0 0 -11px; border: 2px solid rgba(236,230,214,0.35); border-radius: 50%; }
+#aimKnob { position: absolute; left: 50%; top: 50%; width: 48px; height: 48px; margin: -24px 0 0 -24px; border-radius: 50%; background: rgba(242,165,65,0.55); box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+.tb svg { width: 56%; height: 56%; fill: none; stroke: currentColor; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
+.tb small { position: absolute; bottom: 7px; left: 0; right: 0; font-size: 10px; letter-spacing: 0.1em; }
+#tbHook, #tbAtk { padding-bottom: 10px; }
+.tb { position: absolute; pointer-events: auto; touch-action: none; width: 74px; height: 74px; border-radius: 50%; border: 2px solid rgba(236,230,214,0.45); background: rgba(12,20,24,0.45); color: var(--ink); font-family: var(--display); font-weight: 700; font-size: 15px; letter-spacing: 0.06em; text-transform: uppercase; display: grid; place-items: center; padding: 0; -webkit-user-select: none; user-select: none; }
+.tb.on { background: rgba(242,165,65,0.55); border-color: var(--lamp); }
+#tbAtk { right: calc(22px + env(safe-area-inset-right, 0px)); bottom: calc(26px + env(safe-area-inset-bottom, 0px)); width: 84px; height: 84px; border-color: rgba(224,88,60,0.8); }
+#tbHook { right: calc(118px + env(safe-area-inset-right, 0px)); bottom: calc(20px + env(safe-area-inset-bottom, 0px)); border-color: rgba(242,165,65,0.85); }
+#tbJump { right: calc(36px + env(safe-area-inset-right, 0px)); bottom: calc(122px + env(safe-area-inset-bottom, 0px)); }
+.tb.sm { width: 54px; height: 54px; font-size: 12px; right: calc(128px + env(safe-area-inset-right, 0px)); bottom: calc(112px + env(safe-area-inset-bottom, 0px)); }
+#tbPause { position: absolute; pointer-events: auto; top: calc(12px + env(safe-area-inset-top, 0px)); right: calc(110px + env(safe-area-inset-right, 0px)); width: 40px; height: 40px; border: 1px solid rgba(236,230,214,0.4); background: rgba(12,20,24,0.5); color: var(--ink); font-family: var(--display); font-weight: 800; font-size: 16px; }
+body.touch #hand { bottom: auto; top: calc(64px + env(safe-area-inset-top, 0px)); }
+body.touch #hand .name { font-size: 22px; }
+body.touch #alt { bottom: auto; top: calc(92px + env(safe-area-inset-top, 0px)); }
+body.touch #alt > .lbl:not(:first-child), body.touch #alt > .val, body.touch #hand .hint { display: none; }
+body.touch .stat b { font-size: 18px; }
+body.touch .stat span { font-size: 10px; }
+body.touch #alt .hp { width: 120px; }
+body.touch #scores { top: calc(140px + env(safe-area-inset-top, 0px)); }
+body.touch #stats .stat:last-child { display: none; }
+body.touch #room { top: auto; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); }
+body.touch #toast { top: 40%; font-size: 20px; }
+@media (orientation: portrait) {
+  body.touch.playing #rotate { display: grid; position: fixed; inset: 0; z-index: 6; place-items: center; background: rgba(15,24,29,0.92); text-align: center; padding: 24px; }
+  #rotate p { font-family: var(--display); font-weight: 700; font-size: 26px; letter-spacing: 0.06em; text-transform: uppercase; margin: 0; }
+}
 .toprow { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 30px; }
 #langBtn { margin-left: auto; font-family: 'PingFang TC', 'Noto Sans TC', 'Microsoft JhengHei', var(--display); font-weight: 700; font-size: 14px; letter-spacing: 0.06em; color: var(--ink); background: rgba(236,230,214,0.08); border: 1px solid rgba(236,230,214,0.3); padding: 5px 12px; cursor: pointer; }
 #langBtn:hover { border-color: var(--lamp); }
@@ -133,6 +177,16 @@ body.zh .card h1 { letter-spacing: 0.08em; }
 <div class="hud" id="scores" hidden></div>
 <div class="hud" id="alt"><div class="lbl">Health</div><div class="hp"><i id="hpBar"></i></div><div id="fuelWrap" hidden><div class="lbl">Jetpack fuel</div><div class="hp fuel"><i id="fuelBar"></i></div></div><div class="lbl">Above fog</div><div class="val" id="altVal">22 m</div></div>
 <div id="hurt"></div>
+<div id="touchUI">
+  <div id="stickZone" hidden><div id="stickBase"><div id="stickKnob"></div><span class="stickLbl">Move</span></div></div>
+  <div id="aimZone"><div id="aimBase"><div id="aimKnob"></div><span class="stickLbl">Aim</span></div></div>
+  <button class="tb" id="tbHook" type="button" aria-label="Fire the hook"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4v20" /><path d="M24 24c0 9 -12 9 -12 1" /><path d="M24 24c0 9 12 9 12 1" /><path d="M9 21l3 4 4-2" /><path d="M39 21l-3 4-4-2" /><circle cx="24" cy="5" r="2.5" /></svg><small>Fire</small></button>
+  <button class="tb" id="tbAtk" type="button" aria-label="Attack"><svg id="atkIcon" viewBox="0 0 48 48" aria-hidden="true"></svg><small>Attack</small></button>
+  <button class="tb" id="tbJump" type="button">Jump</button>
+  <button class="tb sm" id="tbDrop" type="button">Drop</button>
+  <button id="tbPause" type="button" aria-label="Pause">II</button>
+</div>
+<div id="rotate"><p>Turn your phone sideways</p></div>
 <div class="hud" id="hand"><div class="lbl">Right hand</div><div class="name" id="handName">Empty</div><div class="hint" id="handHint">Find a floating weapon</div></div>
 <div id="whiteout"><p>The fog took you</p></div>
 <div id="endscreen" hidden>
@@ -149,7 +203,15 @@ body.zh .card h1 { letter-spacing: 0.08em; }
     <div class="toprow"><div id="pausedTag" hidden>Paused</div><button id="langBtn" type="button" lang="zh-Hant">繁體中文</button></div>
     <h1>Seven<br><em>Roofs</em></h1>
     <p id="blurb">Seven rooftops stand above a sea of fog, and the fog is fatal. Swing between them with the grappling hook on your left hand. You start with a dagger, and better weapons float above some of the roofs: grab a sword, spear, crossbow, ninja knives, a cannon or a jetpack. Twenty red soldiers guard the roofs, and hunters swing after you from roof to roof. Cut them down or knock them into the fog. Online, you can fight your friends or team up with them.</p>
-    <div class="keys">
+    <div class="keys touchkeys">
+      <span><kbd>Aim</kbd></span><span>Drag the orange joystick to turn the crosshair, tap it to fire your weapon. You can also drag on the screen to look around</span>
+      <span><kbd>Fire</kbd></span><span>Hold to fire and hang on to the grappling hook</span>
+      <span><kbd>Attack</kbd></span><span>The button with your weapon on it. Shoot or swing the weapon in your right hand</span>
+      <span><kbd>Jump</kbd></span><span>Jump. While hooked, let go with a boost. With a jetpack, hold it in the air to fly</span>
+      <span><kbd>Drop</kbd></span><span>Drop your weapon and go back to your dagger</span>
+      <span><kbd>II</kbd></span><span>Pause</span>
+    </div>
+    <div class="keys mousekeys">
       <span><kbd>Mouse</kbd></span><span>The crosshair follows your mouse. Push it toward a screen edge to turn the camera around your runner</span>
       <span><kbd>&uarr;</kbd><kbd>&larr;</kbd><kbd>&darr;</kbd><kbd>&rarr;</kbd></span><span>Move, and steer while swinging</span>
       <span><kbd>Left click</kbd></span><span>Hold to fire and hang on to the grappling hook</span>
@@ -160,7 +222,7 @@ body.zh .card h1 { letter-spacing: 0.08em; }
       <span><kbd>R</kbd></span><span>Start over on the first roof (in an online room, use Play again when the match ends)</span>
     </div>
     <label class="opt" for="hiGfx"><input type="checkbox" id="hiGfx"> High graphics: sharper picture, shadows and thicker fog. Makes your computer work harder</label>
-    <label class="opt" for="lockLook"><input type="checkbox" id="lockLook"> Lock the mouse instead: crosshair stays centered and the mouse turns the camera</label>
+    <label class="opt mousekeys" for="lockLook"><input type="checkbox" id="lockLook"> Lock the mouse instead: crosshair stays centered and the mouse turns the camera</label>
     <button id="play" type="button">Drop in</button>
     <div class="mp">
       <div class="mphead">Play online with friends</div>
@@ -171,7 +233,7 @@ body.zh .card h1 { letter-spacing: 0.08em; }
       <button id="mpLeave" type="button" hidden>Leave the room</button>
       <div id="mpStatus" class="note" aria-live="polite"></div>
     </div>
-    <div class="note">Needs a keyboard and mouse. Press Esc to pause.<br>Soldier model by KolosStudios.</div>
+    <div class="note"><span class="mousekeys">Needs a keyboard and mouse. Press Esc to pause.</span><span class="touchkeys">On phones you can't walk around. Play on a computer for the full game. Hold your phone sideways.</span><br>Soldier model by KolosStudios.</div>
   </div>
 </div>
 
@@ -217,6 +279,10 @@ const ZH = {
   'Match over': '比賽結束', 'Rooftops cleared': '屋頂清空了', 'You win': '你贏了', 'Taken down': '你被擊倒了', 'Dropped': '已丟下',
   'An enemy cut you down.': '你被敵人砍倒了。', 'You fell into the fog.': '你掉進了濃霧。', 'A friend': '朋友', 'Someone': '有人', 'someone': '某人',
   dagger: '匕首', sword: '劍', spear: '長矛', crossbow: '十字弓', knives: '忍者飛刀', cannon: '大砲', jetpack: '噴射背包',
+  'Move': '移動', 'Fire': '發射', 'Fire the hook': '發射鉤爪', 'Hook': '鉤爪', 'Attack': '攻擊', 'Jump': '跳躍', 'Drop': '丟掉', 'Pause': '暫停', 'Turn your phone sideways': '請把手機轉成橫向',
+  'Joystick': '搖桿', 'Drag the joystick on the left to move. Push all the way to sprint': '拖曳左邊的搖桿來移動，推到底就會衝刺', 'The button with your weapon on it. Shoot or swing the weapon in your right hand': '上面畫著你武器的按鈕。用右手的武器射擊或揮砍', 'Aim': '瞄準', 'Drag the orange joystick to turn the crosshair, tap it to fire your weapon. You can also drag on the screen to look around': '拖曳橘色搖桿來轉動準星，點一下就會用武器攻擊。也可以在畫面上拖曳來轉動視角', 'Touch and drag on the left side to move. Push all the way to sprint': '在左半邊按住拖曳來移動，推到底就會衝刺',
+  'Drag on the screen to look around and aim with the crosshair': '在畫面上拖曳來轉動視角，用準星瞄準', 'Shoot or swing the weapon in your right hand': '用右手的武器射擊或揮砍',
+  'On phones you can\'t walk around. Play on a computer for the full game. Hold your phone sideways.': '用手機玩不能走動，想玩完整版請用電腦。請把手機橫著拿。',
   'The Landing': '起點平台', 'Water Tower': '水塔頂', 'The Spire': '尖塔', 'Low Deck': '低平台', 'Signal Roof': '信號屋頂', 'Far Ledge': '遠方邊台', 'Greenhouse': '溫室',
 };
 const ZH_RULES = [
@@ -482,6 +548,72 @@ ROOFS.forEach((R, i) => {
   addBox(R[6].x, t(6) + 2.6, R[6].z, 7.2, 0.15, 5.2, M.dark, { roof: 6 });
 })();
 
+// ---------- rooftop gardens: turf, grass, bushes in planters, flowers, potted plants ----------
+// purely decorative (no collision, no hooking), each kind drawn as one instanced batch so phones stay fast
+(function decorate() {
+  const rnd = rng(4242), probe = { r: 0.35, h: 0.6 };
+  const clear = (x, z, y, r = 0.35) => { probe.r = r; return !colliders.some(c => overlapBox(c, probe, x, y + 0.02, z)); };
+  const flat = new THREE.MeshLambertMaterial({ color: 0xffffff });   // cheap lighting, no shadow lookups
+  const turfs = [], tufts = [], bushes = [], planters = [], flowers = [], pots = [];
+  const PATCHES = [0, 2, 2, 1, 2, 2, 3];   // turf patches per roof (the Greenhouse gets the most)
+  ROOFS.forEach((R, ri) => {
+    const y = R.top;
+    // turf patches with grass growing out of them
+    for (let n = 0, tries = 0; n < PATCHES[ri] && tries < 80; tries++) {
+      const w = 2 + rnd() * 2.6, d = 1.6 + rnd() * 2.2;
+      const x = R.x + (rnd() - 0.5) * (R.w - w - 2), z = R.z + (rnd() - 0.5) * (R.d - d - 2);
+      if (![[0, 0], [-w / 2, -d / 2], [w / 2, -d / 2], [-w / 2, d / 2], [w / 2, d / 2]].every(([ox, oz]) => clear(x + ox, z + oz, y, 0.2))) continue;
+      if (ri === 0 && Math.hypot(x - SPAWN.x, z - SPAWN.z) < 3) continue;
+      turfs.push([x, y, z, w, d]); n++;
+      for (let i = 0; i < w * d * 6; i++) tufts.push([x + (rnd() - 0.5) * w, y + 0.04, z + (rnd() - 0.5) * d]);
+      for (let i = 0; i < w * d * 0.8; i++) flowers.push([x + (rnd() - 0.5) * (w - 0.3), y + 0.2 + rnd() * 0.1, z + (rnd() - 0.5) * (d - 0.3), rnd()]);
+    }
+    // weeds in the cracks
+    for (let i = 0; i < 22; i++) {
+      const x = R.x + (rnd() - 0.5) * (R.w - 1), z = R.z + (rnd() - 0.5) * (R.d - 1);
+      if (clear(x, z, y, 0.15)) for (let k = 0; k < 4; k++) tufts.push([x + (rnd() - 0.5) * 0.3, y, z + (rnd() - 0.5) * 0.3]);
+    }
+    // a planter box of bushes along one edge
+    for (let tries = 0; tries < 40; tries++) {
+      const along = rnd() < 0.5, len = 2.4 + rnd() * 1.6;
+      const x = along ? R.x + (rnd() - 0.5) * (R.w - len - 2) : R.x + (rnd() < 0.5 ? -1 : 1) * (R.w / 2 - 1.6);
+      const z = along ? R.z + (rnd() < 0.5 ? -1 : 1) * (R.d / 2 - 1.6) : R.z + (rnd() - 0.5) * (R.d - len - 2);
+      const w = along ? len : 0.7, d = along ? 0.7 : len;
+      if (![[0, 0], [-w / 2, -d / 2], [w / 2, d / 2]].every(([ox, oz]) => clear(x + ox, z + oz, y, 0.3))) continue;
+      planters.push([x, y, z, w, d]);
+      colliders.push({ min: new V3(x - w / 2, y, z - d / 2), max: new V3(x + w / 2, y + 0.5, z + d / 2), roof: ri });
+      const n = Math.round(len / 0.6);
+      for (let i = 0; i < n; i++) { const t = (i + 0.5) / n - 0.5; bushes.push([x + (along ? t * len : 0), y + 0.62, z + (along ? 0 : t * len), 0.32 + rnd() * 0.12]); }
+      break;
+    }
+    // potted plants
+    for (let i = 0, tries = 0; i < (ri === 6 ? 5 : 2) && tries < 40; tries++) {
+      const x = R.x + (rnd() - 0.5) * (R.w - 2), z = R.z + (rnd() - 0.5) * (R.d - 2);
+      if (!clear(x, z, y, 0.4)) continue;
+      pots.push([x, y, z]); colliders.push({ min: new V3(x - 0.24, y, z - 0.24), max: new V3(x + 0.24, y + 0.5, z + 0.24), roof: ri }); bushes.push([x, y + 0.75, z, 0.28 + rnd() * 0.1]); i++;
+    }
+  });
+  const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), e = new THREE.Euler(), sc = new V3(), col = new THREE.Color();
+  const batch = (geo, list, place, color) => {
+    if (!list.length) return;
+    const im = new THREE.InstancedMesh(geo, flat, list.length);
+    list.forEach((it, i) => { place(it, i); im.setMatrixAt(i, m4); im.setColorAt(i, color(it, i)); });
+    im.instanceMatrix.needsUpdate = true; if (im.instanceColor) im.instanceColor.needsUpdate = true;
+    im.castShadow = false; im.receiveShadow = false; im.frustumCulled = false; scene.add(im);
+  };
+  const place = (x, y, z, sx, sy, sz, ry = 0, rx = 0, rz = 0) => { e.set(rx, ry, rz); q.setFromEuler(e); m4.compose(new V3(x, y, z), q, new V3(sx, sy, sz)); };
+  const box = new THREE.BoxGeometry(1, 1, 1);
+  batch(box, turfs, ([x, y, z, w, d]) => place(x, y + 0.03, z, w, 0.06, d), () => col.setHSL(0.27, 0.42, 0.24 + rnd() * 0.04));
+  const blade = new THREE.ConeGeometry(0.05, 1, 3); blade.translate(0, 0.5, 0);
+  batch(blade, tufts, ([x, y, z]) => place(x, y, z, 1 + rnd() * 0.6, 0.18 + rnd() * 0.26, 1, rnd() * 6, (rnd() - 0.5) * 0.5, (rnd() - 0.5) * 0.5), () => col.setHSL(0.22 + rnd() * 0.08, 0.5, 0.3 + rnd() * 0.14));
+  batch(box, planters, ([x, y, z, w, d]) => place(x, y + 0.25, z, w, 0.5, d), () => col.setHSL(0.07, 0.35, 0.26));
+  batch(new THREE.IcosahedronGeometry(1, 0), bushes, ([x, y, z, r]) => place(x, y, z, r, r * 0.85, r, rnd() * 6), () => col.setHSL(0.26 + rnd() * 0.07, 0.45, 0.22 + rnd() * 0.1));
+  batch(new THREE.CylinderGeometry(0.26, 0.2, 0.5, 6), pots, ([x, y, z]) => place(x, y + 0.25, z, 1, 1, 1), () => col.setHSL(0.04, 0.5, 0.38));
+  const FLOWER = [[0.0, 0.7, 0.55], [0.13, 0.85, 0.6], [0.0, 0, 0.92], [0.78, 0.5, 0.65]];
+  batch(new THREE.IcosahedronGeometry(0.06, 0), flowers, ([x, y, z]) => place(x, y, z, 1, 1, 1), ([, , , k]) => col.setHSL(...FLOWER[Math.floor(k * FLOWER.length)]));
+  window.__deco = { turfs: turfs.length, tufts: tufts.length, bushes: bushes.length, planters: planters.length, pots: pots.length, flowers: flowers.length };
+})();
+
 // fog sea: an opaque floor plus drifting translucent layers
 const fogFloor = new THREE.Mesh(new THREE.PlaneGeometry(2000, 2000), new THREE.MeshBasicMaterial({ color: 0xa6b3b4 }));
 fogFloor.rotation.x = -Math.PI / 2; fogFloor.position.y = 0; scene.add(fogFloor);
@@ -685,7 +817,7 @@ const flyingHook = makeHookHead(); flyingHook.scale.setScalar(2.2); flyingHook.v
 const tmp = new V3(), tmp2 = new V3(), UP = new V3(0, 1, 0);
 
 const cursor = { x: innerWidth / 2, y: innerHeight / 2, inside: false };
-function cursorAim() { return started && !isLocked(); }
+function cursorAim() { return started && !isLocked() && !TOUCH.on; }
 function aimDir(out) {
   if (!cursorAim()) return camera.getWorldDirection(out);
   const nx = (cursor.x / innerWidth) * 2 - 1, ny = -(cursor.y / innerHeight) * 2 + 1;
@@ -1812,7 +1944,7 @@ function updateLobby() {
 function setHeld(type) {
   type = type || 'dagger';                       // you always have your dagger to fall back on
   P.held = type; P.ammo = AMMO[type] || 0;
-  $('handName').textContent = tr(type);
+  $('handName').textContent = tr(type); setAtkIcon(type);
   updateHandHint();
 }
 function updateHandHint() {
@@ -2186,6 +2318,95 @@ addEventListener('keyup', e => {
   if (e.code === 'KeyE' && !mouseHook) releaseHook(false);
 });
 addEventListener('blur', () => { for (const k in keys) keys[k] = false; attackHeld = false; });
+// ---------- touch controls (phones and tablets) ----------
+// left side: a joystick that appears where your thumb lands; drag anywhere else to look;
+// buttons on the right for hook, attack, jump/jetpack and drop; pause at the top
+const WEAPON_ICONS = {
+  dagger: '<path d="M34 6 L18 26 L22 30 L42 14 Z"/><path d="M14 26 L26 38"/><path d="M19 33 L9 43"/>',
+  sword: '<path d="M40 4 L16 28 L20 32 L44 8 Z"/><path d="M11 25 L23 37"/><path d="M17 31 L7 41"/>',
+  spear: '<path d="M44 4 L34 8 L40 14 Z"/><path d="M37 11 L6 42"/>',
+  crossbow: '<path d="M8 16 Q24 4 40 16"/><path d="M8 16 L24 22 L40 16"/><path d="M24 8 L24 44"/><path d="M20 36 L24 44 L28 36"/>',
+  knives: '<path d="M30 6 L22 22 L26 24 Z"/><path d="M24 23 L16 38"/><circle cx="14" cy="41" r="3"/><path d="M42 14 L30 24"/>',
+  cannon: '<rect x="8" y="16" width="26" height="14" rx="4"/><path d="M34 19 L42 17 L42 29 L34 27"/><circle cx="16" cy="36" r="6"/>',
+};
+function setAtkIcon(type) { const el = document.getElementById('atkIcon'); if (el) el.innerHTML = WEAPON_ICONS[type] || WEAPON_ICONS.dagger; }
+const TOUCH = { on: false, mx: 0, my: 0, mag: 0, ax: 0, ay: 0, aimId: null, axC: 0, ayC: 0, stickId: null, sx: 0, sy: 0, look: {} };
+(function touchControls() {
+  TOUCH.on = (window.matchMedia && matchMedia('(pointer: coarse)').matches) || navigator.maxTouchPoints > 0 && !matchMedia('(pointer: fine)').matches;
+  if (new URLSearchParams(location.search).get('touch') === '1') TOUCH.on = true;
+  document.body.classList.toggle('touch', TOUCH.on);
+  if (!TOUCH.on) return;
+  $('lockLook').checked = false;
+  const zone = $('stickZone'), base = $('stickBase'), knob = $('stickKnob'), R = 50;
+  const stop = e => { if (e.cancelable) e.preventDefault(); };
+  // no page scrolling, zooming or fake mouse clicks while playing
+  for (const el of [canvas, $('touchUI')]) { el.addEventListener('touchstart', stop, { passive: false }); el.addEventListener('touchmove', stop, { passive: false }); }
+  zone.addEventListener('pointerdown', e => {
+    if (TOUCH.stickId !== null || paused) return;
+    const r = base.getBoundingClientRect();
+    TOUCH.stickId = e.pointerId; TOUCH.sx = r.left + r.width / 2; TOUCH.sy = r.top + r.height / 2;
+    base.classList.add('on');
+    try { zone.setPointerCapture(e.pointerId); } catch (err) {}
+    moveStick(e);
+  });
+  function moveStick(e) {
+    let dx = e.clientX - TOUCH.sx, dy = e.clientY - TOUCH.sy; const d = Math.hypot(dx, dy);
+    if (d > R) { dx *= R / d; dy *= R / d; }
+    knob.style.transform = `translate(${dx}px, ${dy}px)`;
+    const m = Math.min(1, d / R);
+    TOUCH.mag = m; TOUCH.mx = m > 0.18 ? dx / R : 0; TOUCH.my = m > 0.18 ? dy / R : 0;
+  }
+  zone.addEventListener('pointermove', e => {
+    if (e.pointerId === TOUCH.stickId) moveStick(e);
+  });
+  const endStick = e => { if (e.pointerId !== TOUCH.stickId) return; TOUCH.stickId = null; TOUCH.mx = TOUCH.my = TOUCH.mag = 0; base.classList.remove('on'); knob.style.transform = ''; };
+  zone.addEventListener('pointerup', endStick); zone.addEventListener('pointercancel', endStick);
+  // aim stick: the further you push, the faster the crosshair turns
+  const az = $('aimZone'), ab = $('aimBase'), ak = $('aimKnob'), AR = 46;
+  const aimMove = e => {
+    let dx = e.clientX - TOUCH.axC, dy = e.clientY - TOUCH.ayC; const d = Math.hypot(dx, dy);
+    if (d > AR) { dx *= AR / d; dy *= AR / d; }
+    ak.style.transform = `translate(${dx}px, ${dy}px)`;
+    const m = Math.min(1, d / AR), k = m > 0.12 ? (m - 0.12) / 0.88 : 0, f = k * k / (m || 1);   // gentle near the middle for fine aim
+    TOUCH.ax = dx / AR * f; TOUCH.ay = dy / AR * f;
+  };
+  az.addEventListener('pointerdown', e => {
+    if (TOUCH.aimId !== null || paused) return;
+    const r = ab.getBoundingClientRect(); TOUCH.aimId = e.pointerId; TOUCH.axC = r.left + r.width / 2; TOUCH.ayC = r.top + r.height / 2;
+    TOUCH.aimT = performance.now(); TOUCH.aimX0 = e.clientX; TOUCH.aimY0 = e.clientY; TOUCH.aimDrag = 0;
+    ab.classList.add('on'); try { az.setPointerCapture(e.pointerId); } catch (err) {} aimMove(e);
+  });
+  az.addEventListener('pointermove', e => { if (e.pointerId !== TOUCH.aimId) return; TOUCH.aimDrag = Math.max(TOUCH.aimDrag, Math.hypot(e.clientX - TOUCH.aimX0, e.clientY - TOUCH.aimY0)); aimMove(e); });
+  const endAim = e => { if (e.pointerId !== TOUCH.aimId) return; TOUCH.aimId = null;
+    if (e.type === 'pointerup' && TOUCH.aimDrag < 14 && performance.now() - TOUCH.aimT < 300 && started && !paused) attack();   // a quick tap fires
+    TOUCH.ax = TOUCH.ay = 0; ab.classList.remove('on'); ak.style.transform = ''; };
+  az.addEventListener('pointerup', endAim); az.addEventListener('pointercancel', endAim);
+  // look: any drag on the game view
+  canvas.addEventListener('pointerdown', e => { if (e.pointerType === 'mouse') return; TOUCH.look[e.pointerId] = { x: e.clientX, y: e.clientY }; });
+  canvas.addEventListener('pointermove', e => {
+    const L = TOUCH.look[e.pointerId]; if (!L || paused || !started) return;
+    P.yaw -= (e.clientX - L.x) * 0.0055; P.pitch = Math.max(-1.2, Math.min(1.1, P.pitch - (e.clientY - L.y) * 0.0045));
+    L.x = e.clientX; L.y = e.clientY;
+  });
+  const endLook = e => { delete TOUCH.look[e.pointerId]; };
+  canvas.addEventListener('pointerup', endLook); canvas.addEventListener('pointercancel', endLook);
+  // buttons: press and hold
+  const hold = (id, down, up) => {
+    const b = $(id);
+    b.addEventListener('pointerdown', e => { e.preventDefault(); if (paused || !started) return; b.classList.add('on'); try { b.setPointerCapture(e.pointerId); } catch (err) {} ac(); down(); });
+    const rel = () => { if (!b.classList.contains('on')) return; b.classList.remove('on'); up && up(); };
+    b.addEventListener('pointerup', rel); b.addEventListener('pointercancel', rel);
+  };
+  hold('tbHook', () => { mouseHook = true; fireHook(); }, () => { mouseHook = false; releaseHook(false); });
+  hold('tbAtk', () => { attackHeld = true; attack(); }, () => { attackHeld = false; });
+  hold('tbJump', () => { jumpHeld = true; jumpPressed(); }, () => { jumpHeld = false; });
+  hold('tbDrop', () => { if (P.held && P.held !== 'dagger') { toast('Dropped', `${P.held}. Back to your dagger`); setHeld(null); } });
+  $('tbPause').addEventListener('pointerup', e => { e.preventDefault(); pauseGame(); });
+  // let go of everything if the app is backgrounded
+  document.addEventListener('visibilitychange', () => { if (document.hidden) { mouseHook = false; attackHeld = false; jumpHeld = false; TOUCH.stickId = null; TOUCH.mx = TOUCH.my = TOUCH.mag = 0; base.classList.remove('on'); knob.style.transform = ''; TOUCH.aimId = null; TOUCH.ax = TOUCH.ay = 0; ab.classList.remove('on'); ak.style.transform = ''; } });
+  setAtkIcon(P.held);
+})();
+
 
 // ---------- main loop ----------
 const clock = new THREE.Clock();
@@ -2201,8 +2422,9 @@ function physics(dt) {
   wish.set(0, 0, 0);
   if (keys.ArrowUp || keys.KeyW) wish.add(fwd); if (keys.ArrowDown || keys.KeyS) wish.sub(fwd);
   if (keys.ArrowRight || keys.KeyD) wish.add(right); if (keys.ArrowLeft || keys.KeyA) wish.sub(right);
+  if (TOUCH.mx || TOUCH.my) wish.addScaledVector(fwd, -TOUCH.my).addScaledVector(right, TOUCH.mx);   // thumb stick
   const hasInput = wish.lengthSq() > 0; if (hasInput) wish.normalize();
-  const speed = keys.ShiftLeft || keys.ShiftRight ? SPRINT : WALK;
+  const speed = keys.ShiftLeft || keys.ShiftRight || TOUCH.mag > 0.9 ? SPRINT : (TOUCH.mag ? WALK * Math.max(0.45, TOUCH.mag / 0.9) : WALK);
 
   if (P.onGround && G.state !== 'attached') {
     const k = 1 - Math.exp(-14 * dt);
@@ -2282,7 +2504,8 @@ function frame(now) {
   const dt = Math.min(clock.getDelta(), 0.05);
   elapsed += dt;
   const running = started && !paused;
-  const live = running || (isNet() && started && !ended);   // online the world keeps going while your menu is open
+  const live = running || (isNet() && started && !ended);
+  if (TOUCH.on && document.body.classList.contains('playing') !== running) document.body.classList.toggle('playing', running);   // online the world keeps going while your menu is open
 
   if (running && !dead) {
     if (cursorAim() && cursor.inside) {
@@ -2294,6 +2517,7 @@ function frame(now) {
     } else edgeTurning = false;
   }
   if (live && !dead) {
+    if (TOUCH.ax || TOUCH.ay) { P.yaw -= TOUCH.ax * 3.0 * dt; P.pitch = Math.max(-1.2, Math.min(1.1, P.pitch - TOUCH.ay * 2.0 * dt)); }   // aim stick
     const sub = 4; for (let i = 0; i < sub; i++) physics(dt / sub);
     if (!finished) runTime += dt;
   }
