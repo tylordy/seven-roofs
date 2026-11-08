@@ -370,8 +370,10 @@ function roofTexture() {
   const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; return t;
 }
 function fogTexture(seed) {
+  // drawn as grey on an opaque black canvas and used as an alpha map: Safari garbles the colour of
+  // nearly transparent canvas pixels, which showed up as rainbow speckles in the fog
   const r = rng(seed), S = 512, c = document.createElement('canvas'); c.width = c.height = S;
-  const g = c.getContext('2d');
+  const g = c.getContext('2d', { alpha: false }); g.fillStyle = '#000'; g.fillRect(0, 0, S, S);
   for (let i = 0; i < 260; i++) {
     const x = r() * S, y = r() * S, rad = 30 + r() * 90;
     for (const [ox, oy] of [[0, 0], [S, 0], [-S, 0], [0, S], [0, -S]]) {
@@ -487,7 +489,7 @@ const fogLayers = [];
 for (let i = 0; i < 7; i++) {
   const tex = fogTexture(100 + i); tex.repeat.set(5, 5);
   const m = new THREE.Mesh(new THREE.PlaneGeometry(1400, 1400), new THREE.MeshBasicMaterial({
-    map: tex, color: 0xd7dfdf, transparent: true, opacity: 0.85 - i * 0.08, depthWrite: false }));
+    alphaMap: tex, color: 0xd7dfdf, transparent: true, opacity: 0.85 - i * 0.08, depthWrite: false }));
   m.rotation.x = -Math.PI / 2; m.position.y = 1.5 + i * 1.3; m.renderOrder = 1;
   scene.add(m); fogLayers.push({ m, tex, sx: (i % 2 ? 1 : -1) * (0.002 + i * 0.0006), sz: 0.0015 + i * 0.0004 });
 }
