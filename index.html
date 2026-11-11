@@ -33,6 +33,9 @@ body.cursoraim #game canvas { cursor: none; }
 .hud { position: fixed; pointer-events: none; z-index: 2; }
 #stats { top: calc(14px + env(safe-area-inset-top, 0px)); left: calc(16px + env(safe-area-inset-left, 0px)); display: grid; gap: 4px; }
 #clock { top: calc(14px + env(safe-area-inset-top, 0px)); right: calc(16px + env(safe-area-inset-right, 0px)); font-family: var(--display); font-weight: 700; font-size: 28px; letter-spacing: 0.04em; font-variant-numeric: tabular-nums; }
+#wxTag { font-family: var(--mono); font-weight: 400; font-size: 11px; letter-spacing: 0.1em; color: var(--lamp); text-align: right; text-transform: uppercase; margin-top: 4px; }
+#wxTag:empty { display: none; }
+#flash { position: fixed; inset: 0; background: #e8f0ff; opacity: 0; pointer-events: none; z-index: 3; }
 #clock .esc { font-family: var(--mono); font-weight: 400; font-size: 11px; letter-spacing: 0.1em; color: var(--dim); text-align: right; text-transform: uppercase; }
 #pausedTag { font-family: var(--mono); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--lamp); }
 .stat { display: flex; gap: 10px; align-items: baseline; font-variant-numeric: tabular-nums; }
@@ -213,7 +216,8 @@ body.zh .card h1 { letter-spacing: 0.08em; }
   <div class="stat lant"><b id="sLanterns">0</b><span>lanterns smashed</span></div>
   <div class="stat coins"><b id="sCoins">0</b><span>coins</span></div>
 </div>
-<div class="hud" id="clock"><span id="clockVal">00:00</span><div class="esc">Esc · pause</div></div>
+<div class="hud" id="clock"><span id="clockVal">00:00</span><div class="esc">Esc · pause</div><div id="wxTag"></div></div>
+<div id="flash"></div>
 <div class="hud" id="reticle"><div class="edge"></div><div class="ring"></div><div class="dot"></div><div class="dist" id="rDist"></div></div>
 <div class="hud" id="toast"></div>
 <div class="hud" id="room" hidden><span id="roomText"></span><button id="copyLink" type="button">Copy invite link</button></div>
@@ -339,7 +343,7 @@ const ZH = {
   dagger: '匕首', sword: '劍', spear: '長矛', crossbow: '十字弓', knives: '忍者飛刀', cannon: '大砲', jetpack: '噴射背包',
   'Move': '移動', 'Music': '音樂', 'Time of day': '時段', 'Dusk': '黃昏', 'Night': '夜晚', 'Foggy morning': '霧濛濛的早晨',
   'The Red Champion': '紅色冠軍', 'The Red Champion has arrived': '紅色冠軍登場了', 'He blocks hits from the front. Get behind him': '他會用盾牌擋住正面的攻擊，繞到他背後',
-  'The Red Champion is down': '紅色冠軍被擊倒了', 'Blocked': '被擋住了', 'coins': '金幣', 'Weapon shop': '武器商店', 'Test: infinite coins': '測試：無限金幣', 'Test mode: on': '測試模式：開啟', clone: '分身', 'Space to make a clone · up to 5': '空白鍵召喚分身 · 最多 5 個', 'Make up to 5 clones of you that fight beside you': '召喚最多 5 個分身陪你一起戰鬥', 'You already have 5 clones': '你已經有 5 個分身了', 'Clone': '分身', 'A clone is gone': '一個分身消失了', 'Level': '關卡', 'Next level': '下一關', 'Locked': '未解鎖', 'Old Town': '舊城區', 'The Docks': '碼頭', 'Glass Heights': '玻璃高地', 'Stilt Market': '高腳市集', 'The Ring': '圓環', 'The Ladder': '天梯', 'Twin Peaks': '雙峰', 'The Pit': '深坑', 'Sky Garden': '空中花園', 'The Gauntlet': '試煉之路', 'Pier Office': '碼頭辦公室', 'Crane House': '吊車屋', 'Lighthouse': '燈塔', 'Fish Market': '魚市場', 'Harbor Sign': '港口招牌', 'Warehouse': '倉庫', 'Boat Shed': '船屋', 'Atrium': '中庭', 'Blue Tower': '藍塔', 'The Needle': '尖針', 'Mirror Block': '鏡面大樓', 'Sky Lobby': '空中大廳', 'Glass Ledge': '玻璃平台', 'Roof Garden': '屋頂花園', 'Market Gate': '市集大門', 'Rope Hall': '繩索廳', 'Stilt Tower': '高腳塔', 'Tea House': '茶館', 'Lantern Stand': '燈籠攤', 'Far Stall': '遠方攤位', 'Garden Hut': '花園小屋', 'Hub': '中心', 'East Ring': '東環', 'North Ring': '北環', 'West Ring': '西環', 'Northwest Ring': '西北環', 'Far North': '極北', 'South Ring': '南環', 'First Step': '第一階', 'Second Step': '第二階', 'Top Rung': '最高階', 'Third Step': '第三階', 'Fifth Step': '第五階', 'Sixth Step': '第六階', 'Back Step': '後階', 'The Saddle': '鞍部', 'West Slope': '西坡', 'West Peak': '西峰', 'East Slope': '東坡', 'East Peak': '東峰', 'The Valley': '山谷', 'Foothill': '山腳', 'Pit Floor': '坑底', 'East Wall': '東牆', 'North Wall': '北牆', 'West Wall': '西牆', 'Northeast Wall': '東北牆', 'Northwest Wall': '西北牆', 'South Wall': '南牆', 'Garden Gate': '花園大門', 'Orchard': '果園', 'Sky Spire': '天空尖塔', 'Herb Roof': '香草屋頂', 'Pond Roof': '池塘屋頂', 'Vine Ledge': '藤蔓平台', 'Start Line': '起跑線', 'First Gap': '第一道缺口', 'Finish Spire': '終點尖塔', 'Low Run': '低處跑道', 'Signal Run': '信號跑道', 'Last Ledge': '最後平台', 'Back Roof': '後屋頂', 'Buy once, take one each life': '買一次，每條命可拿一次', 'Eight throwing knives': '八把飛刀', 'Throw it and it comes back': '丟出去會飛回來', 'Hold to draw. Slows time in solo': '按住拉弓，單人模式會放慢時間', 'Five exploding shots': '五發爆炸彈', 'Wear it and hold jump in the air to fly': '穿上後在空中按住跳躍飛行', 'Take': '拿取', 'Taken': '已拿取', 'Wear': '穿上', 'Wearing': '穿著中', 'Maxed': '已滿級', 'Earn coins by taking down soldiers (10), the Red Champion (60), players in versus (15) and smashing lanterns (2). Upgrades last between runs and power up the weapon whenever you hold it.': '擊倒士兵（10）、紅色冠軍（60）、對戰中的玩家（15）或打碎燈籠（2）都能賺金幣。升級會一直保留，只要拿著那把武器就會變強。', 'Tip: wall run': '提示：跑牆', 'Fly along a wall fast, close to it, to run on it': '貼著牆快速飛過，就能在牆上跑', 'Wall running!': '跑牆中！', 'Press right click or Ctrl to kick off the wall': '按右鍵或 Ctrl 蹬牆跳開', 'Press Jump to kick off the wall': '按跳躍鍵蹬牆跳開', 'Hit him from behind or the side': '從背後或側面攻擊他',
+  'The Red Champion is down': '紅色冠軍被擊倒了', 'Blocked': '被擋住了', 'coins': '金幣', 'Weapon shop': '武器商店', 'Clear': '晴天', 'Rain': '下雨', 'Storm': '暴風雨', 'Thick fog': '濃霧', 'Rain is coming': '開始下雨了', 'Roofs are slippery': '屋頂變滑了', 'A storm is here': '暴風雨來了', 'Wind pushes you in the air. Watch for lightning': '風會在空中推你，小心閃電', 'Thick fog rolls in': '濃霧湧來', "You can't see far": '看不遠了', 'The sky clears': '天空放晴', 'Rain · slippery': '下雨 · 地面濕滑', 'Storm · wind': '暴風雨 · 強風', 'Fog': '濃霧', 'Test: infinite coins': '測試：無限金幣', 'Test mode: on': '測試模式：開啟', clone: '分身', 'Space to make a clone · up to 5': '空白鍵召喚分身 · 最多 5 個', 'Make up to 5 clones of you that fight beside you': '召喚最多 5 個分身陪你一起戰鬥', 'You already have 5 clones': '你已經有 5 個分身了', 'Clone': '分身', 'A clone is gone': '一個分身消失了', 'Level': '關卡', 'Next level': '下一關', 'Locked': '未解鎖', 'Old Town': '舊城區', 'The Docks': '碼頭', 'Glass Heights': '玻璃高地', 'Stilt Market': '高腳市集', 'The Ring': '圓環', 'The Ladder': '天梯', 'Twin Peaks': '雙峰', 'The Pit': '深坑', 'Sky Garden': '空中花園', 'The Gauntlet': '試煉之路', 'Pier Office': '碼頭辦公室', 'Crane House': '吊車屋', 'Lighthouse': '燈塔', 'Fish Market': '魚市場', 'Harbor Sign': '港口招牌', 'Warehouse': '倉庫', 'Boat Shed': '船屋', 'Atrium': '中庭', 'Blue Tower': '藍塔', 'The Needle': '尖針', 'Mirror Block': '鏡面大樓', 'Sky Lobby': '空中大廳', 'Glass Ledge': '玻璃平台', 'Roof Garden': '屋頂花園', 'Market Gate': '市集大門', 'Rope Hall': '繩索廳', 'Stilt Tower': '高腳塔', 'Tea House': '茶館', 'Lantern Stand': '燈籠攤', 'Far Stall': '遠方攤位', 'Garden Hut': '花園小屋', 'Hub': '中心', 'East Ring': '東環', 'North Ring': '北環', 'West Ring': '西環', 'Northwest Ring': '西北環', 'Far North': '極北', 'South Ring': '南環', 'First Step': '第一階', 'Second Step': '第二階', 'Top Rung': '最高階', 'Third Step': '第三階', 'Fifth Step': '第五階', 'Sixth Step': '第六階', 'Back Step': '後階', 'The Saddle': '鞍部', 'West Slope': '西坡', 'West Peak': '西峰', 'East Slope': '東坡', 'East Peak': '東峰', 'The Valley': '山谷', 'Foothill': '山腳', 'Pit Floor': '坑底', 'East Wall': '東牆', 'North Wall': '北牆', 'West Wall': '西牆', 'Northeast Wall': '東北牆', 'Northwest Wall': '西北牆', 'South Wall': '南牆', 'Garden Gate': '花園大門', 'Orchard': '果園', 'Sky Spire': '天空尖塔', 'Herb Roof': '香草屋頂', 'Pond Roof': '池塘屋頂', 'Vine Ledge': '藤蔓平台', 'Start Line': '起跑線', 'First Gap': '第一道缺口', 'Finish Spire': '終點尖塔', 'Low Run': '低處跑道', 'Signal Run': '信號跑道', 'Last Ledge': '最後平台', 'Back Roof': '後屋頂', 'Buy once, take one each life': '買一次，每條命可拿一次', 'Eight throwing knives': '八把飛刀', 'Throw it and it comes back': '丟出去會飛回來', 'Hold to draw. Slows time in solo': '按住拉弓，單人模式會放慢時間', 'Five exploding shots': '五發爆炸彈', 'Wear it and hold jump in the air to fly': '穿上後在空中按住跳躍飛行', 'Take': '拿取', 'Taken': '已拿取', 'Wear': '穿上', 'Wearing': '穿著中', 'Maxed': '已滿級', 'Earn coins by taking down soldiers (10), the Red Champion (60), players in versus (15) and smashing lanterns (2). Upgrades last between runs and power up the weapon whenever you hold it.': '擊倒士兵（10）、紅色冠軍（60）、對戰中的玩家（15）或打碎燈籠（2）都能賺金幣。升級會一直保留，只要拿著那把武器就會變強。', 'Tip: wall run': '提示：跑牆', 'Fly along a wall fast, close to it, to run on it': '貼著牆快速飛過，就能在牆上跑', 'Wall running!': '跑牆中！', 'Press right click or Ctrl to kick off the wall': '按右鍵或 Ctrl 蹬牆跳開', 'Press Jump to kick off the wall': '按跳躍鍵蹬牆跳開', 'Hit him from behind or the side': '從背後或側面攻擊他',
   boomerang: '迴旋鏢', longbow: '長弓', 'Space to throw · it comes back': '空白鍵投擲 · 會飛回來', 'Hold Space to draw and slow time · let go to shoot': '按住空白鍵拉弓並放慢時間 · 放開射擊',
   'No records yet. Win a run to set your best time.': '還沒有紀錄。贏一場就能留下最佳時間。', 'New records!': '新紀錄！', 'New record: best time!': '新紀錄：最佳時間！', 'New record: most takedowns!': '新紀錄：最多擊倒！', 'Fire': '發射', 'Fire the hook': '發射鉤爪', 'Hook': '鉤爪', 'Attack': '攻擊', 'Jump': '跳躍', 'Drop': '丟掉', 'Pause': '暫停', 'Turn your phone sideways': '請把手機轉成橫向',
   'Joystick': '搖桿', 'Drag the joystick on the left to move. Push all the way to sprint': '拖曳左邊的搖桿來移動，推到底就會衝刺', 'The button with your weapon on it. Shoot or swing the weapon in your right hand': '上面畫著你武器的按鈕。用右手的武器射擊或揮砍', 'Aim': '瞄準', 'Drag the orange joystick to turn the crosshair, tap it to fire your weapon. You can also drag on the screen to look around': '拖曳橘色搖桿來轉動準星，點一下就會用武器攻擊。也可以在畫面上拖曳來轉動視角', 'Touch and drag on the left side to move. Push all the way to sprint': '在左半邊按住拖曳來移動，推到底就會衝刺',
@@ -2062,6 +2066,7 @@ function handleNet(m) {
       for (const id in NET.remotes) if (!m.ps[id]) dropRemote(id);
       NET.scores = m.sc || {}; NET.names = Object.assign(NET.names, m.nm || {});
       if (m.en) applyEnemySnap(m.en, m.k);
+      if (m.wx && m.wx !== WX.k) setWeather(m.wx);
       updateScoreHud();
       break;
     }
@@ -2150,7 +2155,7 @@ function netTick(dt) {
   else {
     const ps = { [NET.id]: myState() };
     for (const R of remoteList()) ps[R.id] = R.s;
-    netSend({ t: 'all', ps, sc: NET.scores, nm: NET.names, en: botsOn() ? enemySnap() : null, k: kills });
+    netSend({ t: 'all', ps, sc: NET.scores, nm: NET.names, en: botsOn() ? enemySnap() : null, k: kills, wx: WX.k });
   }
 }
 function animateRemote(R, dt) {
@@ -2566,6 +2571,7 @@ function restartRun(fromNet) {
   if (fromNet !== true && isGuest()) { netSend({ t: 'restart' }); return; }   // the host restarts the whole room
   if (fromNet !== true && isHost()) { hostRestart(); return; }
   ended = false; dead = false; $('endscreen').hidden = true; $('whiteout').classList.remove('show');
+  if (!isGuest()) { setWeather('clear', true); WX.left = 35; }
   bolts.forEach(b => scene.remove(b.m)); bolts.length = 0;
   rangs.forEach(b => scene.remove(b.m)); rangs.length = 0; bowDraw.on = false;
   pickups.forEach(p => { p.taken = false; p.g.visible = true; });
@@ -2854,7 +2860,7 @@ function physics(dt) {
   const speed = keys.ShiftLeft || keys.ShiftRight || TOUCH.mag > 0.9 ? SPRINT : (TOUCH.mag ? WALK * Math.max(0.45, TOUCH.mag / 0.9) : WALK);
 
   if (P.onGround && G.state !== 'attached') {
-    const k = 1 - Math.exp(-14 * dt);
+    const k = 1 - Math.exp(-14 * (1 - 0.72 * WX.wet) * dt);   // rain makes the roofs slippery
     P.vel.x += (wish.x * speed - P.vel.x) * k;
     P.vel.z += (wish.z * speed - P.vel.z) * k;
   } else if (hasInput) {
@@ -2874,6 +2880,7 @@ function physics(dt) {
   if (P.thrust) { P.vel.y = Math.min(9, P.vel.y + 36 * dt); P.fuel = Math.max(0, P.fuel - 26 * dt); }
   else if (P.jet && P.onGround) P.fuel = Math.min(100, P.fuel + 35 * dt);
   if (!P.onGround) { const drag = Math.exp(-0.12 * dt); P.vel.x *= drag; P.vel.z *= drag; }
+  if (WX.storm > 0.05) { const g = P.onGround ? 1.2 : 7; P.vel.x += WX.gust.x * WX.storm * g * dt; P.vel.z += WX.gust.z * WX.storm * g * dt; }   // storm wind shoves you
   hookPhysics(dt);
   if (P.vault.t > 0) {
     // keep driving over the ledge even if the wall stopped us for a moment
@@ -2952,7 +2959,7 @@ function frame(now) {
     const sub = 4; for (let i = 0; i < sub; i++) physics(dt / sub);
     if (!finished) runTime += dt;
   }
-  updateAudio(live); updateBossBar();
+  updateWeather(dt, live); updateAudio(live); updateBossBar();
   if (live) { updateWallInfo(dt); updateClones(dt); updateHook(dt); updateCombat(dt); if (isGuest()) guestEnemies(dt); else updateEnemies(dt); updatePlayerHealth(dt); }
   netTick(live ? dt : 0);
   updatePickups(live ? dt : 0, elapsed);
@@ -3139,6 +3146,7 @@ function applyTimeOfDay(k) {
   fogLayers.forEach(L => L.m.material.color.setHex(T.layer));
   mistLayers.forEach(L => L.m.material.color.setHex(T.mist));
   lanternMat.emissiveIntensity = T.lamp; M.lampOn.emissiveIntensity = T.lamp * 0.93;
+  WX.base = { near: T.near, far: T.far, fog: new THREE.Color(T.hor), sunI: T.sunI, hemiI: T.hemiI, top: new THREE.Color(T.top), hor: new THREE.Color(T.hor), glowAmt: T.glowAmt };
   $('tod').value = TIME_OF_DAY; needsFrame = true;
   try { localStorage.setItem('sevenroofs-tod', TIME_OF_DAY); } catch (e) {}
 }
@@ -3360,6 +3368,82 @@ function syncRemoteClones(R, dt) {   // show a friend's clones
   while (R.clones.length < list.length) { const { rig: r, rope } = cloneRig(); R.clones.push({ rig: r, rope, pos: new V3().fromArray(list[R.clones.length]), vel: new V3(), yaw: 0, phase: 0, s: { g: true, y: 0, h: 'sword', sw: -1, d: false, hk: 0 } }); }
   R.clones.forEach((c, i) => { const a = list[i], np = new V3(a[0], a[1], a[2]); c.vel.copy(np).sub(c.pos).divideScalar(Math.max(dt, 0.001)).clampLength(0, 12); c.pos.lerp(np, Math.min(1, dt * 10)); c.s.y = a[3]; c.s.sw = a[4]; c.s.g = !!a[5]; c.s.d = !!R.s.d; animateRemote(c, dt); });
 }
+// ================= weather: it keeps changing while you play (Kelevran) =================
+// clear -> rain (slippery roofs) -> storm (wind gusts + lightning) -> thick fog. The host decides online.
+const WX = { k: 'clear', left: 35, rain: 0, storm: 0, fog: 0, wet: 0, gust: new V3(1, 0, 0), gustA: 0, bolt: 6, base: null };
+const WX_INFO = {
+  clear: { tgt: [0, 0, 0], dur: [45, 75], big: 'The sky clears', small: '', tag: '' },
+  rain:  { tgt: [1, 0, 0.15], dur: [40, 65], big: 'Rain is coming', small: 'Roofs are slippery', tag: 'Rain · slippery' },
+  storm: { tgt: [1, 1, 0.3], dur: [30, 45], big: 'A storm is here', small: 'Wind pushes you in the air. Watch for lightning', tag: 'Storm · wind' },
+  fog:   { tgt: [0, 0, 1], dur: [35, 55], big: 'Thick fog rolls in', small: "You can't see far", tag: 'Fog' },
+};
+const WX_NEXT = { clear: ['rain', 'fog', 'rain'], rain: ['storm', 'clear', 'storm'], storm: ['rain', 'clear'], fog: ['clear', 'rain'] };
+function setWeather(k, quiet) {
+  if (!WX_INFO[k]) return;
+  const changed = WX.k !== k; WX.k = k;
+  const I = WX_INFO[k]; WX.left = I.dur[0] + Math.random() * (I.dur[1] - I.dur[0]);
+  $('wxTag').textContent = I.tag ? tr(I.tag) : '';
+  if (changed && !quiet && started) { toast(I.big, I.small); if (k === 'storm') thunder(0.6); }
+}
+// rain: falling streaks in a box that follows the camera
+const RAIN_N = 900, rainPos = new Float32Array(RAIN_N * 6);
+const rainGeo = new THREE.BufferGeometry(); rainGeo.setAttribute('position', new THREE.BufferAttribute(rainPos, 3));
+const rainMat = new THREE.LineBasicMaterial({ color: 0xc8d4dc, transparent: true, opacity: 0, depthWrite: false });
+const rainMesh = new THREE.LineSegments(rainGeo, rainMat); rainMesh.frustumCulled = false; rainMesh.visible = false; scene.add(rainMesh);
+for (let i = 0; i < RAIN_N; i++) { rainPos[i * 6] = (Math.random() - 0.5) * 50; rainPos[i * 6 + 1] = Math.random() * 30; rainPos[i * 6 + 2] = (Math.random() - 0.5) * 50; }
+function thunder(delay) {
+  setTimeout(() => { noise(1.6, 0.35, 90, 0.6); noise(0.5, 0.2, 220, 0.9); }, delay * 1000);
+}
+function updateWeather(dt, live) {
+  if (live && !isGuest()) { WX.left -= dt; if (WX.left <= 0) { const opts = WX_NEXT[WX.k]; setWeather(opts[Math.floor(Math.random() * opts.length)]); } }
+  const I = WX_INFO[WX.k], r = Math.min(1, dt / 5);
+  WX.rain += (I.tgt[0] - WX.rain) * r; WX.storm += (I.tgt[1] - WX.storm) * r; WX.fog += (I.tgt[2] - WX.fog) * r;
+  WX.wet = Math.min(1, WX.rain * 1.1);
+  WX.gustA += dt * 0.25; const gs = 0.6 + 0.4 * Math.sin(WX.gustA * 3.1) * Math.sin(WX.gustA * 1.3);
+  WX.gust.set(Math.cos(WX.gustA), 0, Math.sin(WX.gustA)).multiplyScalar(gs);
+  // sky, fog and light
+  const B = WX.base;
+  if (B) {
+    const thick = Math.min(1, WX.fog + WX.rain * 0.35);
+    scene.fog.far = B.far * (1 - 0.62 * thick); scene.fog.near = B.near * (1 - thick);
+    scene.fog.color.copy(B.fog).lerp(tmpCol.setHex(0x7d878c), 0.55 * thick);
+    sun.intensity = B.sunI * (1 - 0.55 * WX.rain - 0.35 * WX.fog);
+    hemi.intensity = B.hemiI * (1 - 0.25 * WX.rain);
+    const grey = Math.min(1, 0.7 * WX.rain + 0.5 * WX.fog), U = sky.material.uniforms;   // clouds cover the sky
+    U.top.value.copy(B.top).lerp(tmpCol.setHex(0x3c4347), grey * 0.8); U.horizon.value.copy(B.hor).lerp(tmpCol.setHex(0x7d878c), grey * 0.7);
+    U.glowAmt.value = B.glowAmt * (1 - 0.85 * grey);
+  }
+  // lightning in a storm
+  const fl = $('flash');
+  if (WX.storm > 0.6 && live) {
+    WX.bolt -= dt;
+    if (WX.bolt <= 0) { WX.bolt = 4 + Math.random() * 7; fl.style.transition = 'none'; fl.style.opacity = '0.55'; hemi.intensity *= 2.4; requestAnimationFrame(() => { fl.style.transition = 'opacity 0.5s'; fl.style.opacity = '0'; }); thunder(0.4 + Math.random() * 1.2); }
+  }
+  // rain streaks
+  rainMesh.visible = WX.rain > 0.02;
+  if (rainMesh.visible) {
+    rainMat.opacity = 0.5 * WX.rain;
+    const c = camera.position, fall = (26 + 10 * WX.storm) * dt, wx = WX.gust.x * WX.storm * 6, wz = WX.gust.z * WX.storm * 6;
+    for (let i = 0; i < RAIN_N; i++) {
+      const o = i * 6; let x = rainPos[o], y = rainPos[o + 1] - fall, z = rainPos[o + 2];
+      x += wx * dt; z += wz * dt;
+      if (y < -12) { y += 30; x = (Math.random() - 0.5) * 50; z = (Math.random() - 0.5) * 50; }
+      if (x > 25) x -= 50; if (x < -25) x += 50; if (z > 25) z -= 50; if (z < -25) z += 50;
+      rainPos[o] = x; rainPos[o + 1] = y; rainPos[o + 2] = z;
+      rainPos[o + 3] = x - wx * 0.03; rainPos[o + 4] = y + 0.7; rainPos[o + 5] = z - wz * 0.03;
+    }
+    rainMesh.position.set(c.x, c.y - 10, c.z);
+    rainGeo.attributes.position.needsUpdate = true;
+  }
+  // rain on the roofs
+  if (AUD.started && actx) {
+    if (!AUD.rain) { const a = actx, n = a.sampleRate * 2, buf = a.createBuffer(1, n, a.sampleRate), d = buf.getChannelData(0); for (let i = 0; i < n; i++) d[i] = Math.random() * 2 - 1;
+      const src = a.createBufferSource(); src.buffer = buf; src.loop = true; const f = a.createBiquadFilter(); f.type = 'bandpass'; f.frequency.value = 2200; f.Q.value = 0.4; const g = a.createGain(); g.gain.value = 0;
+      src.connect(f).connect(g).connect(a.destination); src.start(); AUD.rain = { g }; }
+    AUD.rain.g.gain.setTargetAtTime(0.09 * WX.rain + 0.05 * WX.storm, actx.currentTime, 0.5);
+  }
+}
+const tmpCol = new THREE.Color();
 function fillLevels() {
   const sel = $('lvSel'); sel.innerHTML = '';
   LEVELS.forEach((L, i) => {
@@ -3393,6 +3477,6 @@ loadSoldier();
 requestAnimationFrame(frame);
 
 // hooks for automated checks
-window.__seven = { NET, netTargets, hostGame, joinGame, goSolo, remoteList, restartRun, endRun, get dead() { return dead; }, get ended() { return ended; }, get kills() { return kills; }, hurtPlayer, hurt: e => hurtEnemy(e, 999, new V3(), 'sword'), camera, enemies, PH, CAM, anim, rig, P, G, ROOFS, visited, keys, fireHook, releaseHook, attack, setHeld, pickups, lanterns, cursor, x: { hurtPush: e => hurtEnemy(e, 10, new V3(3, 2, 0), 'sword'), hurtHeavy: e => hurtEnemy(e, 65, new V3(8, 3, 0), 'sword'), get clones() { return clones; }, get rangs() { return rangs; }, get bow() { return bowDraw; }, get ts() { return TIME_SCALE; }, get boss() { return bossSpawned; }, REC, applyTimeOfDay, saveRecords, setAttackHeld: v => { attackHeld = v; } }, start: () => { started = true; paused = false; lockFailed = true; $('overlay').hidden = true; visit(0); } };
+window.__seven = { NET, netTargets, hostGame, joinGame, goSolo, remoteList, restartRun, endRun, get dead() { return dead; }, get ended() { return ended; }, get kills() { return kills; }, hurtPlayer, hurt: e => hurtEnemy(e, 999, new V3(), 'sword'), camera, enemies, PH, CAM, anim, rig, P, G, ROOFS, visited, keys, fireHook, releaseHook, attack, setHeld, pickups, lanterns, cursor, x: { setWeather: k => setWeather(k), get WX() { return WX; }, hurtPush: e => hurtEnemy(e, 10, new V3(3, 2, 0), 'sword'), hurtHeavy: e => hurtEnemy(e, 65, new V3(8, 3, 0), 'sword'), get clones() { return clones; }, get rangs() { return rangs; }, get bow() { return bowDraw; }, get ts() { return TIME_SCALE; }, get boss() { return bossSpawned; }, REC, applyTimeOfDay, saveRecords, setAttackHeld: v => { attackHeld = v; } }, start: () => { started = true; paused = false; lockFailed = true; $('overlay').hidden = true; visit(0); } };
 })();
 </script>
