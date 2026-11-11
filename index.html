@@ -46,6 +46,11 @@ body.cursoraim #game canvas { cursor: none; }
 #hand .lbl { color: var(--dim); text-transform: uppercase; letter-spacing: 0.12em; font-size: 11px; }
 #hand .name { font-family: var(--display); font-size: 30px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.03em; line-height: 1; }
 #hand .hint { color: var(--dim); font-size: 11px; margin-top: 2px; }
+#bag { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 4px 10px; margin-top: 6px; font-size: 11px; color: var(--dim); text-transform: uppercase; letter-spacing: 0.08em; max-width: 360px; margin-left: auto; }
+#bag span b { display: inline-block; min-width: 15px; padding: 0 3px; margin-right: 4px; border: 1px solid rgba(236,230,214,0.3); text-align: center; font-weight: 700; }
+#bag span.on { color: var(--lamp); }
+#bag span.on b { border-color: var(--lamp); }
+body.touch #bag b { display: none; }
 #alt { bottom: calc(18px + env(safe-area-inset-bottom, 0px)); left: calc(16px + env(safe-area-inset-left, 0px)); }
 #alt .lbl { color: var(--dim); text-transform: uppercase; letter-spacing: 0.12em; font-size: 11px; }
 #alt .val { font-family: var(--display); font-size: 30px; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
@@ -86,10 +91,43 @@ body.cursoraim #game canvas { cursor: none; }
 #endscreen.win h1 { color: var(--lamp); }
 #endscreen.lose h1 { color: var(--blood); }
 .endtag { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim); }
+#nextLv { font-family: var(--display); font-weight: 800; font-size: 24px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); background: transparent; border: 2px solid var(--lamp); padding: 8px 24px; cursor: pointer; }
+.endbtns { display: flex; flex-wrap: wrap; gap: 12px; }
 #again { justify-self: start; font-family: var(--display); font-weight: 800; font-size: 24px; letter-spacing: 0.08em; text-transform: uppercase; color: #1a1408; background: var(--lamp); border: 0; padding: 10px 28px; cursor: pointer; }
 #again:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 #play:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 .note { font-size: 11px; color: var(--dim); }
+.recs { color: var(--lamp); font-size: 12px; letter-spacing: 0.04em; }
+.endrec { color: var(--lamp) !important; font-family: var(--display); font-weight: 700; font-size: 18px !important; letter-spacing: 0.06em; text-transform: uppercase; }
+.endrec:empty { display: none; }
+.shop { display: grid; gap: 8px; border-top: 1px solid rgba(236,230,214,0.14); padding-top: 12px; }
+.shophead { display: flex; justify-content: space-between; align-items: baseline; font-family: var(--display); font-weight: 700; font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); }
+.coinbag { color: var(--lamp); font-size: 13px; }
+.coinbag b { font-size: 18px; }
+.shoprow { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; align-items: center; padding: 6px 0; border-bottom: 1px solid rgba(236,230,214,0.08); }
+.shoprow .nm { font-family: var(--display); font-weight: 700; font-size: 15px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink); }
+.shoprow .nm i { font-style: normal; color: var(--lamp); letter-spacing: 0.1em; margin-left: 6px; }
+.shoprow .nm i.em { color: rgba(236,230,214,0.2); margin-left: 0; }
+.shoprow .ef { grid-column: 1; font-size: 11px; color: var(--dim); }
+.shoprow button { grid-row: 1 / span 2; grid-column: 2; font-family: var(--display); font-weight: 700; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink); background: transparent; border: 1px solid var(--lamp); padding: 6px 12px; cursor: pointer; white-space: nowrap; }
+.shoprow button:hover:not(:disabled) { background: rgba(242,165,65,0.18); }
+.shopsub { font-family: var(--display); font-weight: 700; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); padding-top: 8px; }
+.shoprow button.take { border-color: #7be08a; }
+.shoprow button:disabled { border-color: rgba(236,230,214,0.2); color: var(--dim); cursor: default; }
+.stat.coins b { color: var(--lamp); }
+.lvrow { font-family: var(--display); font-weight: 700; font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); }
+.lvrow select { font: inherit; font-size: 14px; color: var(--ink); background: rgba(236,230,214,0.08); border: 1px solid var(--lamp); padding: 6px 8px; text-transform: none; letter-spacing: 0.02em; }
+.lvrow select option { background: var(--night); }
+.optrow { display: flex; flex-wrap: wrap; gap: 8px 22px; }
+#tod { font: inherit; font-size: 12px; color: var(--ink); background: rgba(236,230,214,0.08); border: 1px solid rgba(236,230,214,0.22); padding: 3px 6px; margin-left: 6px; }
+#tod option { background: var(--night); }
+#slowmoFx { position: fixed; inset: 0; pointer-events: none; z-index: 2; box-shadow: inset 0 0 160px 40px rgba(90,150,210,0.45); opacity: 0; transition: opacity .25s; }
+body.slowmo #slowmoFx { opacity: 1; }
+#bossBar { top: calc(54px + env(safe-area-inset-top, 0px)); left: 50%; transform: translateX(-50%); width: min(360px, 60vw); text-align: center; }
+#bossBar .bname { font-family: var(--display); font-weight: 800; font-size: 16px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blood); text-shadow: 0 1px 6px rgba(0,0,0,.6); }
+#bossBar .bhp { height: 8px; background: rgba(236,230,214,0.15); margin-top: 3px; }
+#bossBar .bhp i { display: block; height: 100%; width: 100%; background: var(--blood); transition: width .15s; }
+body.touch #bossBar { top: calc(10px + env(safe-area-inset-top, 0px)); width: min(260px, 40vw); }
 /* touch devices */
 body:not(.touch) .touchkeys, body.touch .mousekeys, body.touch #clock .esc { display: none !important; }
 body.touch { touch-action: manipulation; -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; }
@@ -115,6 +153,7 @@ body.touch.playing #touchUI { display: block; }
 #tbAtk { right: calc(22px + env(safe-area-inset-right, 0px)); bottom: calc(26px + env(safe-area-inset-bottom, 0px)); width: 84px; height: 84px; border-color: rgba(224,88,60,0.8); }
 #tbHook { right: calc(118px + env(safe-area-inset-right, 0px)); bottom: calc(20px + env(safe-area-inset-bottom, 0px)); border-color: rgba(242,165,65,0.85); }
 #tbJump { right: calc(36px + env(safe-area-inset-right, 0px)); bottom: calc(122px + env(safe-area-inset-bottom, 0px)); }
+#tbSwap { right: calc(192px + env(safe-area-inset-right, 0px)) !important; }
 .tb.sm { width: 54px; height: 54px; font-size: 12px; right: calc(128px + env(safe-area-inset-right, 0px)); bottom: calc(112px + env(safe-area-inset-bottom, 0px)); }
 #tbPause { position: absolute; pointer-events: auto; top: calc(12px + env(safe-area-inset-top, 0px)); right: calc(110px + env(safe-area-inset-right, 0px)); width: 40px; height: 40px; border: 1px solid rgba(236,230,214,0.4); background: rgba(12,20,24,0.5); color: var(--ink); font-family: var(--display); font-weight: 800; font-size: 16px; }
 body.touch #hand { bottom: auto; top: calc(64px + env(safe-area-inset-top, 0px)); }
@@ -125,7 +164,7 @@ body.touch .stat b { font-size: 18px; }
 body.touch .stat span { font-size: 10px; }
 body.touch #alt .hp { width: 120px; }
 body.touch #scores { top: calc(140px + env(safe-area-inset-top, 0px)); }
-body.touch #stats .stat:last-child { display: none; }
+body.touch #stats .stat.lant, body.touch #stats .stat.coins { display: none; }
 body.touch #room { top: auto; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); }
 body.touch #toast { top: 40%; font-size: 20px; }
 @media (orientation: portrait) {
@@ -168,7 +207,8 @@ body.zh .card h1 { letter-spacing: 0.08em; }
   <div id="roofpips"></div>
   <div class="stat"><b id="sRoofs">1/7</b><span>roofs reached</span></div>
   <div class="stat"><b id="sKills">0/20</b><span>enemies down</span></div>
-  <div class="stat"><b id="sLanterns">0</b><span>lanterns smashed</span></div>
+  <div class="stat lant"><b id="sLanterns">0</b><span>lanterns smashed</span></div>
+  <div class="stat coins"><b id="sCoins">0</b><span>coins</span></div>
 </div>
 <div class="hud" id="clock"><span id="clockVal">00:00</span><div class="esc">Esc · pause</div></div>
 <div class="hud" id="reticle"><div class="edge"></div><div class="ring"></div><div class="dot"></div><div class="dist" id="rDist"></div></div>
@@ -177,6 +217,8 @@ body.zh .card h1 { letter-spacing: 0.08em; }
 <div class="hud" id="scores" hidden></div>
 <div class="hud" id="alt"><div class="lbl">Health</div><div class="hp"><i id="hpBar"></i></div><div id="fuelWrap" hidden><div class="lbl">Jetpack fuel</div><div class="hp fuel"><i id="fuelBar"></i></div></div><div class="lbl">Above fog</div><div class="val" id="altVal">22 m</div></div>
 <div id="hurt"></div>
+<div id="slowmoFx"></div>
+<div class="hud" id="bossBar" hidden><div class="bname">The Red Champion</div><div class="bhp"><i id="bossHp"></i></div></div>
 <div id="touchUI">
   <div id="stickZone" hidden><div id="stickBase"><div id="stickKnob"></div><span class="stickLbl">Move</span></div></div>
   <div id="aimZone"><div id="aimBase"><div id="aimKnob"></div><span class="stickLbl">Aim</span></div></div>
@@ -184,17 +226,19 @@ body.zh .card h1 { letter-spacing: 0.08em; }
   <button class="tb" id="tbAtk" type="button" aria-label="Attack"><svg id="atkIcon" viewBox="0 0 48 48" aria-hidden="true"></svg><small>Attack</small></button>
   <button class="tb" id="tbJump" type="button">Jump</button>
   <button class="tb sm" id="tbDrop" type="button">Drop</button>
+  <button class="tb sm" id="tbSwap" type="button">Switch</button>
   <button id="tbPause" type="button" aria-label="Pause">II</button>
 </div>
 <div id="rotate"><p>Turn your phone sideways</p></div>
-<div class="hud" id="hand"><div class="lbl">Right hand</div><div class="name" id="handName">Empty</div><div class="hint" id="handHint">Find a floating weapon</div></div>
+<div class="hud" id="hand"><div class="lbl">Right hand</div><div class="name" id="handName">Empty</div><div class="hint" id="handHint">Find a floating weapon</div><div id="bag"></div></div>
 <div id="whiteout"><p>The fog took you</p></div>
 <div id="endscreen" hidden>
   <div class="card">
     <div id="endTag" class="endtag">Run over</div>
     <h1 id="endTitle">You died</h1>
     <p id="endText"></p>
-    <button id="again" type="button">Play again</button>
+    <p id="endRecord" class="endrec"></p>
+    <div class="endbtns"><button id="again" type="button">Play again</button><button id="nextLv" type="button" hidden>Next level</button></div>
   </div>
 </div>
 
@@ -202,13 +246,14 @@ body.zh .card h1 { letter-spacing: 0.08em; }
   <div class="card">
     <div class="toprow"><div id="pausedTag" hidden>Paused</div><button id="langBtn" type="button" lang="zh-Hant">繁體中文</button></div>
     <h1>Seven<br><em>Roofs</em></h1>
-    <p id="blurb">Seven rooftops stand above a sea of fog, and the fog is fatal. Swing between them with the grappling hook on your left hand. You start with a dagger, and better weapons float above some of the roofs: grab a sword, spear, crossbow, ninja knives, a cannon or a jetpack. Twenty red soldiers guard the roofs, and hunters swing after you from roof to roof. Cut them down or knock them into the fog. Online, you can fight your friends or team up with them.</p>
+    <p id="blurb">Seven rooftops stand above a sea of fog, and the fog is fatal. Swing between them with the grappling hook on your left hand. You start with a dagger, and a sword, spear or crossbow floats above some of the roofs. Ninja knives, a boomerang, a longbow, a cannon and a jetpack are in the shop. Twenty red soldiers guard the roofs, and hunters swing after you from roof to roof. Cut them down or knock them into the fog, and spend the coins you earn on stronger weapons in the shop. Online, you can fight your friends or team up with them.</p>
     <div class="keys touchkeys">
       <span><kbd>Aim</kbd></span><span>Drag the orange joystick to turn the crosshair, tap it to fire your weapon. You can also drag on the screen to look around</span>
       <span><kbd>Fire</kbd></span><span>Hold to fire and hang on to the grappling hook</span>
       <span><kbd>Attack</kbd></span><span>The button with your weapon on it. Shoot or swing the weapon in your right hand</span>
       <span><kbd>Jump</kbd></span><span>Jump. While hooked, let go with a boost. With a jetpack, hold it in the air to fly</span>
-      <span><kbd>Drop</kbd></span><span>Drop your weapon and go back to your dagger</span>
+      <span><kbd>Switch</kbd></span><span>Switch to the next weapon in your bag. Every weapon you grab stays with you</span>
+      <span><kbd>Drop</kbd></span><span>Drop the weapon in your hand</span>
       <span><kbd>II</kbd></span><span>Pause</span>
     </div>
     <div class="keys mousekeys">
@@ -218,9 +263,19 @@ body.zh .card h1 { letter-spacing: 0.08em; }
       <span><kbd>Space</kbd></span><span>Fight: shoot or swing the weapon in your right hand</span>
       <span><kbd>Right click</kbd> or <kbd>Ctrl</kbd></span><span>Jump. While hooked, let go with a boost. With a jetpack, hold it in the air to fly</span>
       <span><kbd>Shift</kbd></span><span>Sprint</span>
-      <span><kbd>Q</kbd></span><span>Drop your weapon and go back to your dagger</span>
+      <span><kbd>1</kbd>–<kbd>9</kbd> or wheel</span><span>Switch between the weapons in your bag. Every weapon you grab stays with you</span>
+      <span><kbd>Q</kbd></span><span>Drop the weapon in your hand</span>
       <span><kbd>R</kbd></span><span>Start over on the first roof (in an online room, use Play again when the match ends)</span>
     </div>
+    <div id="records" class="note recs"></div>
+    <div class="shop">
+      <div class="shophead"><span>Weapon shop</span><span class="coinbag"><b id="shopCoins">0</b> coins</span></div>
+      <div class="note">Earn coins by taking down soldiers (10), the Red Champion (60), players in versus (15) and smashing lanterns (2). Upgrades last between runs and power up the weapon whenever you hold it.</div>
+      <div id="shopList"></div>
+    </div>
+    <label class="opt lvrow" for="lvSel">Level <select id="lvSel"></select></label>
+    <div class="optrow"><label class="opt" for="musicOn"><input type="checkbox" id="musicOn" checked> Music</label>
+      <label class="opt" for="tod">Time of day <select id="tod"><option value="dusk">Dusk</option><option value="night">Night</option><option value="morning">Foggy morning</option></select></label></div>
     <label class="opt" for="hiGfx"><input type="checkbox" id="hiGfx"> High graphics: sharper picture, shadows and thicker fog. Makes your computer work harder</label>
     <label class="opt mousekeys" for="lockLook"><input type="checkbox" id="lockLook"> Lock the mouse instead: crosshair stays centered and the mouse turns the camera</label>
     <button id="play" type="button">Drop in</button>
@@ -253,13 +308,13 @@ const ZH = {
   'Copy invite link': '複製邀請連結', 'Health': '生命值', 'Jetpack fuel': '噴射背包燃料', 'Above fog': '離霧高度', 'Right hand': '右手',
   'Empty': '空手', 'Find a floating weapon': '找一把漂浮的武器', 'The fog took you': '你被濃霧吞噬了', 'Run over': '遊戲結束', 'You died': '你死了',
   'Play again': '再玩一次', 'Paused': '已暫停', 'Seven': '七座', 'Roofs': '屋頂',
-  'Seven rooftops stand above a sea of fog, and the fog is fatal. Swing between them with the grappling hook on your left hand. You start with a dagger, and better weapons float above some of the roofs: grab a sword, spear, crossbow, ninja knives, a cannon or a jetpack. Twenty red soldiers guard the roofs, and hunters swing after you from roof to roof. Cut them down or knock them into the fog. Online, you can fight your friends or team up with them.':
-    '七座屋頂矗立在一片濃霧之上，而濃霧會致命。用左手的鉤爪在屋頂之間擺盪。你一開始只有一把匕首，更好的武器漂浮在某些屋頂上方：劍、長矛、十字弓、忍者飛刀、大砲，還有噴射背包。二十名紅色士兵守著屋頂，獵手會用鉤爪從一座屋頂追你到另一座。把他們砍倒，或把他們打進濃霧裡。在線上，你可以和朋友對戰，也可以組隊。',
+  'Seven rooftops stand above a sea of fog, and the fog is fatal. Swing between them with the grappling hook on your left hand. You start with a dagger, and a sword, spear or crossbow floats above some of the roofs. Ninja knives, a boomerang, a longbow, a cannon and a jetpack are in the shop. Twenty red soldiers guard the roofs, and hunters swing after you from roof to roof. Cut them down or knock them into the fog, and spend the coins you earn on stronger weapons in the shop. Online, you can fight your friends or team up with them.':
+    '七座屋頂矗立在一片濃霧之上，而濃霧會致命。用左手的鉤爪在屋頂之間擺盪。你一開始只有一把匕首，劍、長矛和十字弓漂浮在某些屋頂上方。忍者飛刀、迴旋鏢、長弓、大砲和噴射背包要在商店買。二十名紅色士兵守著屋頂，獵手會用鉤爪從一座屋頂追你到另一座。把他們砍倒，或把他們打進濃霧裡，再用賺到的金幣在商店升級武器。在線上，你可以和朋友對戰，也可以組隊。',
   'Mouse': '滑鼠', 'The crosshair follows your mouse. Push it toward a screen edge to turn the camera around your runner': '準星會跟著滑鼠移動。把它推到畫面邊緣，鏡頭就會繞著你的角色轉動',
   'Move, and steer while swinging': '移動，擺盪時也能控制方向', 'Left click': '左鍵', 'Hold to fire and hang on to the grappling hook': '按住發射鉤爪並吊在上面',
   'Space': '空白鍵', 'Fight: shoot or swing the weapon in your right hand': '攻擊：用右手的武器射擊或揮砍', 'Right click': '右鍵', 'or': '或',
   'Jump. While hooked, let go with a boost. With a jetpack, hold it in the air to fly': '跳躍。掛在鉤爪上時按下可加速放開。有噴射背包時，在空中按住即可飛行',
-  'Sprint': '衝刺', 'Drop your weapon and go back to your dagger': '丟掉武器，換回匕首',
+  'Sprint': '衝刺', 'Drop your weapon and go back to your dagger': '丟掉武器，換回匕首', 'Drop the weapon in your hand': '丟掉手上的武器', 'Switch between the weapons in your bag. Every weapon you grab stays with you': '切換背包裡的武器。撿到的武器都會留在身上', 'Switch to the next weapon in your bag. Every weapon you grab stays with you': '換成背包裡的下一把武器。撿到的武器都會留在身上', 'Switch': '切換', 'or wheel': '或滾輪', 'Out of cannonballs': '砲彈用完了', 'Out of knives': '飛刀用完了',
   'Start over on the first roof (in an online room, use Play again when the match ends)': '回到第一座屋頂重新開始（在線上房間裡，請在比賽結束時按「再玩一次」）',
   'High graphics: sharper picture, shadows and thicker fog. Makes your computer work harder': '高畫質：畫面更清晰、有陰影、霧更濃。電腦會比較吃力',
   'Lock the mouse instead: crosshair stays centered and the mouse turns the camera': '改成鎖定滑鼠：準星固定在中央，用滑鼠轉動鏡頭',
@@ -279,16 +334,30 @@ const ZH = {
   'Match over': '比賽結束', 'Rooftops cleared': '屋頂清空了', 'You win': '你贏了', 'Taken down': '你被擊倒了', 'Dropped': '已丟下',
   'An enemy cut you down.': '你被敵人砍倒了。', 'You fell into the fog.': '你掉進了濃霧。', 'A friend': '朋友', 'Someone': '有人', 'someone': '某人',
   dagger: '匕首', sword: '劍', spear: '長矛', crossbow: '十字弓', knives: '忍者飛刀', cannon: '大砲', jetpack: '噴射背包',
-  'Move': '移動', 'Fire': '發射', 'Fire the hook': '發射鉤爪', 'Hook': '鉤爪', 'Attack': '攻擊', 'Jump': '跳躍', 'Drop': '丟掉', 'Pause': '暫停', 'Turn your phone sideways': '請把手機轉成橫向',
+  'Move': '移動', 'Music': '音樂', 'Time of day': '時段', 'Dusk': '黃昏', 'Night': '夜晚', 'Foggy morning': '霧濛濛的早晨',
+  'The Red Champion': '紅色冠軍', 'The Red Champion has arrived': '紅色冠軍登場了', 'He blocks hits from the front. Get behind him': '他會用盾牌擋住正面的攻擊，繞到他背後',
+  'The Red Champion is down': '紅色冠軍被擊倒了', 'Blocked': '被擋住了', 'coins': '金幣', 'Weapon shop': '武器商店', clone: '分身', 'Space to make a clone · up to 5': '空白鍵召喚分身 · 最多 5 個', 'Make up to 5 clones of you that fight beside you': '召喚最多 5 個分身陪你一起戰鬥', 'You already have 5 clones': '你已經有 5 個分身了', 'Clone': '分身', 'A clone is gone': '一個分身消失了', 'Level': '關卡', 'Next level': '下一關', 'Locked': '未解鎖', 'Old Town': '舊城區', 'The Docks': '碼頭', 'Glass Heights': '玻璃高地', 'Stilt Market': '高腳市集', 'The Ring': '圓環', 'The Ladder': '天梯', 'Twin Peaks': '雙峰', 'The Pit': '深坑', 'Sky Garden': '空中花園', 'The Gauntlet': '試煉之路', 'Pier Office': '碼頭辦公室', 'Crane House': '吊車屋', 'Lighthouse': '燈塔', 'Fish Market': '魚市場', 'Harbor Sign': '港口招牌', 'Warehouse': '倉庫', 'Boat Shed': '船屋', 'Atrium': '中庭', 'Blue Tower': '藍塔', 'The Needle': '尖針', 'Mirror Block': '鏡面大樓', 'Sky Lobby': '空中大廳', 'Glass Ledge': '玻璃平台', 'Roof Garden': '屋頂花園', 'Market Gate': '市集大門', 'Rope Hall': '繩索廳', 'Stilt Tower': '高腳塔', 'Tea House': '茶館', 'Lantern Stand': '燈籠攤', 'Far Stall': '遠方攤位', 'Garden Hut': '花園小屋', 'Hub': '中心', 'East Ring': '東環', 'North Ring': '北環', 'West Ring': '西環', 'Northwest Ring': '西北環', 'Far North': '極北', 'South Ring': '南環', 'First Step': '第一階', 'Second Step': '第二階', 'Top Rung': '最高階', 'Third Step': '第三階', 'Fifth Step': '第五階', 'Sixth Step': '第六階', 'Back Step': '後階', 'The Saddle': '鞍部', 'West Slope': '西坡', 'West Peak': '西峰', 'East Slope': '東坡', 'East Peak': '東峰', 'The Valley': '山谷', 'Foothill': '山腳', 'Pit Floor': '坑底', 'East Wall': '東牆', 'North Wall': '北牆', 'West Wall': '西牆', 'Northeast Wall': '東北牆', 'Northwest Wall': '西北牆', 'South Wall': '南牆', 'Garden Gate': '花園大門', 'Orchard': '果園', 'Sky Spire': '天空尖塔', 'Herb Roof': '香草屋頂', 'Pond Roof': '池塘屋頂', 'Vine Ledge': '藤蔓平台', 'Start Line': '起跑線', 'First Gap': '第一道缺口', 'Finish Spire': '終點尖塔', 'Low Run': '低處跑道', 'Signal Run': '信號跑道', 'Last Ledge': '最後平台', 'Back Roof': '後屋頂', 'Buy once, take one each life': '買一次，每條命可拿一次', 'Eight throwing knives': '八把飛刀', 'Throw it and it comes back': '丟出去會飛回來', 'Hold to draw. Slows time in solo': '按住拉弓，單人模式會放慢時間', 'Five exploding shots': '五發爆炸彈', 'Wear it and hold jump in the air to fly': '穿上後在空中按住跳躍飛行', 'Take': '拿取', 'Taken': '已拿取', 'Wear': '穿上', 'Wearing': '穿著中', 'Maxed': '已滿級', 'Earn coins by taking down soldiers (10), the Red Champion (60), players in versus (15) and smashing lanterns (2). Upgrades last between runs and power up the weapon whenever you hold it.': '擊倒士兵（10）、紅色冠軍（60）、對戰中的玩家（15）或打碎燈籠（2）都能賺金幣。升級會一直保留，只要拿著那把武器就會變強。', 'Tip: wall run': '提示：跑牆', 'Fly along a wall fast, close to it, to run on it': '貼著牆快速飛過，就能在牆上跑', 'Wall running!': '跑牆中！', 'Press right click or Ctrl to kick off the wall': '按右鍵或 Ctrl 蹬牆跳開', 'Press Jump to kick off the wall': '按跳躍鍵蹬牆跳開', 'Hit him from behind or the side': '從背後或側面攻擊他',
+  boomerang: '迴旋鏢', longbow: '長弓', 'Space to throw · it comes back': '空白鍵投擲 · 會飛回來', 'Hold Space to draw and slow time · let go to shoot': '按住空白鍵拉弓並放慢時間 · 放開射擊',
+  'No records yet. Win a run to set your best time.': '還沒有紀錄。贏一場就能留下最佳時間。', 'New records!': '新紀錄！', 'New record: best time!': '新紀錄：最佳時間！', 'New record: most takedowns!': '新紀錄：最多擊倒！', 'Fire': '發射', 'Fire the hook': '發射鉤爪', 'Hook': '鉤爪', 'Attack': '攻擊', 'Jump': '跳躍', 'Drop': '丟掉', 'Pause': '暫停', 'Turn your phone sideways': '請把手機轉成橫向',
   'Joystick': '搖桿', 'Drag the joystick on the left to move. Push all the way to sprint': '拖曳左邊的搖桿來移動，推到底就會衝刺', 'The button with your weapon on it. Shoot or swing the weapon in your right hand': '上面畫著你武器的按鈕。用右手的武器射擊或揮砍', 'Aim': '瞄準', 'Drag the orange joystick to turn the crosshair, tap it to fire your weapon. You can also drag on the screen to look around': '拖曳橘色搖桿來轉動準星，點一下就會用武器攻擊。也可以在畫面上拖曳來轉動視角', 'Touch and drag on the left side to move. Push all the way to sprint': '在左半邊按住拖曳來移動，推到底就會衝刺',
   'Drag on the screen to look around and aim with the crosshair': '在畫面上拖曳來轉動視角，用準星瞄準', 'Shoot or swing the weapon in your right hand': '用右手的武器射擊或揮砍',
   'On phones you can\'t walk around. Play on a computer for the full game. Hold your phone sideways.': '用手機玩不能走動，想玩完整版請用電腦。請把手機橫著拿。',
   'The Landing': '起點平台', 'Water Tower': '水塔頂', 'The Spire': '尖塔', 'Low Deck': '低平台', 'Signal Roof': '信號屋頂', 'Far Ledge': '遠方邊台', 'Greenhouse': '溫室',
 };
 const ZH_RULES = [
+  [/^Level (\d+): (.+)$/, m => `第 ${m[1]} 關：${tr(m[2])}`],
+  [/^Level (\d+) unlocked!$/, m => `第 ${m[1]} 關解鎖了！`],
+  [/^Loading level (\d+)…$/, m => `正在載入第 ${m[1]} 關…`],
+  [/^Damage (\d+) → (\d+) · reload (.+) → (.+) s$/, m => `傷害 ${m[1]} → ${m[2]} · 裝填 ${m[3]} → ${m[4]} 秒`],
+  [/^Damage (\d+) · reload (.+) s$/, m => `傷害 ${m[1]} · 裝填 ${m[2]} 秒`],
+  [/^Damage (\d+) → (\d+) · reach (.+) → (.+) m$/, m => `傷害 ${m[1]} → ${m[2]} · 距離 ${m[3]} → ${m[4]} 公尺`],
+  [/^Damage (\d+) · reach (.+) m$/, m => `傷害 ${m[1]} · 距離 ${m[2]} 公尺`],
+  [/^Buy · (\d+) coins$/, m => `購買 · ${m[1]} 金幣`],
+  [/^Upgrade · (\d+) coins$/, m => `升級 · ${m[1]} 金幣`],
   [/^(.*) · Q to drop$/, m => `${tr(m[1])} · Q 丟掉`],
   [/^(.*) · (\d+) left$/, m => `${tr(m[1])} · 還剩 ${m[2]}`],
   [/^(\d+) left$/, m => `還剩 ${m[1]} 個`],
+  [/^Best time (.+) · Most takedowns (\d+) · Wins (\d+)$/, m => `最佳時間 ${m[1]} · 最多擊倒 ${m[2]} · 勝場 ${m[3]}`],
   [/^Room (\w+) is open\. Share the invite link\.$/, m => `房間 ${m[1]} 已開啟，把邀請連結分享出去。`],
   [/^Online error: (.*)$/, m => `線上錯誤：${m[1]}`],
   [/^Joining room (\w+)…$/, m => `正在加入房間 ${m[1]}…`],
@@ -359,7 +428,7 @@ renderer.autoClear = false;
 $('game').appendChild(renderer.domElement);
 
 const scene = new THREE.Scene();
-scene.fog = new THREE.Fog(FOG_COLOR, 45, 270);
+scene.fog = new THREE.Fog(FOG_COLOR, 0, 115);   // misty: far roofs fade into the haze
 const camera = new THREE.PerspectiveCamera(70, innerWidth / innerHeight, 0.05, 900);
 camera.rotation.order = 'YXZ';
 scene.add(camera);
@@ -375,20 +444,21 @@ addEventListener('resize', () => {
 const SUN_DIR = new V3(-0.55, 0.22, -0.8).normalize();
 const sky = new THREE.Mesh(new THREE.SphereGeometry(600, 32, 16), new THREE.ShaderMaterial({
   side: THREE.BackSide, depthWrite: false, fog: false,
-  uniforms: { top: { value: new THREE.Color(0x18262f) }, horizon: { value: new THREE.Color(FOG_COLOR) }, sun: { value: SUN_DIR } },
+  uniforms: { top: { value: new THREE.Color(0x18262f) }, horizon: { value: new THREE.Color(FOG_COLOR) }, sun: { value: SUN_DIR }, glow: { value: new THREE.Vector3(1.0, 0.6, 0.28) }, glowAmt: { value: 1 } },
   vertexShader: 'varying vec3 vDir; void main(){ vDir = normalize(position); gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }',
-  fragmentShader: `uniform vec3 top; uniform vec3 horizon; uniform vec3 sun; varying vec3 vDir;
+  fragmentShader: `uniform vec3 top; uniform vec3 horizon; uniform vec3 sun; uniform vec3 glow; uniform float glowAmt; varying vec3 vDir;
     void main(){ vec3 d = normalize(vDir); float h = clamp(d.y, 0.0, 1.0);
       vec3 c = mix(horizon, top, pow(h, 0.55));
       float s = max(dot(d, sun), 0.0);
-      c += vec3(1.0,0.6,0.28) * (pow(s, 600.0) * 1.2 + pow(s, 12.0) * 0.35 + pow(s, 3.0) * 0.08);
+      c += glow * glowAmt * (pow(s, 600.0) * 1.2 + pow(s, 12.0) * 0.35 + pow(s, 3.0) * 0.08);
       if (d.y < 0.0) c = horizon;
       gl_FragColor = vec4(c, 1.0); }`
 }));
 sky.renderOrder = -1;
 scene.add(sky);
 
-scene.add(new THREE.HemisphereLight(0x7f9db3, 0x4b4038, 0.62));
+const HEMI = new THREE.HemisphereLight(0x7f9db3, 0x4b4038, 0.62); scene.add(HEMI);
+const FACADE_MATS = [];
 const sun = new THREE.DirectionalLight(0xffc28a, 1.05);
 sun.castShadow = true;
 sun.shadow.mapSize.set(1024, 1024);
@@ -482,26 +552,134 @@ const M = {
 };
 
 const BASE_Y = -70;
-const ROOFS = [
-  { name: 'The Landing',  x: 0,   z: 0,   w: 18, d: 18, top: 30, f: 0 },
-  { name: 'Water Tower',  x: 31,  z: -6,  w: 12, d: 14, top: 34, f: 2 },
-  { name: 'The Spire',    x: 8,   z: -40, w: 9,  d: 9,  top: 46, f: 1 },
-  { name: 'Low Deck',     x: -29, z: -12, w: 14, d: 12, top: 24, f: 2 },
-  { name: 'Signal Roof',  x: -22, z: -48, w: 14, d: 12, top: 36, f: 0 },
-  { name: 'Far Ledge',    x: 42,  z: -46, w: 12, d: 16, top: 28, f: 1 },
-  { name: 'Greenhouse',   x: -38, z: 24,  w: 14, d: 14, top: 32, f: 0 },
+// ---------- levels: ten layouts of seven roofs each (Kelevran). Each level has its own buildings: plain towers (p),
+// setbacks (s), stepped tiers (t) and buildings on stilts (k). The world is built once at load; changing level reloads.
+const LEVELS = [
+  { name: "Old Town", tint: 0xffffff, roofs: [
+    { name: "The Landing", x: 0, z: 0, w: 18, d: 18, top: 30, f: 0, s: 'p' },
+    { name: "Water Tower", x: 31, z: -6, w: 12, d: 14, top: 34, f: 2, s: 'p' },
+    { name: "The Spire", x: 8, z: -40, w: 9, d: 9, top: 46, f: 1, s: 'p' },
+    { name: "Low Deck", x: -29, z: -12, w: 14, d: 12, top: 24, f: 2, s: 'p' },
+    { name: "Signal Roof", x: -22, z: -48, w: 14, d: 12, top: 36, f: 0, s: 'p' },
+    { name: "Far Ledge", x: 42, z: -46, w: 12, d: 16, top: 28, f: 1, s: 'p' },
+    { name: "Greenhouse", x: -38, z: 24, w: 14, d: 14, top: 32, f: 0, s: 'p' }
+  ] },
+  { name: "The Docks", tint: 0xd9c7a8, roofs: [
+    { name: "Pier Office", x: 0, z: 0, w: 18, d: 18, top: 26, f: 2, s: 'p' },
+    { name: "Crane House", x: -30, z: 6, w: 12, d: 14, top: 24, f: 0, s: 's' },
+    { name: "Lighthouse", x: -8, z: -34, w: 9, d: 9, top: 40, f: 1, s: 's' },
+    { name: "Fish Market", x: 30, z: -4, w: 14, d: 12, top: 22, f: 2, s: 'p' },
+    { name: "Harbor Sign", x: 26, z: -38, w: 14, d: 12, top: 30, f: 0, s: 'p' },
+    { name: "Warehouse", x: -38, z: -30, w: 12, d: 16, top: 27, f: 1, s: 's' },
+    { name: "Boat Shed", x: 2, z: 34, w: 14, d: 14, top: 25, f: 0, s: 'p' }
+  ] },
+  { name: "Glass Heights", tint: 0xb9cde6, roofs: [
+    { name: "Atrium", x: 0, z: 0, w: 18, d: 18, top: 36, f: 1, s: 'p' },
+    { name: "Blue Tower", x: 26, z: 18, w: 12, d: 14, top: 42, f: 1, s: 't' },
+    { name: "The Needle", x: -4, z: -36, w: 9, d: 9, top: 52, f: 1, s: 't' },
+    { name: "Mirror Block", x: -32, z: 6, w: 14, d: 12, top: 38, f: 1, s: 't' },
+    { name: "Sky Lobby", x: 30, z: -26, w: 14, d: 12, top: 46, f: 1, s: 'p' },
+    { name: "Glass Ledge", x: -30, z: -34, w: 12, d: 16, top: 44, f: 1, s: 't' },
+    { name: "Roof Garden", x: 4, z: 40, w: 14, d: 14, top: 40, f: 1, s: 'p' }
+  ] },
+  { name: "Stilt Market", tint: 0xc9b39a, roofs: [
+    { name: "Market Gate", x: 0, z: 0, w: 18, d: 18, top: 28, f: 2, s: 'k' },
+    { name: "Rope Hall", x: 28, z: -12, w: 12, d: 14, top: 30, f: 2, s: 'k' },
+    { name: "Stilt Tower", x: 0, z: -38, w: 9, d: 9, top: 42, f: 0, s: 'k' },
+    { name: "Tea House", x: -28, z: -14, w: 14, d: 12, top: 26, f: 2, s: 'k' },
+    { name: "Lantern Stand", x: -26, z: -46, w: 14, d: 12, top: 32, f: 0, s: 'k' },
+    { name: "Far Stall", x: 30, z: -48, w: 12, d: 16, top: 34, f: 0, s: 'k' },
+    { name: "Garden Hut", x: -4, z: 36, w: 14, d: 14, top: 30, f: 2, s: 'k' }
+  ] },
+  { name: "The Ring", tint: 0xe6d6c2, roofs: [
+    { name: "Hub", x: 0, z: 0, w: 18, d: 18, top: 30, f: 0, s: 'p' },
+    { name: "East Ring", x: 36, z: -8, w: 12, d: 14, top: 34, f: 2, s: 's' },
+    { name: "North Ring", x: 26, z: -42, w: 9, d: 9, top: 40, f: 1, s: 'p' },
+    { name: "West Ring", x: -34, z: -6, w: 14, d: 12, top: 32, f: 2, s: 's' },
+    { name: "Northwest Ring", x: -22, z: -44, w: 14, d: 12, top: 38, f: 0, s: 'p' },
+    { name: "Far North", x: 4, z: -62, w: 12, d: 16, top: 36, f: 1, s: 's' },
+    { name: "South Ring", x: -6, z: 38, w: 14, d: 14, top: 34, f: 0, s: 'p' }
+  ] },
+  { name: "The Ladder", tint: 0xd0d4d8, roofs: [
+    { name: "First Step", x: 0, z: 0, w: 18, d: 18, top: 24, f: 0, s: 'p' },
+    { name: "Second Step", x: 26, z: -14, w: 12, d: 14, top: 28, f: 2, s: 's' },
+    { name: "Top Rung", x: 52, z: -70, w: 9, d: 9, top: 50, f: 1, s: 'p' },
+    { name: "Third Step", x: 18, z: -44, w: 14, d: 12, top: 32, f: 2, s: 't' },
+    { name: "Fifth Step", x: 46, z: -40, w: 14, d: 12, top: 40, f: 0, s: 'p' },
+    { name: "Sixth Step", x: 28, z: -74, w: 12, d: 16, top: 44, f: 1, s: 's' },
+    { name: "Back Step", x: -24, z: 10, w: 14, d: 14, top: 26, f: 0, s: 'p' }
+  ] },
+  { name: "Twin Peaks", tint: 0xbfc9b4, roofs: [
+    { name: "The Saddle", x: 0, z: 0, w: 18, d: 18, top: 30, f: 0, s: 'p' },
+    { name: "West Slope", x: -22, z: -28, w: 12, d: 14, top: 40, f: 2, s: 't' },
+    { name: "West Peak", x: -28, z: -60, w: 9, d: 9, top: 50, f: 1, s: 't' },
+    { name: "East Slope", x: 30, z: -26, w: 14, d: 12, top: 36, f: 2, s: 'p' },
+    { name: "East Peak", x: 30, z: -60, w: 14, d: 12, top: 46, f: 0, s: 's' },
+    { name: "The Valley", x: 0, z: -46, w: 12, d: 16, top: 28, f: 1, s: 'p' },
+    { name: "Foothill", x: -30, z: 10, w: 14, d: 14, top: 34, f: 0, s: 't' }
+  ] },
+  { name: "The Pit", tint: 0xb0a49a, roofs: [
+    { name: "Pit Floor", x: 0, z: 0, w: 18, d: 18, top: 22, f: 2, s: 'k' },
+    { name: "East Wall", x: 30, z: 10, w: 12, d: 14, top: 36, f: 0, s: 'p' },
+    { name: "North Wall", x: 0, z: -32, w: 9, d: 9, top: 44, f: 1, s: 'k' },
+    { name: "West Wall", x: -30, z: 10, w: 14, d: 12, top: 34, f: 0, s: 'p' },
+    { name: "Northeast Wall", x: 32, z: -30, w: 14, d: 12, top: 40, f: 2, s: 's' },
+    { name: "Northwest Wall", x: -32, z: -30, w: 12, d: 16, top: 38, f: 2, s: 'p' },
+    { name: "South Wall", x: 0, z: 36, w: 14, d: 14, top: 32, f: 0, s: 'k' }
+  ] },
+  { name: "Sky Garden", tint: 0xd8e6d0, roofs: [
+    { name: "Garden Gate", x: 0, z: 0, w: 18, d: 18, top: 40, f: 0, s: 't' },
+    { name: "Orchard", x: 28, z: -10, w: 12, d: 14, top: 44, f: 0, s: 't' },
+    { name: "Sky Spire", x: 6, z: -38, w: 9, d: 9, top: 54, f: 1, s: 'k' },
+    { name: "Herb Roof", x: -28, z: -8, w: 14, d: 12, top: 42, f: 2, s: 't' },
+    { name: "Pond Roof", x: -24, z: -42, w: 14, d: 12, top: 48, f: 0, s: 't' },
+    { name: "Vine Ledge", x: 36, z: -42, w: 12, d: 16, top: 46, f: 1, s: 't' },
+    { name: "Greenhouse", x: -6, z: 32, w: 14, d: 14, top: 44, f: 0, s: 'k' }
+  ] },
+  { name: "The Gauntlet", tint: 0xa8a0b8, roofs: [
+    { name: "Start Line", x: 0, z: 0, w: 18, d: 18, top: 30, f: 0, s: 'p' },
+    { name: "First Gap", x: 0, z: -34, w: 12, d: 14, top: 34, f: 2, s: 'k' },
+    { name: "Finish Spire", x: -6, z: -104, w: 9, d: 9, top: 50, f: 1, s: 's' },
+    { name: "Low Run", x: 26, z: -56, w: 14, d: 12, top: 28, f: 2, s: 'k' },
+    { name: "Signal Run", x: -22, z: -78, w: 14, d: 12, top: 38, f: 0, s: 'p' },
+    { name: "Last Ledge", x: 18, z: -92, w: 12, d: 16, top: 40, f: 1, s: 't' },
+    { name: "Back Roof", x: -4, z: 30, w: 14, d: 14, top: 32, f: 0, s: 's' }
+  ] }
 ];
+const LEVEL_COUNT = LEVELS.length;
+let UNLOCKED = 1; try { UNLOCKED = Math.max(1, Math.min(LEVEL_COUNT, +localStorage.getItem('sevenroofs-unlocked') || 1)); } catch (e) {}
+let LEVEL = 1; try { LEVEL = +(new URLSearchParams(location.search).get('level') || localStorage.getItem('sevenroofs-level') || 1); } catch (e) {}
+LEVEL = Math.max(1, Math.min(LEVEL_COUNT, Math.round(LEVEL) || 1));
+const LV = LEVELS[LEVEL - 1];
+const ROOFS = LV.roofs;
+SPAWN.set(ROOFS[0].x, ROOFS[0].top, ROOFS[0].z + 4);
+function goLevel(n, extra) {   // switch level: the world is rebuilt by reloading the page
+  try { localStorage.setItem('sevenroofs-level', n); if (extra) sessionStorage.setItem('sevenroofs-autojoin', JSON.stringify(extra)); } catch (e) {}
+  const u = new URL(location.href); u.searchParams.delete('level'); if (extra) u.searchParams.delete('room');
+  location.href = u.toString();
+}
 const visited = new Set();
 
-ROOFS.forEach((R, i) => {
-  const h = R.top - BASE_Y, tx = FACADES[R.f];
-  const map = tx.map.clone(), emi = tx.emi.clone();
+function facadeMat(f, w, d, h) {
+  const tx = FACADES[f], map = tx.map.clone(), emi = tx.emi.clone();
   map.needsUpdate = emi.needsUpdate = true;
-  map.repeat.set((R.w + R.d) / 2 / 8, h / 16); emi.repeat.copy(map.repeat);
-  const side = new THREE.MeshStandardMaterial({ map, emissiveMap: emi, emissive: 0xffffff, emissiveIntensity: 0.85, roughness: 0.9 });
+  map.repeat.set((w + d) / 2 / 8, h / 16); emi.repeat.copy(map.repeat);
+  const side = new THREE.MeshStandardMaterial({ color: LV.tint, map, emissiveMap: emi, emissive: 0xffffff, emissiveIntensity: 0.85, roughness: 0.9 }); FACADE_MATS.push(side);
+  return side;
+}
+ROOFS.forEach((R, i) => {
   const rt = ROOF_TEX.clone(); rt.needsUpdate = true; rt.repeat.set(R.w / 8, R.d / 8);
   const roofM = new THREE.MeshStandardMaterial({ map: rt, roughness: 1 });
-  addBox(R.x, BASE_Y, R.z, R.w, h, R.d, [side, side, roofM, side, side, side], { roof: i });
+  const block = (y0, y1, grow, top) => { const w = R.w + grow, d = R.d + grow, h = y1 - y0, side = facadeMat(R.f, w, d, h); addBox(R.x, y0, R.z, w, h, d, [side, side, top || M.parapet, side, side, side], { roof: i }); };
+  if (R.s === 's') { block(BASE_Y, R.top - 10, 6); block(R.top - 10, R.top, 0, roofM); }                 // setback: a wide base with a ledge
+  else if (R.s === 't') { block(BASE_Y, R.top - 18, 10); block(R.top - 18, R.top - 9, 5); block(R.top - 9, R.top, 0, roofM); }   // stepped tiers
+  else if (R.s === 'k') {                                                                                // on stilts above the fog
+    block(R.top - 12, R.top, 0, roofM);
+    const lw = 1.3, leg = new THREE.MeshStandardMaterial({ color: 0x3a3632, roughness: 0.9 });
+    for (const [sx, sz] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) addBox(R.x + sx * (R.w / 2 - 1.2), BASE_Y, R.z + sz * (R.d / 2 - 1.2), lw, R.top - 12 - BASE_Y, lw, leg, { roof: i });
+    addBox(R.x, R.top - 12 - 2.2, R.z, R.w - 1, 0.5, 0.5, leg, { roof: i }); addBox(R.x, R.top - 12 - 2.2, R.z, 0.5, 0.5, R.d - 1, leg, { roof: i });
+  }
+  else block(BASE_Y, R.top, 0, roofM);
   // parapet
   const p = 0.4, ph = 0.6, y = R.top;
   addBox(R.x, y, R.z - R.d / 2 + p / 2, R.w, ph, p, M.parapet, { roof: i });
@@ -551,7 +729,7 @@ ROOFS.forEach((R, i) => {
 // ---------- rooftop gardens: turf, grass, bushes in planters, flowers, potted plants ----------
 // purely decorative (no collision, no hooking), each kind drawn as one instanced batch so phones stay fast
 (function decorate() {
-  const rnd = rng(4242), probe = { r: 0.35, h: 0.6 };
+  const rnd = rng(4242 + (LEVEL - 1) * 97), probe = { r: 0.35, h: 0.6 };
   const clear = (x, z, y, r = 0.35) => { probe.r = r; return !colliders.some(c => overlapBox(c, probe, x, y + 0.02, z)); };
   const flat = new THREE.MeshLambertMaterial({ color: 0xffffff });   // cheap lighting, no shadow lookups
   const turfs = [], tufts = [], bushes = [], planters = [], flowers = [], pots = [];
@@ -626,6 +804,16 @@ for (let i = 0; i < 7; i++) {
   scene.add(m); fogLayers.push({ m, tex, sx: (i % 2 ? 1 : -1) * (0.002 + i * 0.0006), sz: 0.0015 + i * 0.0004 });
 }
 
+// thin mist drifting higher up between the buildings (alpha-map only, same Safari-safe texture as the fog)
+const mistLayers = [];
+for (let i = 0; i < 3; i++) {
+  const tex = fogTexture(300 + i); tex.repeat.set(3, 3);
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(900, 900), new THREE.MeshBasicMaterial({
+    alphaMap: tex, color: 0xdde4e4, transparent: true, opacity: 0.42 - i * 0.1, depthWrite: false }));
+  m.rotation.x = -Math.PI / 2; m.position.y = 13 + i * 5; m.renderOrder = 1;
+  scene.add(m); mistLayers.push({ m, tex, sx: (i % 2 ? -1 : 1) * (0.004 + i * 0.001), sz: 0.002 + i * 0.0008 });
+}
+
 // drifting ash / moths
 const ashN = 500, ashPos = new Float32Array(ashN * 3);
 { const r = rng(9); for (let i = 0; i < ashN; i++) { ashPos[i * 3] = (r() - 0.5) * 160; ashPos[i * 3 + 1] = 8 + r() * 50; ashPos[i * 3 + 2] = (r() - 0.5) * 160 - 20; } }
@@ -688,6 +876,21 @@ function makeKnives() {
   const g = new THREE.Group();
   [-0.35, 0, 0.35].forEach((a, i) => { const k = makeKunai(); k.rotation.z = a; k.position.x = (i - 1) * 0.03; g.add(k); });
   return g;
+}
+function makeBoomerang() {
+  const g = new THREE.Group();
+  for (const s of [-1, 1]) { const arm = box(0.3, 0.025, 0.07, MW.wood); arm.position.set(s * 0.12, 0, -0.06); arm.rotation.y = s * 0.55; g.add(arm); }
+  const tip = box(0.06, 0.03, 0.06, MW.brass); tip.position.set(0, 0, 0.02); g.add(tip);
+  return g;
+}
+function makeLongbow() {
+  const g = new THREE.Group();
+  const limb = new THREE.Mesh(new THREE.TorusGeometry(0.5, 0.022, 4, 14, Math.PI * 0.75), MW.wood);
+  limb.rotation.z = Math.PI / 2 - Math.PI * 0.375; limb.position.x = -0.32; g.add(limb);   // arc opening toward the archer
+  const grip = box(0.05, 0.12, 0.05, MW.leather); grip.position.set(0.18, 0, 0); g.add(grip);
+  const str = box(0.006, 0.92, 0.006, MW.string); str.position.set(-0.13, 0, 0); g.add(str);
+  g.rotation.y = Math.PI / 2;
+  const wrap = new THREE.Group(); wrap.add(g); return wrap;
 }
 function makeJetpack() {
   const g = new THREE.Group();
@@ -978,6 +1181,8 @@ function makePlayer() {
   const spear = makeSpear(); spear.rotation.x = Math.PI; spear.position.y = 0.45; socket.add(spear);
   const cannon = makeCannon(); cannon.rotation.x = -Math.PI / 2; cannon.position.set(0, -0.1, -0.05); socket.add(cannon);
   const knives = makeKunai(); knives.rotation.x = -Math.PI / 2; knives.position.z = 0.01; socket.add(knives);
+  const boomerang = makeBoomerang(); boomerang.rotation.x = -Math.PI / 2; boomerang.position.set(0, -0.05, -0.02); socket.add(boomerang);
+  const longbow = makeLongbow(); longbow.rotation.x = -Math.PI / 2; longbow.position.set(0, -0.04, 0); socket.add(longbow);
   const jetpack = makeJetpack(); jetpack.position.set(0, 0.32, 0.17); torso.add(jetpack); jetpack.visible = false;
 
   function leg(side) {
@@ -991,7 +1196,7 @@ function makePlayer() {
   }
   const LL = leg(-1), LR = leg(1);
   root.traverse(o => { if (o.isMesh) o.castShadow = true; });
-  return { root, hips, torso, head, tails, scarfTail, L, R, LL, LR, hook, spool, sword, bow, dagger, spear, cannon, knives, jetpack, hipH: 0.95 };
+  return { root, hips, torso, head, tails, scarfTail, L, R, LL, LR, hook, spool, sword, bow, dagger, spear, cannon, knives, boomerang, longbow, jetpack, hipH: 0.95 };
 }
 const rig = makePlayer();
 scene.add(rig.root);
@@ -1091,9 +1296,11 @@ function buildSoldier(gltf) {
   const spear = makeSpear(); spear.rotation.x = Math.PI; spear.position.y = 0.45; socket.add(spear);
   const cannon = makeCannon(); cannon.rotation.x = -Math.PI / 2; cannon.position.set(0, -0.1, -0.05); socket.add(cannon);
   const knives = makeKunai(); knives.rotation.x = -Math.PI / 2; knives.position.z = 0.01; socket.add(knives);
+  const boomerang = makeBoomerang(); boomerang.rotation.x = -Math.PI / 2; boomerang.position.set(0, -0.05, -0.02); socket.add(boomerang);
+  const longbow = makeLongbow(); longbow.rotation.x = -Math.PI / 2; longbow.position.set(0, -0.04, 0); socket.add(longbow);
   const jetpack = makeJetpack(); jetpack.position.set(0, 0.32, 0.17); torso.add(jetpack); jetpack.visible = false;
   root.traverse(o => { if (o.isMesh) o.castShadow = true; });
-  return { root, hips, torso, head, tails, scarfTail, L, R, LL, LR, hook, spool, sword, bow, dagger, spear, cannon, knives, jetpack, hipH: pivots.hips.y };
+  return { root, hips, torso, head, tails, scarfTail, L, R, LL, LR, hook, spool, sword, bow, dagger, spear, cannon, knives, boomerang, longbow, jetpack, hipH: pivots.hips.y };
 }
 function loadSoldier() {
   if (!THREE.GLTFLoader) { spawnEnemies(); return; }   // loader blocked: built-in runner, enemies too
@@ -1119,9 +1326,14 @@ const anim = { phase: 0, bodyYaw: 0, lean: 0, land: 0 };
 const qTmp = new THREE.Quaternion(), DOWN = new V3(0, -1, 0);
 function lerpAngle(a, b, t) { let d = ((b - a + Math.PI) % (Math.PI * 2)) - Math.PI; if (d < -Math.PI) d += Math.PI * 2; return a + d * t; }
 function poseLimb(g, x, y, z) { g.quaternion.setFromEuler(new THREE.Euler(x, y, z)); }
+function wallrun_lean() {   // tilt the body toward the wall while running along it
+  if (!P.wr || !P.wr.on) return 0;
+  const rx = Math.cos(anim.bodyYaw), rz = -Math.sin(anim.bodyYaw);   // body's right
+  return (rx * -P.wr.n.x + rz * -P.wr.n.z) > 0 ? -0.38 : 0.38;
+}
 function animatePlayer(dt) {
   const hs = Math.hypot(P.vel.x, P.vel.z);
-  const aiming = P.held === 'crossbow' || P.held === 'cannon' || P.held === 'knives' || swingT >= 0 || G.state === 'flying' || G.state === 'attached';
+  const aiming = P.held === 'crossbow' || P.held === 'cannon' || P.held === 'knives' || P.held === 'longbow' || P.held === 'boomerang' || swingT >= 0 || G.state === 'flying' || G.state === 'attached';
   const aim = aimDir(new V3());
   let targetYaw = anim.bodyYaw;
   if (aiming) targetYaw = Math.atan2(-aim.x, -aim.z);
@@ -1129,8 +1341,10 @@ function animatePlayer(dt) {
   anim.bodyYaw = lerpAngle(anim.bodyYaw, targetYaw, Math.min(1, dt * 12));
   rig.root.position.copy(P.pos);
   rig.root.rotation.y = anim.bodyYaw;
+  { const lean = wallrun_lean(); anim.wlean = (anim.wlean || 0) + (lean - (anim.wlean || 0)) * Math.min(1, dt * 10); rig.root.rotation.z = anim.wlean; }
 
-  const t = elapsed, ground = P.onGround && G.state !== 'attached';
+  const wallrun = !!(P.wr && P.wr.on);
+  const t = elapsed, ground = (P.onGround || wallrun) && G.state !== 'attached';
   const run = ground ? Math.min(1, hs / SPRINT) : 0;
   if (ground) anim.phase += dt * (4 + hs * 1.05);
   const ph = anim.phase, s = Math.sin(ph), c = Math.cos(ph);
@@ -1176,10 +1390,11 @@ function animatePlayer(dt) {
     const k = swingT >= 0 ? swingT / swingDur : 0, th = k < 0.35 ? k / 0.35 : Math.max(0, 1 - (k - 0.35) / 0.65);
     poseLimb(rig.R.shoulder, 0.9 + th * 0.6, 0, 0.1); rig.R.elbow.rotation.set(1.0 - th * 0.95, 0, 0);
     torsoX += 0.2 * th;
-  } else if (P.held === 'crossbow' || P.held === 'cannon') {
+  } else if (P.held === 'crossbow' || P.held === 'cannon' || P.held === 'longbow') {
     const pitch = Math.asin(Math.max(-1, Math.min(1, aim.y)));
     poseLimb(rig.R.shoulder, Math.PI / 2 + pitch - recoil * 0.25, 0, 0.12); rig.R.elbow.rotation.set(0.1, 0, 0);
-  } else if ((P.held === 'sword' || P.held === 'dagger' || P.held === 'knives') && swingT >= 0) {
+    if (P.held === 'longbow') { const k = bowPower(); poseLimb(rig.L.shoulder, Math.PI / 2 + pitch, 0, 0.5 + 0.4 * k); rig.L.elbow.rotation.set(0.4 + 1.2 * k, 0, 0); }
+  } else if ((P.held === 'sword' || P.held === 'dagger' || P.held === 'knives' || P.held === 'boomerang') && swingT >= 0) {
     const k = swingT / swingDur, e = k < 0.3 ? k / 0.3 : 1;       // wind-up then a fast diagonal slash
     const strike = k < 0.3 ? 0 : Math.min(1, (k - 0.3) / 0.25);
     poseLimb(rig.R.shoulder, 2.6 * e - 3.6 * strike + 0.6 * strike, 0.3 - 0.9 * strike, -0.6 + 1.2 * strike);
@@ -1195,7 +1410,8 @@ function animatePlayer(dt) {
   rig.tails.rotation.x = Math.min(0.9, hs * 0.05 + Math.max(0, P.vel.y) * 0.02) + Math.sin(t * 9) * 0.03 * Math.min(1, hs / 5);
   rig.scarfTail.rotation.x = 0.3 + Math.min(1.3, P.vel.length() * 0.07) + Math.sin(t * 11) * 0.12;
   rig.spool.rotation.x += (G.state === 'flying' || G.state === 'retract' ? 40 : 0) * dt;
-  for (const k of ['sword', 'bow', 'dagger', 'spear', 'cannon', 'knives']) rig[k].visible = P.held === (k === 'bow' ? 'crossbow' : k);
+  for (const k of ['sword', 'bow', 'dagger', 'spear', 'cannon', 'knives', 'boomerang', 'longbow']) rig[k].visible = P.held === (k === 'bow' ? 'crossbow' : k);
+  if (P.held === 'boomerang' && rangs.some(b => !b.visual)) rig.boomerang.visible = false;   // it's in the air
   rig.jetpack.visible = P.jet; rig.jetpack.userData.flames.forEach(f => { f.visible = P.thrust; f.scale.y = 0.7 + Math.random() * 0.6; });
   rig.bow.userData.bolt.forEach(m => m.visible = attackCd < 0.25);
   // contact shadow on whatever is below
@@ -1243,7 +1459,7 @@ const ENEMY_SPOTS = [
 ];
 const EXTRA_BOTS = [[1, 'guard'], [1, 'hunter'], [2, 'hunter'], [3, 'guard'], [3, 'hunter'], [4, 'guard'], [4, 'hunter'], [4, 'hunter'], [5, 'guard'], [6, 'guard'], [6, 'hunter'], [6, 'hunter'], [2, 'guard']];
 (function placeExtraBots() {
-  const rnd = rng(7077), probe = { r: 0.5, h: 1.7 };
+  const rnd = rng(7077 + (LEVEL - 1) * 131), probe = { r: 0.5, h: 1.7 };
   for (const [roof, role] of EXTRA_BOTS) {
     const R = ROOFS[roof];
     for (let tries = 0; tries < 200; tries++) {
@@ -1277,25 +1493,27 @@ function redden(root) {
 function makeEnemyRig() {
   const r = gltfCache ? buildSoldier(gltfCache) : makePlayer();
   redden(r.root);
-  r.hook.visible = false; r.bow.visible = false; r.dagger.visible = false; r.spear.visible = false; r.cannon.visible = false; r.knives.visible = false; r.sword.visible = true;
+  r.hook.visible = false; r.bow.visible = false; r.dagger.visible = false; r.spear.visible = false; r.cannon.visible = false; r.knives.visible = false; r.boomerang.visible = false; r.longbow.visible = false; r.sword.visible = true;
   if (r.spool) r.spool.visible = false;
   r.L.fore.children.forEach(c => { c.visible = false; });
   return r;
 }
 function roofHome(spot) { const R = ROOFS[spot.roof]; return new V3(R.x + spot.ox, R.top + 0.01, R.z + spot.oz); }
 function spawnEnemies() {
-  enemies.forEach(e => { scene.remove(e.rig.root); scene.remove(e.rope); }); enemies.length = 0;
+  enemies.forEach(e => { scene.remove(e.rig.root); scene.remove(e.rope); }); enemies.length = 0; bossSpawned = false;
   if (!botsOn()) { setText('sKills', '–'); applyQuality(); return; }   // a pure duel: just you and your friends
-  ENEMY_SPOTS.forEach(spot => {
-    const home = roofHome(spot);
-    const rig2 = makeEnemyRig(); scene.add(rig2.root);
-    const rope2 = new THREE.Mesh(ropeGeo, ropeMat); rope2.visible = false; scene.add(rope2);
-    enemies.push({ rig: rig2, rope: rope2, spot, role: spot.role, homeRoof: spot.roof, roof: spot.roof, home, post: home.clone(),
-      pos: home.clone(), vel: new V3(), r: 0.35, h: 1.7, onGround: false, groundRoof: spot.roof,
-      hp: 100, state: 'idle', t: 0, yaw: Math.random() * 6, phase: Math.random() * 6, target: home.clone(),
-      respawn: 0, flash: 0, knock: 0, cd: 1 + Math.random(), alert: 0, fly: null, scan: Math.random() * 6 });
-  });
+  ENEMY_SPOTS.forEach(spot => makeEnemy(spot));
   applyQuality();
+}
+function makeEnemy(spot) {
+  const home = roofHome(spot);
+  const rig2 = makeEnemyRig(); scene.add(rig2.root);
+  const rope2 = new THREE.Mesh(ropeGeo, ropeMat); rope2.visible = false; scene.add(rope2);
+  const e = { rig: rig2, rope: rope2, spot, role: spot.role, homeRoof: spot.roof, roof: spot.roof, home, post: home.clone(),
+    pos: home.clone(), vel: new V3(), r: 0.35, h: 1.7, onGround: false, groundRoof: spot.roof,
+    hp: 100, state: 'idle', t: 0, yaw: Math.random() * 6, phase: Math.random() * 6, target: home.clone(),
+    respawn: 0, flash: 0, knock: 0, cd: 1 + Math.random(), alert: 0, fly: null, scan: Math.random() * 6 };
+  enemies.push(e); return e;
 }
 function floorBelow(x, z, y) {
   let top = -Infinity;
@@ -1316,6 +1534,31 @@ function startTraverse(e, roof) {
   e.state = 'aim'; e.t = 0;
   e.yaw = Math.atan2(-(land.x - start.x), -(land.z - start.z));
 }
+function startCling(e, tg) {
+  const W = tg.wall, c = W.c, along = new V3(-W.n.z, 0, W.n.x), side = (enemies.indexOf(e) % 2 ? 1 : -1) * 1.6;
+  const land = tg.pos.clone().addScaledVector(along, side).addScaledVector(W.n, 0.55); land.y = clamp(tg.pos.y - 0.2, c.min.y + 1, c.max.y - 1.2);
+  if (W.n.x) land.z = clamp(land.z, c.min.z + 0.4, c.max.z - 0.4); else land.x = clamp(land.x, c.min.x + 0.4, c.max.x - 0.4);
+  const anchor = new V3(land.x, c.max.y, land.z).addScaledVector(W.n, -0.3);
+  const start = e.pos.clone(), dist = start.distanceTo(land), ctrl = start.clone().lerp(land, 0.5); ctrl.y = Math.max(start.y, land.y) + 2 + dist * 0.1;
+  e.fly = { roof: W.roof, anchor, start, ctrl, land, T: 0.35 + dist / 17, hookT: 0, cling: { n: W.n.clone(), c, roof: W.roof } };
+  e.state = 'aim'; e.t = 0;
+  e.yaw = Math.atan2(-(land.x - start.x), -(land.z - start.z));
+}
+// which building wall you're hanging on (hook, wall run or clinging), if any
+const WALL = { info: null, t: 0 };
+function updateWallInfo(dt) {
+  let best = null;
+  if (!P.onGround && !dead) for (const c of colliders) {
+    if (c.roof < 0 || c.max.y - c.min.y < 6 || P.pos.y < c.min.y || P.pos.y > c.max.y - 0.6) continue;
+    const cx = clamp(P.pos.x, c.min.x, c.max.x), cz = clamp(P.pos.z, c.min.z, c.max.z), d = Math.hypot(P.pos.x - cx, P.pos.z - cz);
+    if (d > 2.2 || d < 0.01 || (best && d >= best.d)) continue;
+    const n = Math.abs(P.pos.x - cx) > Math.abs(P.pos.z - cz) ? new V3(Math.sign(P.pos.x - cx), 0, 0) : new V3(0, 0, Math.sign(P.pos.z - cz));
+    best = { c, n, roof: c.roof, d };
+  }
+  const slow = Math.hypot(P.vel.x, P.vel.z) < 9 || G.state === 'attached' || (P.wr && P.wr.on);
+  if (best && slow) { if (!WALL.info || WALL.info.c !== best.c) WALL.t = 0; WALL.info = best; WALL.t += dt; }
+  else { WALL.info = null; WALL.t = 0; }
+}
 function bez(f, k, out) {
   const a = 1 - k;
   return out.set(a * a * f.start.x + 2 * a * k * f.ctrl.x + k * k * f.land.x, a * a * f.start.y + 2 * a * k * f.ctrl.y + k * k * f.land.y, a * a * f.start.z + 2 * a * k * f.ctrl.z + k * k * f.land.z);
@@ -1329,17 +1572,34 @@ function hurtEnemy(e, dmg, push, kind) {
     const k = Math.min(1, e.t / e.fly.T), a = bez(e.fly, k, new V3()), b2 = bez(e.fly, Math.min(1, k + 0.02), new V3());
     e.vel.copy(b2.sub(a).divideScalar(0.02 * e.fly.T)); e.fly = null;
   }
-  e.hp -= dmg; e.flash = 0.15; e.knock = 0.5;
+  if (e.boss) {   // the champion's shield takes most of a hit from the front; he barely flinches
+    const f = new V3(-Math.sin(e.yaw), 0, -Math.cos(e.yaw)), pd = push.clone().setY(0);
+    if (pd.lengthSq() > 0.01 && pd.normalize().dot(f) < -0.35) {
+      dmg *= 0.2; burst(e.pos.clone().setY(e.pos.y + 1.6).addScaledVector(f, 0.6), 0xffd27a); tone(1200, 700, 0.12, 'square', 0.04);
+      if (!e.toldShield) { e.toldShield = true; toast('Blocked', 'Hit him from behind or the side'); }
+    }
+    push = push.clone().multiplyScalar(0.3);
+  }
+  if (e.state === 'cling') {
+    // a hunter on a wall keeps its grip through light hits; only a heavy hit (or the last one) tears it off
+    if (dmg < 60 && kind !== 'cannon' && e.hp - dmg > 0) { e.hp -= dmg; e.flash = 0.15; e.cd = Math.max(e.cd, 0.35); e.alert = 999; sfx.thunk(); return; }
+    e.cling = null; e.fly = null; e.rope.visible = false; e.onGround = false; e.state = 'stagger'; e.t = 0;
+  }
+  e.hp -= dmg; e.flash = 0.15; e.knock = e.boss ? 0.15 : 0.5;
   e.vel.x += push.x; e.vel.z += push.z; e.vel.y = Math.max(e.vel.y, push.y);
-  e.alert = 12;                                         // a hurt guard goes hunting for 12 s
-  e.state = e.hp <= 0 ? 'dying' : 'stagger'; e.t = 0;
+  e.alert = e.boss ? 999 : 12;                          // a hurt guard goes hunting for 12 s
+  e.state = e.hp <= 0 ? 'dying' : (e.boss && dmg < 60 ? e.state : 'stagger'); if (e.state === 'stagger' || e.hp <= 0) e.t = 0;
+  if (e.hp > 0 && e.role === 'hunter' && !(e.saveCd > 0)) e.save = 0.35;   // hunters fire their hook to catch themselves
   sfx.thunk(); if (e.hp <= 0) killEnemy(e, kind);
 }
 function killEnemy(e, how) {
-  e.state = 'dying'; e.t = 0; kills++; e.rope.visible = false;
+  e.state = 'dying'; e.t = 0; kills++; e.rope.visible = false; addCoins(e.boss ? 60 : 10);
+  if (!bossSpawned && kills >= BOSS_AT && !isGuest()) spawnBoss();
+  if (e.boss) toast('The Red Champion is down', '');
   setText('sKills', `${kills}/${enemies.length}`);
   const left = enemies.length - kills;
-  if (left > 0 || NET.mode === 'versus') toast(how === 'fog' ? 'Into the fog' : 'Enemy down', left > 0 ? `${left} left` : 'The roofs are clear. Now get your friend');
+  if (e.boss && left > 0) {}
+  else if (left > 0 || NET.mode === 'versus') toast(how === 'fog' ? 'Into the fog' : 'Enemy down', left > 0 ? `${left} left` : 'The roofs are clear. Now get your friend');
   else setTimeout(() => {
     if (isHost()) netSend({ t: 'end', coop: true });
     endRun(true);
@@ -1358,7 +1618,7 @@ function hurtPlayer(dmg, from, by, push) {
 }
 function updateEnemies(dt) {
   // the hunters' picture of each player: their roof once they've stood on it a moment
-  const TG = netTargets();
+  const TG = netTargets().concat(cloneTargets());
   for (const tg of TG) if (!tg.dead && tg.onGround && tg.groundRoof >= 0) {
     if (tg.groundRoof !== tg.track.roof) { tg.track.roof = tg.groundRoof; tg.track.since = 0; }
     tg.track.since += dt;
@@ -1391,28 +1651,65 @@ function updateEnemies(dt) {
     if (e.state === 'swing') {
       const f = e.fly, k = Math.min(1, e.t / f.T);
       bez(f, k, e.pos); e.vel.set(0, 0, 0);
-      if (k >= 1) { e.state = 'idle'; e.t = 0; e.fly = null; e.roof = f.roof; e.onGround = true; e.rope.visible = false; }
+      if (k >= 1 && f.cling) { e.state = 'cling'; e.t = 0; e.cling = Object.assign({ lost: 0 }, f.cling); e.fly = { anchor: f.anchor }; e.roof = f.roof; e.onGround = false; e.cd = 0.6; }
+      else if (k >= 1) { e.state = 'idle'; e.t = 0; e.fly = null; e.roof = f.roof; e.onGround = true; e.rope.visible = false; }
+      animateEnemy(e, dt, 0); drawEnemyRope(e);
+      continue;
+    }
+    // ----- clinging to the side of a building next to you (Kelevran: hunters come to the walls too) -----
+    if (e.state === 'cling') {
+      const W = e.cling, c = W.c;
+      const onMyWall = tg && tg.wall && tg.wall.c === c && tp.distanceTo(e.pos) < 14;
+      W.lost = onMyWall ? 0 : W.lost + dt;
+      if (W.lost > 1.2 || e.t > 25) { e.state = 'idle'; e.t = 0; startTraverse(e, W.roof); flying++; continue; }   // you left the wall: back up to the roof
+      if (onMyWall) {
+        const want = tp.clone().addScaledVector(W.n, 0.55).sub(e.pos);
+        want.addScaledVector(W.n, -want.dot(W.n));                            // slide along the wall only
+        const d = tp.distanceTo(e.pos);
+        if (d > 1.4) e.pos.addScaledVector(want.normalize(), Math.min(want.length(), 2.6 * dt));
+        e.yaw = lerpAngle(e.yaw, Math.atan2(-(tp.x - e.pos.x), -(tp.z - e.pos.z)), Math.min(1, dt * 8));
+        if (d < 2.4 && e.cd <= 0) { hitTarget(tg, e.boss ? 30 : 20, e.pos); e.cd = 0.9; e.swingFx = 0.3; sfx.whoosh && 0; }
+      }
+      // stay on the face of the wall, below its top
+      if (W.n.x) e.pos.x = (W.n.x > 0 ? c.max.x : c.min.x) + W.n.x * 0.55; else e.pos.z = (W.n.z > 0 ? c.max.z : c.min.z) + W.n.z * 0.55;
+      e.pos.y = clamp(e.pos.y, c.min.y + 1, c.max.y - 1.2);
+      if (W.n.x) e.pos.z = clamp(e.pos.z, c.min.z + 0.4, c.max.z - 0.4); else e.pos.x = clamp(e.pos.x, c.min.x + 0.4, c.max.x - 0.4);
+      e.fly.anchor.set(e.pos.x, c.max.y, e.pos.z).addScaledVector(W.n, -0.3);
+      e.vel.set(0, 0, 0);
       animateEnemy(e, dt, 0); drawEnemyRope(e);
       continue;
     }
     e.rope.visible = e.state === 'aim';
     if (e.state === 'aim') { animateEnemy(e, dt, 0); drawEnemyRope(e); continue; }
 
+    // ----- a knocked-off hunter hooks back onto the nearest roof (then needs 8 s before it can do it again) -----
+    e.saveCd = Math.max(0, (e.saveCd || 0) - dt);
+    if (e.save > 0) {
+      if (e.onGround) e.save = 0;
+      else if ((e.save -= dt) <= 0 && e.state !== 'dying' && e.state !== 'gone') {
+        let best = 0, bd = Infinity; ROOFS.forEach((R, i) => { const d = Math.hypot(R.x - e.pos.x, R.z - e.pos.z) + Math.max(0, R.top - e.pos.y - 25) * 2; if (d < bd) { bd = d; best = i; } });
+        startTraverse(e, best); e.saveCd = 8; flying++; continue;
+      }
+    }
     // ----- decide -----
     if (e.state === 'stagger' && e.t > 0.45 && e.onGround) { e.state = 'idle'; e.t = 0; }
     if (e.state === 'idle' || e.state === 'chase') {
       if (playerHere && (hunting || e.pos.distanceTo(e.post) < 12 || dist < 6)) e.state = 'chase';
       else e.state = 'idle';
+      // hunters go to the side of the building when you hang on a wall
+      if (e.onGround && hunting && tg && !tg.safe && tg.wall && tg.wall.t > 0.6 && flying < 5 && e.t > 0.5 && enemies.filter(o => (o.state === 'cling' || (o.fly && o.fly.cling)) && (o.cling ? o.cling.c : o.fly.cling.c) === tg.wall.c).length < 2 && e.pos.distanceTo(tp) < 60)
+        { startCling(e, tg); flying++; continue; }
       // hunters (and alerted guards) cross to the roof you're on
       if (e.onGround && !playerHere && hunting && tg && !tg.safe && tg.track.roof >= 0 && tg.track.roof !== e.roof && tg.track.since > 1.2 && flying < 3 && crowdOn(tg.track.roof) < 3 && e.t > 0.8)
         { startTraverse(e, tg.track.roof); flying++; continue; }
       // a guard far from its post swings home once it's calm
       if (e.onGround && e.role === 'guard' && e.alert <= 0 && e.roof !== e.homeRoof && flying < 4 && e.t > 1.5) { startTraverse(e, e.homeRoof); flying++; continue; }
+      // a guard far from its post swings home once it's calm
     }
     if (e.state === 'chase') {
       faceYaw = Math.atan2(-toP.x, -toP.z);
-      if (dist < 1.7 && e.cd <= 0) { e.state = 'windup'; e.t = 0; }
-      else if (dist > 1.3) wish = 4.8;
+      if (dist < (e.boss ? 2.7 : 1.7) && e.cd <= 0) { e.state = 'windup'; e.t = 0; }
+      else if (dist > (e.boss ? 2.1 : 1.3)) wish = e.boss ? 4.2 : 4.8;
     } else if (e.state === 'idle') {
       if (e.role === 'guard' && e.roof === e.homeRoof) {
         // stand at the post and scan around
@@ -1433,7 +1730,7 @@ function updateEnemies(dt) {
       if (e.t > 0.08 && !e.hitDone) {
         e.hitDone = true;
         const fwd = new V3(-Math.sin(e.yaw), 0, -Math.cos(e.yaw));
-        if (tg && dist < 2.3 && Math.abs(dy) < 1.8 && toP.clone().normalize().dot(fwd) > 0.3) hitTarget(tg, 22, e.pos);
+        if (tg && dist < (e.boss ? 3.4 : 2.3) && Math.abs(dy) < (e.boss ? 2.4 : 1.8) && toP.clone().normalize().dot(fwd) > 0.3) hitTarget(tg, e.boss ? 34 : 22, e.pos);
       }
       if (e.t > 0.4) { e.state = 'chase'; e.t = 0; e.cd = 1.1; e.hitDone = false; }
     }
@@ -1481,7 +1778,7 @@ function animateEnemy(e, dt, hs) {
   e.phase += dt * (4 + hs * 1.1);
   const s = Math.sin(e.phase), c = Math.cos(e.phase);
   let tx = -0.15 * run;
-  if (e.state === 'aim' || e.state === 'swing') {
+  if (e.state === 'aim' || e.state === 'swing' || e.state === 'cling') {
     // left arm reaches for the rope, legs tuck and trail
     const sh = r.L.shoulder.getWorldPosition(new V3());
     const dirW = e.fly.anchor.clone().sub(sh).normalize();
@@ -1517,14 +1814,14 @@ const pickups = [
   { type: 'sword',    roof: 5, off: [-2, 1.5, 3] },
   { type: 'crossbow', roof: 6, off: [0, 4.2, 0] },
   { type: 'spear',    roof: 3, off: [3, 1.5, 3] },
-  { type: 'knives',   roof: 1, off: [3, 1.5, 4] },
-  { type: 'cannon',   roof: 4, off: [-4, 1.5, -1] },
-  { type: 'knives',   roof: 5, off: [3, 1.5, -2] },
-  { type: 'jetpack',  roof: 6, off: [0, 1.5, -4.5] },
+  { type: 'spear',    roof: 1, off: [3, 1.5, 4] },
+  { type: 'spear',    roof: 4, off: [-4, 1.5, -1] },
+  { type: 'spear',    roof: 6, off: [0, 1.5, -4.5] },
+  // Kelevran: only the crossbow, sword and spear are found on the roofs; everything else is in the shop
 ].map(p => {
   const R = ROOFS[p.roof];
   const g = new THREE.Group();
-  const MAKE = { crossbow: makeCrossbow, sword: makeSword, spear: makeSpear, cannon: makeCannon, knives: makeKnives, jetpack: makeJetpack };
+  const MAKE = { boomerang: makeBoomerang, longbow: makeLongbow, crossbow: makeCrossbow, sword: makeSword, spear: makeSpear, cannon: makeCannon, knives: makeKnives, jetpack: makeJetpack };
   const model = MAKE[p.type]();
   model.scale.setScalar(p.type === 'spear' ? 1.3 : p.type === 'knives' ? 3 : 1.9);
   if (p.type === 'sword') model.position.y = -0.9;
@@ -1542,7 +1839,14 @@ const pickups = [
 
 const lanternMat = new THREE.MeshStandardMaterial({ color: 0xffcf86, emissive: 0xf2a541, emissiveIntensity: 1.5, roughness: 0.4 });
 const cageMat = new THREE.MeshStandardMaterial({ color: 0x2b2826, metalness: 0.6, roughness: 0.5, wireframe: true });
-const lanterns = [[14, 36, -6], [-12, 31, -4], [20, 43, -22], [-6, 39, -26], [-30, 33, -30], [27, 35, -30], [-38, 38, 6], [0, 45, -54], [46, 33, -26], [-22, 41, 18], [10, 33, 16], [-40, 30, -40]]
+const lanterns = (LEVEL === 1 ? [[14, 36, -6], [-12, 31, -4], [20, 43, -22], [-6, 39, -26], [-30, 33, -30], [27, 35, -30], [-38, 38, 6], [0, 45, -54], [46, 33, -26], [-22, 41, 18], [10, 33, 16], [-40, 30, -40]] : (() => {
+    const out = [], pairs = [];   // lanterns hang in the gaps between neighbouring roofs
+    for (let a = 0; a < 7; a++) for (let b = a + 1; b < 7; b++) { const A = ROOFS[a], B = ROOFS[b]; pairs.push([Math.hypot(A.x - B.x, A.z - B.z), A, B]); }
+    pairs.sort((p, q) => p[0] - q[0]);
+    for (const [, A, B] of pairs.slice(0, 9)) out.push([(A.x + B.x) / 2, Math.max(A.top, B.top) + 4, (A.z + B.z) / 2]);
+    for (const i of [2, 5, 6]) { const R = ROOFS[i]; out.push([R.x + R.w / 2 + 4, R.top + 7, R.z - R.d / 2 - 3]); }
+    return out;
+  })())
   .map(([x, y, z], i) => {
     const g = new THREE.Group();
     const core = new THREE.Mesh(new THREE.IcosahedronGeometry(0.55, 1), lanternMat);
@@ -1557,12 +1861,30 @@ const boltGeo = new THREE.BoxGeometry(0.03, 0.03, 0.7);
 let attackCd = 0, swingT = -1, swingDur = 0.42, swingHitDone = false, recoil = 0;
 
 const AMMO = { knives: 8, cannon: 5 };
-const HINT = { crossbow: 'Space to shoot', sword: 'Space to swing', spear: 'Space to thrust · long reach', knives: 'Space to throw', cannon: 'Space to fire · it explodes', dagger: 'Space to stab' };
+const HINT = { clone: 'Space to make a clone · up to 5', boomerang: 'Space to throw · it comes back', longbow: 'Hold Space to draw and slow time · let go to shoot', crossbow: 'Space to shoot', sword: 'Space to swing', spear: 'Space to thrust · long reach', knives: 'Space to throw', cannon: 'Space to fire · it explodes', dagger: 'Space to stab' };
 const MELEE = {
   dagger: { dur: 0.26, reach: 1.9, dmg: 30, kb: 5, up: 2.5, cone: 0.25 },
   sword:  { dur: 0.42, reach: 2.6, dmg: 55, kb: 10, up: 4.5, cone: 0.25 },
   spear:  { dur: 0.5, reach: 3.7, dmg: 45, kb: 13, up: 3.5, cone: 0.6 },
 };
+// ---------- the weapon shop: coins buy levels 2 and 3 of the sword, spear and crossbow (Kelevran) ----------
+const SHOP = { coins: 0, lv: { sword: 1, spear: 1, crossbow: 1 } };
+try { const o = JSON.parse(localStorage.getItem('sevenroofs-shop') || '{}'); if (o.coins) SHOP.coins = o.coins; if (o.lv) Object.assign(SHOP.lv, o.lv); } catch (e) {}
+const SHOP_ITEMS = {   // stats at level 1, 2, 3
+  sword:    { price: [0, 50, 120], dmg: [55, 72, 95], reach: [2.6, 2.9, 3.2], dur: [0.42, 0.38, 0.33] },
+  spear:    { price: [0, 50, 120], dmg: [45, 60, 80], reach: [3.7, 4.2, 4.7], dur: [0.5, 0.45, 0.4] },
+  crossbow: { price: [0, 60, 140], dmg: [70, 95, 130], cd: [0.55, 0.42, 0.3] },
+};
+const SHOP_BUY = { knives: 80, boomerang: 100, longbow: 150, cannon: 200, jetpack: 250, clone: 300 };   // shop-only weapons, bought once
+SHOP.own = SHOP.own || {};
+try { const o = JSON.parse(localStorage.getItem('sevenroofs-shop') || '{}'); if (o.own) Object.assign(SHOP.own, o.own); } catch (e) {}
+const SHOP_USED = new Set();   // each owned weapon can be taken once per life
+function lvOf(type) { return SHOP.lv[type] || 1; }
+function meleeOf(type) {   // MELEE stats with the shop level applied
+  const W = MELEE[type]; if (!W || !SHOP_ITEMS[type]) return W;
+  const I = SHOP_ITEMS[type], i = lvOf(type) - 1;
+  return Object.assign({}, W, { dmg: I.dmg[i], reach: I.reach[i], dur: I.dur[i] });
+}
 
 // ---------- online multiplayer (WebRTC through PeerJS; the host's browser runs the room) ----------
 // Star layout: guests talk only to the host, the host relays. Each player simulates their own soldier;
@@ -1572,7 +1894,7 @@ const SLOT_HUES = [null, 0.33, 0.78, 0.09];          // navy (unchanged), green,
 const SLOT_NAMES = ['Navy', 'Green', 'Purple', 'Orange'];
 const VS_SPAWNS = [0, 3, 1, 6];
 const VS_TARGET = 5;
-const ESTATES = ['idle', 'chase', 'windup', 'strike', 'stagger', 'aim', 'swing', 'dying', 'gone'];
+const ESTATES = ['idle', 'chase', 'windup', 'strike', 'stagger', 'aim', 'swing', 'dying', 'gone', 'cling'];
 const isNet = () => NET.role !== 'solo';
 const botsOn = () => NET.mode !== 'versus' || NET.bots === true;   // versus is just you and your friends
 const isHost = () => NET.role === 'host';
@@ -1617,7 +1939,7 @@ function makeRemote(id, s) {
 }
 function dropRemote(id) {
   const R = NET.remotes[id]; if (!R) return;
-  scene.remove(R.rig.root, R.rope); delete NET.remotes[id];
+  scene.remove(R.rig.root, R.rope); (R.clones || []).forEach(c => scene.remove(c.rig.root, c.rope)); delete NET.remotes[id];
   updateRoomHud();
 }
 function applyRemoteState(id, s) {
@@ -1629,12 +1951,14 @@ function applyRemoteState(id, s) {
 }
 function myState() {
   return { n: NET.name, c: NET.slot, p: P.pos.toArray().map(v => +v.toFixed(2)), v: P.vel.toArray().map(v => +v.toFixed(1)), y: +anim.bodyYaw.toFixed(2),
-    h: P.held, g: P.onGround, gr: P.groundRoof, hk: G.state !== 'idle' ? G.hookPos.toArray().map(v => +v.toFixed(2)) : 0,
-    sw: swingT >= 0 ? +(swingT / swingDur).toFixed(2) : -1, th: P.thrust, jet: P.jet, d: dead, sf: PH.safe > 0 };
+    h: P.held, g: P.onGround || !!(P.wr && P.wr.on), gr: P.groundRoof, hk: G.state !== 'idle' ? G.hookPos.toArray().map(v => +v.toFixed(2)) : 0,
+    sw: swingT >= 0 ? +(swingT / swingDur).toFixed(2) : -1, th: P.thrust, jet: P.jet, d: dead, sf: PH.safe > 0,
+    wl: WALL.info ? [colliders.indexOf(WALL.info.c), WALL.info.n.x, WALL.info.n.z, +WALL.t.toFixed(1)] : 0,
+    cl: clones.map(c => [+c.pos.x.toFixed(2), +c.pos.y.toFixed(2), +c.pos.z.toFixed(2), +c.yaw.toFixed(2), c.s.sw, c.s.g ? 1 : 0]) };
 }
 function enemySnap() {
   return enemies.map(e => {
-    const a = e.fly && (e.state === 'aim' || e.state === 'swing') ? e.fly.anchor : null;
+    const a = e.fly && (e.state === 'aim' || e.state === 'swing' || e.state === 'cling') ? e.fly.anchor : null;
     return [+e.pos.x.toFixed(2), +e.pos.y.toFixed(2), +e.pos.z.toFixed(2), +e.yaw.toFixed(2), ESTATES.indexOf(e.state), +e.t.toFixed(2), Math.round(e.hp), a ? +a.x.toFixed(1) : 0, a ? +a.y.toFixed(1) : 0, a ? +a.z.toFixed(1) : 0];
   });
 }
@@ -1713,10 +2037,15 @@ function handleNet(m) {
       let slot = 1; while (used.has(slot) && slot < 8) slot++;
       if (Object.keys(NET.conns).length > 3) { netSend({ t: 'full' }, m.from); return; }
       NET.scores[m.from] = 0; NET.names[m.from] = m.n; NET.slotOf[m.from] = slot;
-      netSend({ t: 'welcome', slot, mode: NET.mode, bots: NET.bots, code: NET.code }, m.from);
+      netSend({ t: 'welcome', slot, mode: NET.mode, bots: NET.bots, code: NET.code, level: LEVEL }, m.from);
       break;
     }
     case 'welcome': {
+      if (m.level && m.level !== LEVEL) {   // the host is on another level: load it and come straight back in
+        mpStatus(`Loading level ${m.level}…`);
+        try { NET.peer && NET.peer.destroy(); } catch (e) {}
+        goLevel(m.level, { code: m.code, name: NET.name }); return;
+      }
       NET.slot = m.slot; NET.mode = m.mode; NET.bots = m.bots;
       startNetGame();
       mpStatus(`Joined room ${m.code}.`);
@@ -1744,7 +2073,7 @@ function handleNet(m) {
 }
 function creditKill(victim, by) {
   if (NET.mode !== 'versus' || !by || by === victim) return;
-  NET.scores[by] = (NET.scores[by] || 0) + 1;
+  NET.scores[by] = (NET.scores[by] || 0) + 1; if (by === NET.id) addCoins(15);
   const who = by === NET.id ? NET.name : (NET.names[by] || 'Someone'), vic = victim === NET.id ? NET.name : (NET.names[victim] || 'someone');
   toast(`${who} took down ${vic}`, `${NET.scores[by]} of ${VS_TARGET} to win`);
   if (NET.scores[by] >= VS_TARGET) {
@@ -1758,6 +2087,7 @@ function hostRestart() {
   netSend({ t: 'restart' }); restartRun(true);
 }
 function applyEnemySnap(snap, k) {
+  if (snap.length > enemies.length && !bossSpawned) spawnBoss();
   if (typeof k === 'number' && k !== kills) {
     if (k > kills && enemies.length - k > 0) toast('Enemy down', `${enemies.length - k} left`);
     kills = k; setText('sKills', `${kills}/${enemies.length}`);
@@ -1768,7 +2098,7 @@ function applyEnemySnap(snap, k) {
     const st = ESTATES[a[4]] || 'idle';
     if (st !== e.state) { if (st === 'dying') e.rig.root.rotation.x = 0; e.state = st; }
     e.t = a[5]; e.hp = a[6];
-    e.fly = (st === 'aim' || st === 'swing') ? { anchor: new V3(a[7], a[8], a[9]) } : null;
+    e.fly = (st === 'aim' || st === 'swing' || st === 'cling') ? { anchor: new V3(a[7], a[8], a[9]) } : null;
   });
 }
 function guestEnemies(dt) {
@@ -1776,7 +2106,7 @@ function guestEnemies(dt) {
     if (e.netPos) { e.pos.lerp(e.netPos, Math.min(1, dt * 12)); e.yaw = lerpAngle(e.yaw, e.netYaw, Math.min(1, dt * 12)); }
     e.flash = Math.max(0, e.flash - dt); e.t += dt;
     e.rig.root.visible = e.state !== 'gone';
-    e.onGround = e.state !== 'swing';
+    e.onGround = e.state !== 'swing' && e.state !== 'cling';
     if (e.state === 'dying') { e.rig.root.position.copy(e.pos); e.rig.root.rotation.x = Math.max(-Math.PI / 2, e.rig.root.rotation.x - dt * 5); e.rope.visible = false; continue; }
     if (e.state === 'gone') { e.rope.visible = false; continue; }
     animateEnemy(e, dt, e.state === 'chase' ? 4.5 : e.state === 'idle' ? 1 : 0);
@@ -1785,6 +2115,7 @@ function guestEnemies(dt) {
 }
 function spawnVisualShot(m) {
   const cannon = m.k === 'cannon';
+  if (m.k === 'boomerang') { launchRang(new V3().fromArray(m.p), new V3().fromArray(m.v), true); return; }
   const mesh = cannon ? new THREE.Mesh(ballGeo, MW.iron) : m.k === 'knife' ? makeKunai() : new THREE.Mesh(boltGeo, MW.wood);
   if (m.k === 'knife') mesh.children.forEach(c => { c.position.applyAxisAngle(new V3(1, 0, 0), Math.PI / 2); c.rotation.x += Math.PI / 2; });
   mesh.position.fromArray(m.p); scene.add(mesh);
@@ -1807,7 +2138,7 @@ function netTick(dt) {
       delete NET.conns[R.id]; delete NET.slotOf[R.id]; delete NET.scores[R.id]; dropRemote(R.id); netSend({ t: 'left', id: R.id }); updateScoreHud(); continue;
     }
     if (R.target) { R.target.addScaledVector(R.vel, dt); R.pos.lerp(R.target, Math.min(1, dt * 10)); }
-    animateRemote(R, dt);
+    animateRemote(R, dt); syncRemoteClones(R, dt);
   }
   NET.sendT -= dt;
   if (NET.sendT > 0) return;
@@ -1843,11 +2174,11 @@ function animateRemote(R, dt) {
     r.hook.visible = false;
   } else { poseLimb(r.L.shoulder, s.g ? -sn * 0.8 * run : 0.3, 0, s.g ? 0.08 : 0.9); r.L.elbow.rotation.set(0.3 + run * 0.8, 0, 0); R.rope.visible = false; r.hook.visible = true; }
   const W = s.h;
-  if (W === 'crossbow' || W === 'cannon') { poseLimb(r.R.shoulder, Math.PI / 2, 0, 0.12); r.R.elbow.rotation.set(0.1, 0, 0); }
+  if (W === 'crossbow' || W === 'cannon' || W === 'longbow') { poseLimb(r.R.shoulder, Math.PI / 2, 0, 0.12); r.R.elbow.rotation.set(0.1, 0, 0); }
   else if (s.sw >= 0 && W !== 'spear') { const k = s.sw, e2 = k < 0.3 ? k / 0.3 : 1, st = k < 0.3 ? 0 : Math.min(1, (k - 0.3) / 0.25); poseLimb(r.R.shoulder, 2.6 * e2 - 3.0 * st, 0.3 - 0.9 * st, -0.6 + 1.2 * st); r.R.elbow.rotation.set(0.9 - 0.7 * st, 0, 0); }
   else if (W === 'spear') { const k = Math.max(0, s.sw), th = k < 0.35 ? k / 0.35 : Math.max(0, 1 - (k - 0.35) / 0.65); poseLimb(r.R.shoulder, 0.9 + th * 0.6, 0, 0.1); r.R.elbow.rotation.set(1.0 - th * 0.95, 0, 0); }
   else { poseLimb(r.R.shoulder, s.g ? sn * 0.8 * run : 0.3, 0, s.g ? -0.08 : -0.9); r.R.elbow.rotation.set(0.3 + run * 0.8, 0, 0); }
-  for (const k of ['sword', 'bow', 'dagger', 'spear', 'cannon', 'knives']) r[k].visible = W === (k === 'bow' ? 'crossbow' : k);
+  for (const k of ['sword', 'bow', 'dagger', 'spear', 'cannon', 'knives', 'boomerang', 'longbow']) r[k].visible = W === (k === 'bow' ? 'crossbow' : k);
   r.jetpack.visible = !!s.jet; r.jetpack.userData.flames.forEach(f => { f.visible = !!s.th; });
 }
 // ----- lobby UI + room HUD -----
@@ -1905,17 +2236,19 @@ class LocalConn {
 
 // targets the red soldiers can go after: you, plus (on the host in co-op) your friends
 function netTargets() {
-  const T = [{ local: true, pos: P.pos, dead, safe: PH.safe > 0, onGround: P.onGround, groundRoof: P.groundRoof, track: TRACK }];
-  if (isHost()) for (const R of remoteList()) T.push({ id: R.id, pos: R.pos, dead: !!R.s.d, safe: !!R.s.sf, onGround: !!R.s.g, groundRoof: R.s.gr ?? -1, track: R.track });
+  const T = [{ local: true, pos: P.pos, dead, safe: PH.safe > 0, onGround: P.onGround, groundRoof: P.groundRoof, track: TRACK, wall: WALL.info && Object.assign({ t: WALL.t }, WALL.info) }];
+  if (isHost()) for (const R of remoteList()) T.push({ id: R.id, pos: R.pos, dead: !!R.s.d, safe: !!R.s.sf, onGround: !!R.s.g, groundRoof: R.s.gr ?? -1, track: R.track, wall: R.s.wl && colliders[R.s.wl[0]] ? { c: colliders[R.s.wl[0]], n: new V3(R.s.wl[1], 0, R.s.wl[2]), roof: colliders[R.s.wl[0]].roof, t: R.s.wl[3] } : null });
   return T;
 }
 function hitTarget(T, dmg, from) {
+  if (T.clone) { hurtClone(T.clone, dmg); return; }
   if (T.local) hurtPlayer(dmg, from);
   else netSend({ t: 'hit', to: T.id, dmg, at: from.toArray(), by: null });
 }
 function updateLobby() {
   const inRoom = isNet();
   $('mpForm').hidden = inRoom; $('mpLeave').hidden = !inRoom;
+  if ($('lvSel')) $('lvSel').disabled = inRoom;
 }
 (function lobby() {
   const qp = new URLSearchParams(location.search);
@@ -1941,11 +2274,39 @@ function updateLobby() {
   updateLobby();
 })();
 
+// ---------- the weapon bag: every weapon you pick up or take stays with you; 1-9, the mouse wheel or Switch picks one ----------
+P.bag = ['dagger']; P.bagAmmo = {};
+function equip(type) {                           // put a weapon from the bag in your hand
+  if (P.held && AMMO[P.held]) P.bagAmmo[P.held] = P.ammo;
+  P.held = type; P.ammo = AMMO[type] ? (P.bagAmmo[type] ?? AMMO[type]) : 0;
+  $('handName').textContent = tr(type) + (lvOf(type) > 1 ? ' ' + '★'.repeat(lvOf(type) - 1) : ''); setAtkIcon(type);
+  updateHandHint(); renderBag();
+}
 function setHeld(type) {
-  type = type || 'dagger';                       // you always have your dagger to fall back on
-  P.held = type; P.ammo = AMMO[type] || 0;
-  $('handName').textContent = tr(type); setAtkIcon(type);
-  updateHandHint();
+  if (!type) { P.bag = ['dagger']; P.bagAmmo = {}; P.held = null; equip('dagger'); return; }   // a fresh life: just the dagger
+  if (!P.bag.includes(type)) P.bag.push(type);
+  if (AMMO[type]) P.bagAmmo[type] = AMMO[type];  // picking it up again refills it
+  if (P.held === type && AMMO[type]) P.held = null;
+  equip(type);
+}
+function dropHeld() {                            // Q / Drop / out of ammo: it leaves the bag
+  const t = P.held; if (!t || t === 'dagger') return;
+  P.bag = P.bag.filter(b => b !== t); delete P.bagAmmo[t]; P.held = null;
+  equip(P.bag[P.bag.length - 1] || 'dagger');
+}
+function switchWeapon(step) {                    // +1 next, -1 previous
+  if (P.bag.length < 2 || dead) return;
+  const i = P.bag.indexOf(P.held);
+  equip(P.bag[(i + step + P.bag.length) % P.bag.length]); sfx.whoosh && tone(520, 640, 0.06, 'triangle', 0.025);
+}
+function renderBag() {
+  const el = $('bag'); if (!el) return;
+  el.innerHTML = '';
+  if (P.bag.length < 2) return;
+  P.bag.forEach((t, i) => {
+    const sp = document.createElement('span'); if (t === P.held) sp.className = 'on';
+    const k = document.createElement('b'); k.textContent = i + 1; sp.append(k, tr(t)); el.append(sp);
+  });
 }
 function updateHandHint() {
   const type = P.held, ammo = AMMO[type] ? ` · ${P.ammo} left` : '';
@@ -1953,8 +2314,11 @@ function updateHandHint() {
 }
 function attack() {
   if (!P.held || attackCd > 0 || dead) return;
+  if (P.held === 'boomerang') { throwBoomerang(); return; }
+  if (P.held === 'clone') { spawnClone(); return; }
+  if (P.held === 'longbow') { startDraw(); return; }
   if (P.held === 'crossbow') {
-    attackCd = 0.55; recoil = 1;
+    attackCd = SHOP_ITEMS.crossbow.cd[lvOf('crossbow') - 1]; recoil = 1;
     const dir = aimDir(new V3());
     rig.root.updateMatrixWorld(true);
     const start = rig.R.hand.getWorldPosition(new V3());
@@ -1964,7 +2328,7 @@ function attack() {
     const aimPt = h ? h.point : camera.position.clone().addScaledVector(dir, 200);
     const v = aimPt.sub(start).normalize().multiplyScalar(85).add(P.vel.clone().multiplyScalar(0.5));
     const m = new THREE.Mesh(boltGeo, MW.wood); m.position.copy(start); scene.add(m);
-    bolts.push({ m, vel: v, life: 4, stuck: false });
+    bolts.push({ m, vel: v, life: 4, stuck: false, dmg: SHOP_ITEMS.crossbow.dmg[lvOf('crossbow') - 1] });
     shotOut('bolt', start, v, 5);
     sfx.twang();
   } else if (P.held === 'knives' || P.held === 'cannon') {
@@ -1985,9 +2349,9 @@ function attack() {
     shotOut(cannon ? 'cannon' : 'knife', start, v, cannon ? 12 : 2);
     if (cannon) { P.vel.addScaledVector(dir, -2.5); sfx.boom(); } else sfx.whoosh();
     P.ammo--; updateHandHint();
-    if (P.ammo <= 0) { toast(cannon ? 'Out of cannonballs' : 'Out of knives', 'Back to your dagger'); setTimeout(() => { if (P.ammo <= 0 && AMMO[P.held]) setHeld(null); }, 150); }
+    if (P.ammo <= 0) { toast(cannon ? 'Out of cannonballs' : 'Out of knives', ''); setTimeout(() => { if (P.ammo <= 0 && AMMO[P.held]) dropHeld(); }, 150); }
   } else {
-    const W = MELEE[P.held];
+    const W = meleeOf(P.held);
     swingDur = W.dur; attackCd = swingDur; swingT = 0; swingHitDone = false; sfx.whoosh();
   }
 }
@@ -2009,7 +2373,7 @@ function explode(at, visual) {
   if (pd < 3.5) { const away = pc.sub(at).normalize(); P.vel.addScaledVector(away, 12 * (1 - pd / 3.5)); P.vel.y += 5 * (1 - pd / 3.5); P.onGround = false; }   // rocket jump, no self damage
 }
 function smash(L) {
-  L.alive = false; L.g.visible = false; L.respawn = 12; lanternsBroken++;
+  L.alive = false; L.g.visible = false; L.respawn = 12; lanternsBroken++; addCoins(2);
   $('sLanterns').textContent = lanternsBroken; sfx.smash();
   burst(L.g.position, 0xffc16b);
 }
@@ -2022,6 +2386,7 @@ function burst(at, color) {
 }
 function updateCombat(dt) {
   attackCd = Math.max(0, attackCd - dt); recoil = Math.max(0, recoil - dt * 5);
+  updateBow(); updateRangs(dt);
   if (attackHeld && P.held === 'crossbow') attack();
   for (let i = bolts.length - 1; i >= 0; i--) {
     const b = bolts[i]; b.life -= dt;
@@ -2043,11 +2408,12 @@ function updateCombat(dt) {
     let hitE = null;
     for (const e of enemies) {
       if (e.state === 'dying' || e.state === 'gone') continue;
+      const bs = e.boss ? 1.45 : 1;
       for (const hy of [0.6, 1.1, 1.5]) {
-        const ctr = tmp2.set(e.pos.x, e.pos.y + hy, e.pos.z);
+        const ctr = tmp2.set(e.pos.x, e.pos.y + hy * bs, e.pos.z);
         const t = new V3().subVectors(ctr, prev).dot(ray.ray.direction);
         if (t < 0 || t > best) continue;
-        if (prev.clone().addScaledVector(ray.ray.direction, t).distanceTo(ctr) < 0.42) { hitE = e; best = t; hitL = null; }
+        if (prev.clone().addScaledVector(ray.ray.direction, t).distanceTo(ctr) < 0.42 * bs) { hitE = e; best = t; hitL = null; }
       }
     }
     // other players (versus): a friend's shot that reaches you just disappears; your game is told about the hit
@@ -2080,19 +2446,19 @@ function updateCombat(dt) {
       for (const L of lanterns) {
         if (!L.alive) continue;
         tmp.subVectors(L.g.position, eye); const d = tmp.length();
-        if (MELEE[P.held] && d < MELEE[P.held].reach + 1 && tmp.normalize().dot(fwd) > 0.55) smash(L);
+        if (MELEE[P.held] && d < meleeOf(P.held).reach + 1 && tmp.normalize().dot(fwd) > 0.55) smash(L);
       }
       const flat = fwd.clone().setY(0).normalize();
       for (const e of enemies) {
         if (e.state === 'dying' || e.state === 'gone') continue;
         const to = new V3(e.pos.x - P.pos.x, 0, e.pos.z - P.pos.z), d = to.length();
-        const W = MELEE[P.held]; if (!W) continue;
-        if (d < W.reach && Math.abs(e.pos.y - P.pos.y) < 1.8 && (d < 0.8 || to.normalize().dot(flat) > W.cone))
+        const W = meleeOf(P.held); if (!W) continue;
+        if (d < W.reach + (e.boss ? 0.5 : 0) && Math.abs(e.pos.y - P.pos.y) < (e.boss ? 2.4 : 1.8) && (d < 0.8 || to.normalize().dot(flat) > W.cone))
           hurtEnemy(e, W.dmg, new V3(flat.x * W.kb, W.up, flat.z * W.kb), P.held);
       }
       if (NET.mode === 'versus' && MELEE[P.held]) for (const R of remoteList()) {
         if (R.s.d) continue;
-        const to = new V3(R.pos.x - P.pos.x, 0, R.pos.z - P.pos.z), d = to.length(), W = MELEE[P.held];
+        const to = new V3(R.pos.x - P.pos.x, 0, R.pos.z - P.pos.z), d = to.length(), W = meleeOf(P.held);
         if (d < W.reach && Math.abs(R.pos.y - P.pos.y) < 1.8 && (d < 0.8 || to.normalize().dot(flat) > W.cone))
           hitRemote(R, W.dmg, new V3(flat.x * W.kb, W.up, flat.z * W.kb));
       }
@@ -2125,7 +2491,7 @@ function updatePickups(dt, t) {
         toast('jetpack', 'Hold right click or Ctrl in the air to fly');
         continue;
       }
-      if (P.held === p.type && (p.type !== 'knives' && p.type !== 'cannon' || P.ammo >= AMMO[p.type])) continue;
+      if (P.bag.includes(p.type) && !AMMO[p.type]) continue;   // already in your bag
       p.taken = true; p.respawn = 15; p.g.visible = false;
       setHeld(p.type); sfx.pickup();
       toast(`${p.type}`, HINT[p.type]);
@@ -2184,6 +2550,9 @@ function endRun(won, cause, text, title) {
     ? `All ${enemies.length} red soldiers are down. Time ${fmt(runTime)}, ${visited.size} of 7 roofs reached.`
     : `${cause} ${kills} of ${enemies.length} enemies down, ${visited.size} of 7 roofs reached, ${fmt(runTime)} survived.`;
   $('endText').textContent = tr($('endText').textContent);
+  saveRecords(won);
+  if (won && !isNet() && LEVEL >= UNLOCKED && LEVEL < LEVEL_COUNT) { UNLOCKED = LEVEL + 1; try { localStorage.setItem('sevenroofs-unlocked', UNLOCKED); } catch (e) {} fillLevels(); $('endRecord').textContent = ($('endRecord').textContent ? $('endRecord').textContent + ' ' : '') + tr(`Level ${LEVEL + 1} unlocked!`); }
+  $('nextLv').hidden = !(won && !isNet() && LEVEL < LEVEL_COUNT);
   el.hidden = false;
   if (won) sfx.fanfare();
   mouseHook = false; attackHeld = false; for (const k in keys) keys[k] = false;
@@ -2195,21 +2564,25 @@ function restartRun(fromNet) {
   if (fromNet !== true && isHost()) { hostRestart(); return; }
   ended = false; dead = false; $('endscreen').hidden = true; $('whiteout').classList.remove('show');
   bolts.forEach(b => scene.remove(b.m)); bolts.length = 0;
+  rangs.forEach(b => scene.remove(b.m)); rangs.length = 0; bowDraw.on = false;
   pickups.forEach(p => { p.taken = false; p.g.visible = true; });
   respawn(true); spawnEnemies();
   paused = false; needsFrame = true; updateScoreHud();
   if ($('lockLook').checked) { lockFailed = false; requestLock(); }
 }
 $('again').addEventListener('click', () => restartRun());
+$('nextLv').addEventListener('click', () => goLevel(LEVEL + 1));
 function respawn(fullReset) {
   P.pos.copy(spawnPoint()); P.vel.set(0, 0, 0); P.vault.t = 0; lastHit = null; if (typeof PH !== 'undefined') { PH.safe = 5; TRACK.roof = 0; TRACK.since = 0; } P.yaw = 0; P.pitch = -0.05; G.state = 'idle'; rig.hook.visible = true;
   setHeld(null);
+  if (typeof clones !== 'undefined') clearClones();
+  if (typeof SHOP_USED !== 'undefined') { SHOP_USED.clear(); if (fullReset) P.jet = false; renderShop(); }
   if (fullReset) {
     visited.clear(); [...pipWrap.children].forEach(c => c.classList.remove('on')); visit(0);
     P.jet = false; P.fuel = 100;
     runTime = 0; finished = false; deaths = 0; lanternsBroken = 0; kills = 0; setText('sKills', `0/${ENEMY_SPOTS.length}`); PH.hp = 100;
     $('sLanterns').textContent = 0; $('sRoofs').textContent = '1/7';
-    toast('The Landing', 'Run restarted');
+    toast(ROOFS[0].name, 'Run restarted');
   }
 }
 
@@ -2257,7 +2630,8 @@ function requestLock() {
 $('play').addEventListener('click', () => startGame());
 function startGame() {
   ac(); if (actx && actx.state === 'suspended') actx.resume();
-  if (!started) { started = true; visit(0); toast('The Landing', 'Look for a weapon on the other roofs'); }
+  startAmbience();
+  if (!started) { started = true; visit(0); toast(`Level ${LEVEL}: ${LV.name}`, 'Look for a weapon on the other roofs'); }
   paused = false; $('overlay').hidden = true; $('pausedTag').hidden = true;
   if ($('lockLook').checked) { requestLock(); setTimeout(() => { if (!isLocked()) lockFailed = true; }, 400); }
   document.body.classList.toggle('cursoraim', !$('lockLook').checked);
@@ -2307,9 +2681,49 @@ addEventListener('keydown', e => {
   if (e.code === 'Space') { attackHeld = true; attack(); }
   if (e.code === 'ControlLeft' || e.code === 'ControlRight') { e.preventDefault(); jumpHeld = true; jumpPressed(); }
   if (e.code === 'KeyE') fireHook();
-  if (e.code === 'KeyQ' && P.held && P.held !== 'dagger') { toast('Dropped', `${P.held}. Back to your dagger`); setHeld(null); }
+  if (e.code === 'KeyQ' && P.held && P.held !== 'dagger') { toast('Dropped', `${P.held}`); dropHeld(); }
+  if (/^Digit[1-9]$/.test(e.code) && started && !paused) { const t = P.bag[+e.code.slice(5) - 1]; if (t && t !== P.held && !dead) { equip(t); tone(520, 640, 0.06, 'triangle', 0.025); } }
   if (e.code === 'KeyR' && !isNet()) restartRun();
 });
+function wallBeside(dir, gap) {   // is there a wall face right next to us in this direction?
+  const x = P.pos.x + dir.x * (P.r + gap), z = P.pos.z + dir.z * (P.r + gap), y = P.pos.y + 0.9;
+  return colliders.some(c => x > c.min.x && x < c.max.x && z > c.min.z && z < c.max.z && y > c.min.y && y < c.max.y && c.max.y > P.pos.y + 1.4);
+}
+const WR_TIP = { near: false, run: false };
+try { Object.assign(WR_TIP, JSON.parse(localStorage.getItem('sevenroofs-wrtip') || '{}')); } catch (e) {}
+function wrTip(k) {
+  if (WR_TIP[k]) return; WR_TIP[k] = true;
+  try { localStorage.setItem('sevenroofs-wrtip', JSON.stringify(WR_TIP)); } catch (e) {}
+  const jump = TOUCH.on ? 'Jump' : 'right click or Ctrl';
+  if (k === 'near') toast('Tip: wall run', 'Fly along a wall fast, close to it, to run on it');
+  else toast('Wall running!', `Press ${jump} to kick off the wall`);
+  toastTimer = 4;
+}
+function wallRun(dt) {
+  const W = P.wr || (P.wr = { on: false, t: 0, n: new V3(), cd: 0 });
+  W.cd = Math.max(0, W.cd - dt);
+  const hs = Math.hypot(P.vel.x, P.vel.z);
+  if (W.on) {
+    W.t += dt;
+    if (P.onGround || G.state !== 'idle' || W.t > 1.5 || hs < 3.5 || !wallBeside(W.n.clone().negate(), 0.15)) { W.on = false; W.cd = 0.25; return; }
+    P.vel.y += GRAVITY * 0.82 * dt;                             // most of gravity cancelled: run along the wall
+    P.vel.y = Math.max(P.vel.y, -0.6 - W.t * 2.5);
+    const into = P.vel.x * W.n.x + P.vel.z * W.n.z; if (into > 0) { P.vel.x -= W.n.x * into; P.vel.z -= W.n.z * into; }   // never pushed off by our own speed
+    P.vel.addScaledVector(W.n, -2 * dt);
+    if (P.jumpBuf > 0) {                                        // wall jump: kick away and up
+      P.jumpBuf = 0; W.on = false; W.cd = 0.35;
+      P.vel.addScaledVector(W.n, 8.5); P.vel.y = JUMP_V * 1.08; P.vel.x *= 1.05; P.vel.z *= 1.05; sfx.jump();
+    }
+    return;
+  }
+  if (P.onGround || G.state !== 'idle' || W.cd > 0 || hs < 7 || P.vel.y < -10 || P.vault.t > 0) return;
+  const dx = P.vel.x / hs, dz = P.vel.z / hs;
+  for (const side of [new V3(dz, 0, -dx), new V3(-dz, 0, dx)]) {
+    const n = Math.abs(side.x) > Math.abs(side.z) ? new V3(-Math.sign(side.x), 0, 0) : new V3(0, 0, -Math.sign(side.z));   // walls are boxes: snap to a face
+    if (wallBeside(n.clone().negate(), 0.3)) { W.on = true; W.t = 0; W.n.copy(n); P.vel.y = Math.max(P.vel.y, 1.5); noise(0.3, 0.12, 700, 0.8); wrTip('run'); return; }
+    if (!WR_TIP.near && wallBeside(n.clone().negate(), 2.5)) wrTip('near');
+  }
+}
 function jumpPressed() { if (G.state === 'attached') releaseHook(true); else P.jumpBuf = 0.15; }
 addEventListener('keyup', e => {
   keys[e.code] = false;
@@ -2317,6 +2731,12 @@ addEventListener('keyup', e => {
   if (e.code === 'ControlLeft' || e.code === 'ControlRight') jumpHeld = false;
   if (e.code === 'KeyE' && !mouseHook) releaseHook(false);
 });
+let wheelT = 0;
+addEventListener('wheel', e => {
+  if (!started || paused || !$('overlay').hidden) return;
+  const now = performance.now(); if (now - wheelT < 140) return; wheelT = now;
+  switchWeapon(e.deltaY > 0 ? 1 : -1);
+}, { passive: true });
 addEventListener('blur', () => { for (const k in keys) keys[k] = false; attackHeld = false; });
 // ---------- touch controls (phones and tablets) ----------
 // left side: a joystick that appears where your thumb lands; drag anywhere else to look;
@@ -2327,6 +2747,9 @@ const WEAPON_ICONS = {
   spear: '<path d="M44 4 L34 8 L40 14 Z"/><path d="M37 11 L6 42"/>',
   crossbow: '<path d="M8 16 Q24 4 40 16"/><path d="M8 16 L24 22 L40 16"/><path d="M24 8 L24 44"/><path d="M20 36 L24 44 L28 36"/>',
   knives: '<path d="M30 6 L22 22 L26 24 Z"/><path d="M24 23 L16 38"/><circle cx="14" cy="41" r="3"/><path d="M42 14 L30 24"/>',
+  clone: '<circle cx="16" cy="12" r="5"/><path d="M16 18 L16 32 M8 24 L24 24 M16 32 L10 44 M16 32 L22 44"/><circle cx="34" cy="12" r="5"/><path d="M34 18 L34 32 M26 24 L42 24 M34 32 L28 44 M34 32 L40 44"/>',
+  boomerang: '<path d="M10 38 Q14 12 38 8 L40 14 Q20 18 16 40 Z"/>',
+  longbow: '<path d="M14 4 Q40 24 14 44"/><path d="M14 4 L14 44"/><path d="M8 24 L42 24"/><path d="M36 20 L42 24 L36 28"/>',
   cannon: '<rect x="8" y="16" width="26" height="14" rx="4"/><path d="M34 19 L42 17 L42 29 L34 27"/><circle cx="16" cy="36" r="6"/>',
 };
 function setAtkIcon(type) { const el = document.getElementById('atkIcon'); if (el) el.innerHTML = WEAPON_ICONS[type] || WEAPON_ICONS.dagger; }
@@ -2400,7 +2823,8 @@ const TOUCH = { on: false, mx: 0, my: 0, mag: 0, ax: 0, ay: 0, aimId: null, axC:
   hold('tbHook', () => { mouseHook = true; fireHook(); }, () => { mouseHook = false; releaseHook(false); });
   hold('tbAtk', () => { attackHeld = true; attack(); }, () => { attackHeld = false; });
   hold('tbJump', () => { jumpHeld = true; jumpPressed(); }, () => { jumpHeld = false; });
-  hold('tbDrop', () => { if (P.held && P.held !== 'dagger') { toast('Dropped', `${P.held}. Back to your dagger`); setHeld(null); } });
+  hold('tbDrop', () => { if (P.held && P.held !== 'dagger') { toast('Dropped', `${P.held}`); dropHeld(); } });
+  hold('tbSwap', () => switchWeapon(1));
   $('tbPause').addEventListener('pointerup', e => { e.preventDefault(); pauseGame(); });
   // let go of everything if the app is backgrounded
   document.addEventListener('visibilitychange', () => { if (document.hidden) { mouseHook = false; attackHeld = false; jumpHeld = false; TOUCH.stickId = null; TOUCH.mx = TOUCH.my = TOUCH.mag = 0; base.classList.remove('on'); knob.style.transform = ''; TOUCH.aimId = null; TOUCH.ax = TOUCH.ay = 0; ab.classList.remove('on'); ak.style.transform = ''; } });
@@ -2441,6 +2865,7 @@ function physics(dt) {
   if (P.jumpBuf > 0 && P.coyote > 0) { P.vel.y = JUMP_V; P.jumpBuf = 0; P.coyote = 0; sfx.jump(); }
 
   P.vel.y -= GRAVITY * dt;
+  wallRun(dt);
   // jetpack: hold jump in the air
   P.thrust = P.jet && jumpHeld && !P.onGround && P.fuel > 0 && G.state !== 'attached';
   if (P.thrust) { P.vel.y = Math.min(9, P.vel.y + 36 * dt); P.fuel = Math.max(0, P.fuel - 26 * dt); }
@@ -2501,7 +2926,10 @@ function frame(now) {
   // while paused or on the menu, draw only when something changed
   if ((!started || paused) && !needsFrame && !(isNet() && started && !ended)) { clock.getDelta(); return; }
   needsFrame = false;
-  const dt = Math.min(clock.getDelta(), 0.05);
+  const realDt = Math.min(clock.getDelta(), 0.05);
+  TIME_SCALE += ((bowDraw.on && !isNet() && started && !paused ? 0.3 : 1) - TIME_SCALE) * Math.min(1, realDt * 12);
+  document.body.classList.toggle('slowmo', TIME_SCALE < 0.8);
+  const dt = realDt * TIME_SCALE;
   elapsed += dt;
   const running = started && !paused;
   const live = running || (isNet() && started && !ended);
@@ -2512,16 +2940,17 @@ function frame(now) {
       const nx = (cursor.x / innerWidth) * 2 - 1, ny = (cursor.y / innerHeight) * 2 - 1;
       const band = v => Math.sign(v) * Math.max(0, (Math.abs(v) - 0.55) / 0.45) ** 1.5;
       const tx = band(nx), ty = band(ny);
-      P.yaw -= tx * 3.2 * dt; P.pitch = Math.max(-1.2, Math.min(1.1, P.pitch - ty * 2.2 * dt));
+      P.yaw -= tx * 3.2 * realDt; P.pitch = Math.max(-1.2, Math.min(1.1, P.pitch - ty * 2.2 * realDt));
       edgeTurning = tx !== 0 || ty !== 0;
     } else edgeTurning = false;
   }
   if (live && !dead) {
-    if (TOUCH.ax || TOUCH.ay) { P.yaw -= TOUCH.ax * 3.0 * dt; P.pitch = Math.max(-1.2, Math.min(1.1, P.pitch - TOUCH.ay * 2.0 * dt)); }   // aim stick
+    if (TOUCH.ax || TOUCH.ay) { P.yaw -= TOUCH.ax * 3.0 * realDt; P.pitch = Math.max(-1.2, Math.min(1.1, P.pitch - TOUCH.ay * 2.0 * realDt)); }   // aim stick
     const sub = 4; for (let i = 0; i < sub; i++) physics(dt / sub);
     if (!finished) runTime += dt;
   }
-  if (live) { updateHook(dt); updateCombat(dt); if (isGuest()) guestEnemies(dt); else updateEnemies(dt); updatePlayerHealth(dt); }
+  updateAudio(live); updateBossBar();
+  if (live) { updateWallInfo(dt); updateClones(dt); updateHook(dt); updateCombat(dt); if (isGuest()) guestEnemies(dt); else updateEnemies(dt); updatePlayerHealth(dt); }
   netTick(live ? dt : 0);
   updatePickups(live ? dt : 0, elapsed);
 
@@ -2540,6 +2969,8 @@ function frame(now) {
   // rope, fog drift, ash
   drawRope();
   fogLayers.forEach(L => { L.tex.offset.x += L.sx * dt; L.tex.offset.y += L.sz * dt; });
+  if (P.wr && P.wr.on && !live) P.wr.on = false;
+  mistLayers.forEach(L => { L.tex.offset.x += L.sx * dt; L.tex.offset.y += L.sz * dt; });
   const ap = ash.geometry.attributes.position.array;
   for (let i = 0; i < ashN; i++) {
     ap[i * 3] += Math.sin(elapsed * 0.3 + i) * 0.01 + 0.02; ap[i * 3 + 1] += Math.cos(elapsed * 0.5 + i * 0.7) * 0.008;
@@ -2569,20 +3000,392 @@ function frame(now) {
   renderer.clear();
   renderer.render(scene, camera);
 }
+
+// ================= sound: moody music, wind near the fog, rushing air when you swing =================
+const AUD = { started: false, music: null, wind: null, swing: null, musicOn: true, timer: 0, musicT: 0, chord: 0 };
+try { AUD.musicOn = localStorage.getItem('sevenroofs-music') !== 'off'; } catch (e) {}
+const midi = m => 440 * Math.pow(2, (m - 69) / 12);
+const CHORDS = [[50, 53, 57], [46, 50, 53], [53, 57, 60], [48, 52, 55]];   // Dm, Bb, F, C
+const MELODY = [62, 65, 67, 69, 72, 74, 77];
+function startAmbience() {
+  const a = ac(); if (!a || AUD.started) return; AUD.started = true;
+  if (a.state === 'suspended') a.resume();
+  const n = a.sampleRate * 2, buf = a.createBuffer(1, n, a.sampleRate), d = buf.getChannelData(0);
+  let last = 0; for (let i = 0; i < n; i++) { last = (last + 0.02 * (Math.random() * 2 - 1)) / 1.02; d[i] = last * 3.5; }   // soft brown noise
+  const loop = (type, freq, q) => {
+    const s = a.createBufferSource(); s.buffer = buf; s.loop = true;
+    const f = a.createBiquadFilter(); f.type = type; f.frequency.value = freq; f.Q.value = q;
+    const g = a.createGain(); g.gain.value = 0; s.connect(f).connect(g).connect(a.destination); s.start(); return { f, g };
+  };
+  AUD.wind = loop('lowpass', 400, 0.7); AUD.swing = loop('bandpass', 900, 1.2);
+  AUD.music = a.createGain(); AUD.music.gain.value = 0.55;
+  const lp = a.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 1400;
+  const echo = a.createDelay(); echo.delayTime.value = 0.42; const fb = a.createGain(); fb.gain.value = 0.32;
+  AUD.music.connect(lp); lp.connect(a.destination); lp.connect(echo); echo.connect(fb).connect(echo); echo.connect(a.destination);
+  AUD.timer = setInterval(scheduleMusic, 1000); scheduleMusic();
+}
+function pad(m, t, dur, vol) {
+  for (const det of [-7, 6]) {
+    const o = actx.createOscillator(), g = actx.createGain();
+    o.type = 'triangle'; o.frequency.value = midi(m); o.detune.value = det;
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vol, t + 2.5); g.gain.setValueAtTime(vol, t + dur - 2.5); g.gain.linearRampToValueAtTime(0, t + dur);
+    o.connect(g).connect(AUD.music); o.start(t); o.stop(t + dur + 0.1);
+  }
+}
+function pluck(m, t) {
+  const o = actx.createOscillator(), g = actx.createGain();
+  o.type = 'sine'; o.frequency.value = midi(m);
+  g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.05, t + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + 1.6);
+  o.connect(g).connect(AUD.music); o.start(t); o.stop(t + 1.7);
+}
+function scheduleMusic() {
+  const a = actx; if (!a || a.state !== 'running' || !AUD.musicOn || document.hidden) return;
+  if (AUD.musicT < a.currentTime) AUD.musicT = a.currentTime + 0.1;
+  while (AUD.musicT < a.currentTime + 3) {
+    const ch = CHORDS[AUD.chord++ % CHORDS.length], t = AUD.musicT;
+    ch.forEach(m => pad(m, t, 9, 0.028)); pad(ch[0] - 12, t, 9, 0.04);
+    for (let k = 0; k < 4; k++) if (Math.random() < 0.55) pluck(MELODY[Math.floor(Math.random() * MELODY.length)], t + k * 2 + Math.random() * 0.4);
+    AUD.musicT += 8;
+  }
+}
+function setMusic(on) {
+  AUD.musicOn = on; $('musicOn').checked = on;
+  try { localStorage.setItem('sevenroofs-music', on ? 'on' : 'off'); } catch (e) {}
+  if (AUD.music) AUD.music.gain.setTargetAtTime(on ? 0.55 : 0, actx.currentTime, 0.4);
+}
+$('musicOn').checked = AUD.musicOn;
+$('musicOn').addEventListener('change', () => { setMusic($('musicOn').checked); });
+function updateAudio(live) {
+  if (!AUD.started || !actx) return;
+  const t = actx.currentTime, sp = P.vel.length();
+  const alt = P.pos.y + P.eye - FOG_DEATH, near = Math.max(0, Math.min(1, 1 - alt / 24));
+  const wind = live ? 0.04 + 0.3 * near * near + Math.min(0.12, sp * 0.005) : 0.02;
+  AUD.wind.g.gain.setTargetAtTime(wind, t, 0.3); AUD.wind.f.frequency.setTargetAtTime(280 + 900 * near, t, 0.3);
+  const swinging = live && !P.onGround && (G.state === 'attached' || sp > 12 || (P.wr && P.wr.on));
+  AUD.swing.g.gain.setTargetAtTime(swinging ? Math.min(0.4, sp * 0.02) : 0, t, swinging ? 0.08 : 0.25);
+  AUD.swing.f.frequency.setTargetAtTime(500 + sp * 45, t, 0.1);
+}
+
+// ================= the boss: the Red Champion =================
+let bossSpawned = false;
+const BOSS_AT = 15, BOSS_HP = 420;
+function makeShield() {
+  const g = new THREE.Group();
+  const plate = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.42, 0.06, 8), new THREE.MeshStandardMaterial({ color: 0x5e1a12, metalness: 0.5, roughness: 0.5, flatShading: true }));
+  plate.rotation.x = Math.PI / 2; g.add(plate);
+  const rim = new THREE.Mesh(new THREE.TorusGeometry(0.42, 0.03, 4, 8), MW.brass); g.add(rim);
+  const boss = new THREE.Mesh(new THREE.IcosahedronGeometry(0.1, 0), MW.brass); boss.position.z = -0.05; g.add(boss);
+  return g;
+}
+function spawnBoss() {
+  if (bossSpawned || !botsOn()) return;
+  bossSpawned = true;
+  const e = makeEnemy({ role: 'hunter', roof: 2, ox: 0, oz: 0 });
+  e.boss = true; e.hp = BOSS_HP; e.r = 0.5; e.h = 2.5; e.alert = 999;
+  e.rig.root.scale.setScalar(1.45);
+  const sh = makeShield(); sh.position.set(0.05, -0.18, -0.14); e.rig.L.elbow.add(sh);
+  const plume = new THREE.Mesh(new THREE.ConeGeometry(0.07, 0.4, 5), new THREE.MeshStandardMaterial({ color: 0xffb02e, emissive: 0xa04a10, emissiveIntensity: 0.6, flatShading: true }));
+  plume.position.y = 0.32; e.rig.head.add(plume);
+  setText('sKills', `${kills}/${enemies.length}`);
+  toast('The Red Champion has arrived', 'He blocks hits from the front. Get behind him');
+  tone(98, 92, 1.4, 'sawtooth', 0.07); setTimeout(() => tone(147, 140, 1.0, 'sawtooth', 0.05), 350);
+}
+function updateBossBar() {
+  const b = enemies.find(e => e.boss && e.state !== 'gone' && e.state !== 'dying');
+  $('bossBar').hidden = !b || !started;
+  if (b) $('bossHp').style.width = Math.max(0, Math.min(100, b.hp / BOSS_HP * 100)).toFixed(0) + '%';
+}
+
+// ================= best times and records (solo runs) =================
+const REC = { best: null, kills: 0, wins: 0 };
+const REC_KEY = LEVEL === 1 ? 'sevenroofs-records' : 'sevenroofs-records-' + LEVEL;
+try { Object.assign(REC, JSON.parse(localStorage.getItem(REC_KEY) || '{}')); } catch (e) {}
+function showRecords() {
+  $('records').textContent = REC.wins || REC.kills
+    ? tr(`Best time ${REC.best != null ? fmt(REC.best) : '–'} · Most takedowns ${REC.kills} · Wins ${REC.wins}`)
+    : tr('No records yet. Win a run to set your best time.');
+}
+function saveRecords(won) {
+  if (isNet()) { $('endRecord').textContent = ''; return; }
+  const news = [];
+  if (kills > REC.kills) { REC.kills = kills; news.push('Most takedowns'); }
+  if (won) { REC.wins++; if (REC.best == null || runTime < REC.best) { REC.best = runTime; news.push('Best time'); } }
+  try { localStorage.setItem(REC_KEY, JSON.stringify(REC)); } catch (e) {}
+  $('endRecord').textContent = news.length ? tr(news.length > 1 ? 'New records!' : `New record: ${news[0].toLowerCase()}!`) : '';
+  showRecords();
+}
+
+// ================= time of day =================
+const hemi = HEMI;
+const TOD = {
+  dusk:    { top: 0x18262f, hor: 0x8e9fa3, glow: [1.0, 0.6, 0.28], glowAmt: 1, sun: 0xffc28a, sunI: 1.05, sky: 0x7f9db3, gnd: 0x4b4038, hemiI: 0.62, near: 0, far: 115, fac: 0.85, floor: 0xa6b3b4, layer: 0xd7dfdf, mist: 0xdde4e4, lamp: 1.5 },
+  night:   { top: 0x04070c, hor: 0x1b2530, glow: [0.6, 0.7, 1.0], glowAmt: 0.25, sun: 0x8fa8d8, sunI: 0.32, sky: 0x2a3a55, gnd: 0x161210, hemiI: 0.42, near: 0, far: 100, fac: 1.9, floor: 0x2b3640, layer: 0x56636e, mist: 0x66737e, lamp: 3.2 },
+  morning: { top: 0x7f97a6, hor: 0xc6cfd2, glow: [1.0, 0.92, 0.75], glowAmt: 0.55, sun: 0xfff0d6, sunI: 0.95, sky: 0xdfe8ee, gnd: 0x7a756c, hemiI: 0.85, near: 0, far: 78, fac: 0.12, floor: 0xd3dbdb, layer: 0xeef2f2, mist: 0xf2f5f5, lamp: 0.6 },
+};
+let TIME_OF_DAY = 'dusk';
+try { TIME_OF_DAY = localStorage.getItem('sevenroofs-tod') || 'dusk'; } catch (e) {}
+function applyTimeOfDay(k) {
+  const T = TOD[k] || TOD.dusk; TIME_OF_DAY = TOD[k] ? k : 'dusk';
+  sky.material.uniforms.top.value.setHex(T.top); sky.material.uniforms.horizon.value.setHex(T.hor);
+  sky.material.uniforms.glow.value.set(...T.glow); sky.material.uniforms.glowAmt.value = T.glowAmt;
+  scene.fog.color.setHex(T.hor); scene.fog.near = T.near; scene.fog.far = T.far;
+  sun.color.setHex(T.sun); sun.intensity = T.sunI;
+  hemi.color.setHex(T.sky); hemi.groundColor.setHex(T.gnd); hemi.intensity = T.hemiI;
+  FACADE_MATS.forEach(m => { m.emissiveIntensity = T.fac; });
+  fogFloor.material.color.setHex(T.floor);
+  fogLayers.forEach(L => L.m.material.color.setHex(T.layer));
+  mistLayers.forEach(L => L.m.material.color.setHex(T.mist));
+  lanternMat.emissiveIntensity = T.lamp; M.lampOn.emissiveIntensity = T.lamp * 0.93;
+  $('tod').value = TIME_OF_DAY; needsFrame = true;
+  try { localStorage.setItem('sevenroofs-tod', TIME_OF_DAY); } catch (e) {}
+}
+$('tod').addEventListener('change', () => applyTimeOfDay($('tod').value));
+
+// ================= boomerang and slow-motion longbow =================
+const rangs = [];
+const bowDraw = { on: false, t0: 0 };
+let TIME_SCALE = 1;
+function throwBoomerang() {
+  if (rangs.some(b => !b.visual)) return;    // one at a time: wait for it to come back
+  attackCd = 0.3; swingDur = 0.25; swingT = 0; swingHitDone = true;
+  const dir = aimDir(new V3());
+  rig.root.updateMatrixWorld(true);
+  const start = rig.R.hand.getWorldPosition(new V3());
+  ray.set(camera.position, dir); ray.far = 200;
+  const h = ray.intersectObjects(hookables, false)[0];
+  const aimPt = h ? h.point : camera.position.clone().addScaledVector(dir, 200);
+  const v = aimPt.sub(start).normalize().multiplyScalar(30);
+  launchRang(start, v, false); shotOut('boomerang', start, v, 0); sfx.whoosh();
+}
+function launchRang(start, vel, visual) {
+  const m = makeBoomerang(); m.scale.setScalar(1.6); m.position.copy(start); scene.add(m);
+  rangs.push({ m, vel: vel.clone(), home: start.clone(), t: 0, back: false, hit: new Set(), visual });
+}
+function updateRangs(dt) {
+  for (let i = rangs.length - 1; i >= 0; i--) {
+    const b = rangs[i]; b.t += dt;
+    const target = b.visual ? b.home : chest(new V3());
+    if (!b.back && (b.t > 0.6 || b.wall)) { b.back = true; b.hit.clear(); }
+    if (b.back) { const to = target.clone().sub(b.m.position), d = to.length(); b.vel.lerp(to.normalize().multiplyScalar(32), Math.min(1, dt * 6)); if (d < 1.1 || b.t > 4) { scene.remove(b.m); rangs.splice(i, 1); if (!b.visual) sfx.pickup(); continue; } }
+    else {   // on the way out, a wall turns it around
+      ray.set(b.m.position, b.vel.clone().normalize()); ray.far = b.vel.length() * dt + 0.2;
+      if (ray.intersectObjects(hookables, false)[0]) { b.wall = true; sfx.thunk(); }
+    }
+    b.m.position.addScaledVector(b.vel, dt); b.m.rotation.y += dt * 25;
+    if (b.visual) continue;
+    for (const e of enemies) {
+      if (e.state === 'dying' || e.state === 'gone' || b.hit.has(e)) continue;
+      if (b.m.position.distanceTo(tmp2.set(e.pos.x, e.pos.y + (e.boss ? 1.4 : 1.0), e.pos.z)) < (e.boss ? 1.2 : 0.9)) {
+        b.hit.add(e); const pd = b.vel.clone().setY(0).normalize(); hurtEnemy(e, 45, new V3(pd.x * 6, 3, pd.z * 6), 'boomerang');
+      }
+    }
+    if (NET.mode === 'versus') for (const R of remoteList()) {
+      if (R.s.d || b.hit.has(R)) continue;
+      if (b.m.position.distanceTo(tmp2.set(R.pos.x, R.pos.y + 1, R.pos.z)) < 0.9) { b.hit.add(R); const pd = b.vel.clone().setY(0).normalize(); hitRemote(R, 45, new V3(pd.x * 6, 3, pd.z * 6)); }
+    }
+    for (const L of lanterns) if (L.alive && L.g.position.distanceTo(b.m.position) < 1.1) smash(L);
+  }
+}
+function startDraw() { if (bowDraw.on || attackCd > 0) return; bowDraw.on = true; bowDraw.t0 = performance.now(); tone(160, 240, 0.5, 'triangle', 0.03); }
+function bowPower() { return bowDraw.on ? Math.min(1, (performance.now() - bowDraw.t0) / 900) : 0; }
+function updateBow() {
+  if (!bowDraw.on) return;
+  if (P.held !== 'longbow' || dead) { bowDraw.on = false; return; }
+  const held = performance.now() - bowDraw.t0;
+  if (attackHeld && held < 3000) return;
+  const k = bowPower(); bowDraw.on = false; attackCd = 0.35; recoil = 1;
+  const dir = aimDir(new V3());
+  rig.root.updateMatrixWorld(true);
+  const start = rig.R.hand.getWorldPosition(new V3());
+  ray.set(camera.position, dir); ray.far = 250;
+  const h = ray.intersectObjects(hookables, false)[0];
+  const aimPt = h ? h.point : camera.position.clone().addScaledVector(dir, 250);
+  const v = aimPt.sub(start).normalize().multiplyScalar(60 + 60 * k);
+  const m = new THREE.Mesh(boltGeo, MW.wood); m.scale.set(1.3, 1.3, 1.5); m.position.copy(start); scene.add(m);
+  bolts.push({ m, vel: v, life: 4, stuck: false, grav: 3, dmg: Math.round(40 + 60 * k), push: 4 + 5 * k });
+  shotOut('bolt', start, v, 3); sfx.twang();
+}
+
+function saveShop() { try { localStorage.setItem('sevenroofs-shop', JSON.stringify(SHOP)); } catch (e) {} }
+function addCoins(n) { SHOP.coins += n; saveShop(); renderShop(); }
+function renderShop() {
+  $('shopCoins').textContent = SHOP.coins; $('sCoins').textContent = SHOP.coins;
+  const list = $('shopList'); list.innerHTML = '';
+  for (const type of ['sword', 'spear', 'crossbow']) {
+    const I = SHOP_ITEMS[type], lv = lvOf(type), max = lv >= 3;
+    const row = document.createElement('div'); row.className = 'shoprow';
+    const nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = tr(type);
+    const st = document.createElement('i'); st.textContent = '★'.repeat(lv - 1); const em = document.createElement('i'); em.className = 'em'; em.textContent = '★'.repeat(3 - lv); nm.append(st, em);
+    const ef = document.createElement('div'); ef.className = 'ef';
+    const i = lv - 1, j = Math.min(2, lv);
+    ef.textContent = type === 'crossbow'
+      ? tr(max ? `Damage ${I.dmg[i]} · reload ${I.cd[i]} s` : `Damage ${I.dmg[i]} → ${I.dmg[j]} · reload ${I.cd[i]} → ${I.cd[j]} s`)
+      : tr(max ? `Damage ${I.dmg[i]} · reach ${I.reach[i]} m` : `Damage ${I.dmg[i]} → ${I.dmg[j]} · reach ${I.reach[i]} → ${I.reach[j]} m`);
+    const b = document.createElement('button'); b.type = 'button';
+    b.textContent = max ? tr('Maxed') : tr(`Upgrade · ${I.price[j]} coins`);
+    b.disabled = max || SHOP.coins < I.price[j];
+    b.addEventListener('click', () => {
+      if (lvOf(type) >= 3 || SHOP.coins < I.price[j]) return;
+      SHOP.coins -= I.price[j]; SHOP.lv[type] = lv + 1; saveShop(); renderShop(); sfx.pickup();
+      if (P.held === type) equip(type);
+    });
+    row.append(nm, b, ef); list.append(row);
+  }
+  const head = document.createElement('div'); head.className = 'shopsub'; head.textContent = tr('Buy once, take one each life'); list.append(head);
+  const DESC = { knives: 'Eight throwing knives', boomerang: 'Throw it and it comes back', longbow: 'Hold to draw. Slows time in solo', cannon: 'Five exploding shots', clone: 'Make up to 5 clones of you that fight beside you', jetpack: 'Wear it and hold jump in the air to fly' };
+  for (const type of Object.keys(SHOP_BUY)) {
+    const own = !!SHOP.own[type], used = SHOP_USED.has(type) || (type === 'jetpack' && P.jet);
+    const row = document.createElement('div'); row.className = 'shoprow';
+    const nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = tr(type);
+    const ef = document.createElement('div'); ef.className = 'ef'; ef.textContent = tr(DESC[type]);
+    const b = document.createElement('button'); b.type = 'button';
+    if (!own) { b.textContent = tr(`Buy · ${SHOP_BUY[type]} coins`); b.disabled = SHOP.coins < SHOP_BUY[type]; }
+    else { b.textContent = tr(used ? (type === 'jetpack' ? 'Wearing' : 'Taken') : (type === 'jetpack' ? 'Wear' : 'Take')); b.disabled = used || dead || ended; b.classList.add('take'); }
+    b.addEventListener('click', () => {
+      if (!SHOP.own[type]) {
+        if (SHOP.coins < SHOP_BUY[type]) return;
+        SHOP.coins -= SHOP_BUY[type]; SHOP.own[type] = true; saveShop(); sfx.pickup();
+      } else {
+        if (SHOP_USED.has(type) || dead || ended) return;
+        SHOP_USED.add(type); sfx.pickup();
+        if (type === 'jetpack') { P.jet = true; P.fuel = 100; }
+        else setHeld(type);
+      }
+      renderShop();
+    });
+    row.append(nm, b, ef); list.append(row);
+  }
+}
+renderShop();
+// ================= Clone (shop weapon, Kelevran): up to 5 copies of you that fight beside you =================
+const clones = [], CLONE_MAX = 5, CLONE_HUE = 0.5;
+function cloneRig() {
+  const r = gltfCache ? buildSoldier(gltfCache) : makePlayer();
+  tintRig(r.root, CLONE_HUE);
+  r.root.traverse(o => { if (o.isMesh) { o.castShadow = false; if (o.material && !o.material.isMeshBasicMaterial) { o.material = o.material.clone(); o.material.transparent = true; o.material.opacity = 0.82; o.material.emissive && o.material.emissive.setHex(0x0a3a40); } } });
+  const rope = new THREE.Mesh(ropeGeo, new THREE.MeshBasicMaterial({ color: 0x2a2622 })); rope.visible = false;
+  scene.add(r.root, rope);
+  return { rig: r, rope };
+}
+function groundUnder(x, z, y) {   // the highest surface under a point, no higher than a step above it
+  let g = -Infinity, roof = -1;
+  for (const c of colliders) if (x > c.min.x && x < c.max.x && z > c.min.z && z < c.max.z && c.max.y <= y + 0.6 && c.max.y > g) { g = c.max.y; roof = c.roof; }
+  return [g, roof];
+}
+function spawnClone() {
+  attackCd = 0.45;
+  if (clones.length >= CLONE_MAX) { toast('You already have 5 clones', ''); return; }
+  const ang = P.yaw + Math.PI / 2 + clones.length * 1.3, side = new V3(Math.sin(ang), 0, Math.cos(ang)).multiplyScalar(1.4);
+  const pos = P.pos.clone().add(side); pos.y += 0.05;
+  const { rig: r, rope } = cloneRig();
+  const C = { rig: r, rope, pos, vel: new V3(), yaw: P.yaw, phase: 0, hp: 60, life: 45, cd: 0, roof: P.groundRoof, fly: null, swingT: -1, hitDone: false, track: { roof: P.groundRoof, since: 0 },
+    s: { g: true, y: P.yaw, h: 'sword', sw: -1, d: false, hk: 0, jet: false, th: false } };
+  clones.push(C); burst(pos.clone().setY(pos.y + 1), 0x7fe8f0); tone(700, 1100, 0.18, 'triangle', 0.04);
+}
+function removeClone(C, quiet) {
+  const i = clones.indexOf(C); if (i < 0) return;
+  clones.splice(i, 1); scene.remove(C.rig.root, C.rope);
+  if (!quiet) burst(C.pos.clone().setY(C.pos.y + 1), 0x7fe8f0);
+}
+function clearClones() { while (clones.length) removeClone(clones[0], true); }
+function hurtClone(C, dmg) { C.hp -= dmg; C.rig.root.position.y += 0.05; if (C.hp <= 0) { removeClone(C); toast('A clone is gone', ''); } }
+function cloneTargets() { return clones.filter(c => !c.fly).map(c => ({ clone: c, pos: c.pos, dead: false, safe: false, onGround: c.s.g, groundRoof: c.roof, track: c.track })); }
+function updateClones(dt) {
+  for (const C of [...clones]) {
+    C.life -= dt; C.cd = Math.max(0, C.cd - dt);
+    if (C.life <= 0 || dead) { removeClone(C); continue; }
+    if (C.fly) {   // swinging over to your roof
+      const f = C.fly; f.t += dt; const k = Math.min(1, f.t / f.T);
+      bez(f, k, C.pos); C.s.g = false; C.s.hk = f.anchor.toArray();
+      if (k >= 1) { C.fly = null; C.s.hk = 0; C.roof = f.roof; C.vel.set(0, 0, 0); }
+    } else {
+      // pick a fight: the nearest red soldier (or rival player in versus) close by on this level of roof
+      let foe = null, fd = 16;
+      for (const e of enemies) { if (e.state === 'gone' || e.state === 'dying' || e.state === 'swing') continue; const d = e.pos.distanceTo(C.pos); if (d < fd && Math.abs(e.pos.y - C.pos.y) < 2) { fd = d; foe = e; } }
+      if (NET.mode === 'versus') for (const R of remoteList()) { if (R.s.d) continue; const d = R.pos.distanceTo(C.pos); if (d < fd && Math.abs(R.pos.y - C.pos.y) < 2) { fd = d; foe = R; } }
+      let goal = null, stop = 1.5;
+      const away = P.onGround && P.groundRoof >= 0 && P.groundRoof !== C.roof && C.s.g;   // you went to another roof: follow you first
+      if (foe && !away) goal = foe.pos;
+      else if (away) {   // you went to another roof: follow
+        const R = ROOFS[P.groundRoof], land = P.pos.clone().add(new V3((Math.random() - 0.5) * 3, 0, (Math.random() - 0.5) * 3));
+        land.x = clamp(land.x, R.x - R.w / 2 + 1, R.x + R.w / 2 - 1); land.z = clamp(land.z, R.z - R.d / 2 + 1, R.z + R.d / 2 - 1); land.y = R.top + 0.02;
+        const start = C.pos.clone(), dist = start.distanceTo(land), ctrl = start.clone().lerp(land, 0.5); ctrl.y = Math.max(start.y, land.y) + 3 + dist * 0.12;
+        C.fly = { roof: P.groundRoof, anchor: ctrl.clone().setY(ctrl.y + 6), start, ctrl, land, T: 0.4 + dist / 20, t: 0 };
+        C.yaw = Math.atan2(-(land.x - start.x), -(land.z - start.z)); C.s.y = C.yaw;
+      } else if (C.pos.distanceTo(P.pos) > 3.5) { goal = P.pos; stop = 2.5; }
+      if (!C.fly) {
+        const wish = new V3();
+        if (goal) {
+          const to = new V3(goal.x - C.pos.x, 0, goal.z - C.pos.z), d = to.length();
+          C.yaw = Math.atan2(-to.x, -to.z);
+          if (d > stop) wish.copy(to).normalize().multiplyScalar(5.2);
+          if (foe && d < 2.1 && C.cd <= 0 && C.swingT < 0) { C.swingT = 0; C.hitDone = false; C.cd = 0.75; }
+        }
+        C.vel.x += (wish.x - C.vel.x) * Math.min(1, dt * 10); C.vel.z += (wish.z - C.vel.z) * Math.min(1, dt * 10);
+        C.vel.y -= 26 * dt;
+        const nx = C.pos.x + C.vel.x * dt, nz = C.pos.z + C.vel.z * dt;
+        if (C.roof >= 0 && C.s.g) {   // stay on the roof: no walking off the edge
+          const R = ROOFS[C.roof]; C.pos.x = clamp(nx, R.x - R.w / 2 + 0.6, R.x + R.w / 2 - 0.6); C.pos.z = clamp(nz, R.z - R.d / 2 + 0.6, R.z + R.d / 2 - 0.6);
+        } else { C.pos.x = nx; C.pos.z = nz; }
+        C.pos.y += C.vel.y * dt;
+        const [gy, gr] = groundUnder(C.pos.x, C.pos.z, C.pos.y);
+        if (C.pos.y <= gy) { C.pos.y = gy; C.vel.y = 0; C.s.g = true; if (gr >= 0) C.roof = gr; } else C.s.g = C.pos.y - gy < 0.15;
+        if (C.pos.y < 2) { removeClone(C); continue; }   // into the fog
+        if (C.swingT >= 0) {
+          C.swingT += dt / 0.42;
+          if (!C.hitDone && C.swingT > 0.3 && foe) {
+            C.hitDone = true;
+            const d = foe.pos.distanceTo(C.pos), push = new V3(foe.pos.x - C.pos.x, 0, foe.pos.z - C.pos.z).normalize().multiplyScalar(7); push.y = 3;
+            if (d < 2.4) { if (foe.rig && enemies.includes(foe)) hurtEnemy(foe, 34, push, 'sword'); else hitRemote(foe, 20, push); }
+          }
+          if (C.swingT > 1) C.swingT = -1;
+        }
+      }
+    }
+    C.track.since += dt; if (C.s.g && C.roof !== C.track.roof) { C.track.roof = C.roof; C.track.since = 0; }
+    C.s.sw = C.swingT >= 0 ? +C.swingT.toFixed(2) : -1; C.s.y = C.yaw;
+    animateRemote(C, dt);
+  }
+}
+function syncRemoteClones(R, dt) {   // show a friend's clones
+  const list = (R.s && R.s.cl) || []; R.clones = R.clones || [];
+  while (R.clones.length > list.length) { const c = R.clones.pop(); scene.remove(c.rig.root, c.rope); }
+  while (R.clones.length < list.length) { const { rig: r, rope } = cloneRig(); R.clones.push({ rig: r, rope, pos: new V3().fromArray(list[R.clones.length]), vel: new V3(), yaw: 0, phase: 0, s: { g: true, y: 0, h: 'sword', sw: -1, d: false, hk: 0 } }); }
+  R.clones.forEach((c, i) => { const a = list[i], np = new V3(a[0], a[1], a[2]); c.vel.copy(np).sub(c.pos).divideScalar(Math.max(dt, 0.001)).clampLength(0, 12); c.pos.lerp(np, Math.min(1, dt * 10)); c.s.y = a[3]; c.s.sw = a[4]; c.s.g = !!a[5]; c.s.d = !!R.s.d; animateRemote(c, dt); });
+}
+function fillLevels() {
+  const sel = $('lvSel'); sel.innerHTML = '';
+  LEVELS.forEach((L, i) => {
+    const o = document.createElement('option'); o.value = i + 1;
+    o.textContent = i + 1 > UNLOCKED ? `${i + 1}. ${tr('Locked')}` : `${i + 1}. ${tr(L.name)}`;
+    o.disabled = i + 1 > UNLOCKED && i + 1 !== LEVEL; sel.append(o);
+  });
+  sel.value = LEVEL; sel.disabled = isNet();
+}
+fillLevels();
+$('lvSel').addEventListener('change', e => { const n = +e.target.value; if (n !== LEVEL && !isNet()) goLevel(n); });
+(function autoJoin() {   // came back after switching to the host's level: join the room straight away
+  let a = null; try { a = JSON.parse(sessionStorage.getItem('sevenroofs-autojoin') || 'null'); sessionStorage.removeItem('sevenroofs-autojoin'); } catch (e) {}
+  if (!a || !a.code) return;
+  $('mpCode').value = a.code; if (a.name) $('mpName').value = a.name; NET.name = a.name || 'Player';
+  setTimeout(() => joinGame(a.code), 300);
+})();
 applyLang();
 $('langBtn').addEventListener('click', () => {
   LANG = LANG === 'zh' ? 'en' : 'zh';
   try { localStorage.setItem('sevenroofs-lang', LANG); } catch (e) {}
   applyLang();
   if (P.held) { $('handName').textContent = tr(P.held); updateHandHint(); }
-  updateRoomHud(); updateScoreHud();
+  updateRoomHud(); updateScoreHud(); showRecords(); renderShop(); fillLevels();
 });
 respawn(false);
 applyQuality();
+applyTimeOfDay(TIME_OF_DAY);
+showRecords();
 loadSoldier();
 requestAnimationFrame(frame);
 
 // hooks for automated checks
-window.__seven = { NET, netTargets, hostGame, joinGame, goSolo, remoteList, restartRun, endRun, get dead() { return dead; }, get ended() { return ended; }, get kills() { return kills; }, hurtPlayer, hurt: e => hurtEnemy(e, 999, new V3(), 'sword'), camera, enemies, PH, CAM, anim, rig, P, G, ROOFS, visited, keys, fireHook, releaseHook, attack, setHeld, pickups, lanterns, cursor, start: () => { started = true; paused = false; lockFailed = true; $('overlay').hidden = true; visit(0); } };
+window.__seven = { NET, netTargets, hostGame, joinGame, goSolo, remoteList, restartRun, endRun, get dead() { return dead; }, get ended() { return ended; }, get kills() { return kills; }, hurtPlayer, hurt: e => hurtEnemy(e, 999, new V3(), 'sword'), camera, enemies, PH, CAM, anim, rig, P, G, ROOFS, visited, keys, fireHook, releaseHook, attack, setHeld, pickups, lanterns, cursor, x: { hurtPush: e => hurtEnemy(e, 10, new V3(3, 2, 0), 'sword'), hurtHeavy: e => hurtEnemy(e, 65, new V3(8, 3, 0), 'sword'), get clones() { return clones; }, get rangs() { return rangs; }, get bow() { return bowDraw; }, get ts() { return TIME_SCALE; }, get boss() { return bossSpawned; }, REC, applyTimeOfDay, saveRecords, setAttackHeld: v => { attackHeld = v; } }, start: () => { started = true; paused = false; lockFailed = true; $('overlay').hidden = true; visit(0); } };
 })();
 </script>
