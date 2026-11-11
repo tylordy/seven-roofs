@@ -103,6 +103,9 @@ body.touch #bag b { display: none; }
 .shop { display: grid; gap: 8px; border-top: 1px solid rgba(236,230,214,0.14); padding-top: 12px; }
 .shophead { display: flex; justify-content: space-between; align-items: baseline; font-family: var(--display); font-weight: 700; font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); }
 .coinbag { color: var(--lamp); font-size: 13px; }
+.shophead { gap: 10px; flex-wrap: wrap; }
+#testCoins { font-family: var(--mono, inherit); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--dim); background: transparent; border: 1px dashed rgba(236,230,214,0.35); padding: 3px 8px; cursor: pointer; margin-left: auto; }
+#testCoins.on { color: #1a1408; background: var(--lamp); border: 1px solid var(--lamp); }
 .coinbag b { font-size: 18px; }
 .shoprow { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; align-items: center; padding: 6px 0; border-bottom: 1px solid rgba(236,230,214,0.08); }
 .shoprow .nm { font-family: var(--display); font-weight: 700; font-size: 15px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink); }
@@ -269,7 +272,7 @@ body.zh .card h1 { letter-spacing: 0.08em; }
     </div>
     <div id="records" class="note recs"></div>
     <div class="shop">
-      <div class="shophead"><span>Weapon shop</span><span class="coinbag"><b id="shopCoins">0</b> coins</span></div>
+      <div class="shophead"><span>Weapon shop</span><button id="testCoins" type="button">Test: infinite coins</button><span class="coinbag"><b id="shopCoins">0</b> coins</span></div>
       <div class="note">Earn coins by taking down soldiers (10), the Red Champion (60), players in versus (15) and smashing lanterns (2). Upgrades last between runs and power up the weapon whenever you hold it.</div>
       <div id="shopList"></div>
     </div>
@@ -336,7 +339,7 @@ const ZH = {
   dagger: '匕首', sword: '劍', spear: '長矛', crossbow: '十字弓', knives: '忍者飛刀', cannon: '大砲', jetpack: '噴射背包',
   'Move': '移動', 'Music': '音樂', 'Time of day': '時段', 'Dusk': '黃昏', 'Night': '夜晚', 'Foggy morning': '霧濛濛的早晨',
   'The Red Champion': '紅色冠軍', 'The Red Champion has arrived': '紅色冠軍登場了', 'He blocks hits from the front. Get behind him': '他會用盾牌擋住正面的攻擊，繞到他背後',
-  'The Red Champion is down': '紅色冠軍被擊倒了', 'Blocked': '被擋住了', 'coins': '金幣', 'Weapon shop': '武器商店', clone: '分身', 'Space to make a clone · up to 5': '空白鍵召喚分身 · 最多 5 個', 'Make up to 5 clones of you that fight beside you': '召喚最多 5 個分身陪你一起戰鬥', 'You already have 5 clones': '你已經有 5 個分身了', 'Clone': '分身', 'A clone is gone': '一個分身消失了', 'Level': '關卡', 'Next level': '下一關', 'Locked': '未解鎖', 'Old Town': '舊城區', 'The Docks': '碼頭', 'Glass Heights': '玻璃高地', 'Stilt Market': '高腳市集', 'The Ring': '圓環', 'The Ladder': '天梯', 'Twin Peaks': '雙峰', 'The Pit': '深坑', 'Sky Garden': '空中花園', 'The Gauntlet': '試煉之路', 'Pier Office': '碼頭辦公室', 'Crane House': '吊車屋', 'Lighthouse': '燈塔', 'Fish Market': '魚市場', 'Harbor Sign': '港口招牌', 'Warehouse': '倉庫', 'Boat Shed': '船屋', 'Atrium': '中庭', 'Blue Tower': '藍塔', 'The Needle': '尖針', 'Mirror Block': '鏡面大樓', 'Sky Lobby': '空中大廳', 'Glass Ledge': '玻璃平台', 'Roof Garden': '屋頂花園', 'Market Gate': '市集大門', 'Rope Hall': '繩索廳', 'Stilt Tower': '高腳塔', 'Tea House': '茶館', 'Lantern Stand': '燈籠攤', 'Far Stall': '遠方攤位', 'Garden Hut': '花園小屋', 'Hub': '中心', 'East Ring': '東環', 'North Ring': '北環', 'West Ring': '西環', 'Northwest Ring': '西北環', 'Far North': '極北', 'South Ring': '南環', 'First Step': '第一階', 'Second Step': '第二階', 'Top Rung': '最高階', 'Third Step': '第三階', 'Fifth Step': '第五階', 'Sixth Step': '第六階', 'Back Step': '後階', 'The Saddle': '鞍部', 'West Slope': '西坡', 'West Peak': '西峰', 'East Slope': '東坡', 'East Peak': '東峰', 'The Valley': '山谷', 'Foothill': '山腳', 'Pit Floor': '坑底', 'East Wall': '東牆', 'North Wall': '北牆', 'West Wall': '西牆', 'Northeast Wall': '東北牆', 'Northwest Wall': '西北牆', 'South Wall': '南牆', 'Garden Gate': '花園大門', 'Orchard': '果園', 'Sky Spire': '天空尖塔', 'Herb Roof': '香草屋頂', 'Pond Roof': '池塘屋頂', 'Vine Ledge': '藤蔓平台', 'Start Line': '起跑線', 'First Gap': '第一道缺口', 'Finish Spire': '終點尖塔', 'Low Run': '低處跑道', 'Signal Run': '信號跑道', 'Last Ledge': '最後平台', 'Back Roof': '後屋頂', 'Buy once, take one each life': '買一次，每條命可拿一次', 'Eight throwing knives': '八把飛刀', 'Throw it and it comes back': '丟出去會飛回來', 'Hold to draw. Slows time in solo': '按住拉弓，單人模式會放慢時間', 'Five exploding shots': '五發爆炸彈', 'Wear it and hold jump in the air to fly': '穿上後在空中按住跳躍飛行', 'Take': '拿取', 'Taken': '已拿取', 'Wear': '穿上', 'Wearing': '穿著中', 'Maxed': '已滿級', 'Earn coins by taking down soldiers (10), the Red Champion (60), players in versus (15) and smashing lanterns (2). Upgrades last between runs and power up the weapon whenever you hold it.': '擊倒士兵（10）、紅色冠軍（60）、對戰中的玩家（15）或打碎燈籠（2）都能賺金幣。升級會一直保留，只要拿著那把武器就會變強。', 'Tip: wall run': '提示：跑牆', 'Fly along a wall fast, close to it, to run on it': '貼著牆快速飛過，就能在牆上跑', 'Wall running!': '跑牆中！', 'Press right click or Ctrl to kick off the wall': '按右鍵或 Ctrl 蹬牆跳開', 'Press Jump to kick off the wall': '按跳躍鍵蹬牆跳開', 'Hit him from behind or the side': '從背後或側面攻擊他',
+  'The Red Champion is down': '紅色冠軍被擊倒了', 'Blocked': '被擋住了', 'coins': '金幣', 'Weapon shop': '武器商店', 'Test: infinite coins': '測試：無限金幣', 'Test mode: on': '測試模式：開啟', clone: '分身', 'Space to make a clone · up to 5': '空白鍵召喚分身 · 最多 5 個', 'Make up to 5 clones of you that fight beside you': '召喚最多 5 個分身陪你一起戰鬥', 'You already have 5 clones': '你已經有 5 個分身了', 'Clone': '分身', 'A clone is gone': '一個分身消失了', 'Level': '關卡', 'Next level': '下一關', 'Locked': '未解鎖', 'Old Town': '舊城區', 'The Docks': '碼頭', 'Glass Heights': '玻璃高地', 'Stilt Market': '高腳市集', 'The Ring': '圓環', 'The Ladder': '天梯', 'Twin Peaks': '雙峰', 'The Pit': '深坑', 'Sky Garden': '空中花園', 'The Gauntlet': '試煉之路', 'Pier Office': '碼頭辦公室', 'Crane House': '吊車屋', 'Lighthouse': '燈塔', 'Fish Market': '魚市場', 'Harbor Sign': '港口招牌', 'Warehouse': '倉庫', 'Boat Shed': '船屋', 'Atrium': '中庭', 'Blue Tower': '藍塔', 'The Needle': '尖針', 'Mirror Block': '鏡面大樓', 'Sky Lobby': '空中大廳', 'Glass Ledge': '玻璃平台', 'Roof Garden': '屋頂花園', 'Market Gate': '市集大門', 'Rope Hall': '繩索廳', 'Stilt Tower': '高腳塔', 'Tea House': '茶館', 'Lantern Stand': '燈籠攤', 'Far Stall': '遠方攤位', 'Garden Hut': '花園小屋', 'Hub': '中心', 'East Ring': '東環', 'North Ring': '北環', 'West Ring': '西環', 'Northwest Ring': '西北環', 'Far North': '極北', 'South Ring': '南環', 'First Step': '第一階', 'Second Step': '第二階', 'Top Rung': '最高階', 'Third Step': '第三階', 'Fifth Step': '第五階', 'Sixth Step': '第六階', 'Back Step': '後階', 'The Saddle': '鞍部', 'West Slope': '西坡', 'West Peak': '西峰', 'East Slope': '東坡', 'East Peak': '東峰', 'The Valley': '山谷', 'Foothill': '山腳', 'Pit Floor': '坑底', 'East Wall': '東牆', 'North Wall': '北牆', 'West Wall': '西牆', 'Northeast Wall': '東北牆', 'Northwest Wall': '西北牆', 'South Wall': '南牆', 'Garden Gate': '花園大門', 'Orchard': '果園', 'Sky Spire': '天空尖塔', 'Herb Roof': '香草屋頂', 'Pond Roof': '池塘屋頂', 'Vine Ledge': '藤蔓平台', 'Start Line': '起跑線', 'First Gap': '第一道缺口', 'Finish Spire': '終點尖塔', 'Low Run': '低處跑道', 'Signal Run': '信號跑道', 'Last Ledge': '最後平台', 'Back Roof': '後屋頂', 'Buy once, take one each life': '買一次，每條命可拿一次', 'Eight throwing knives': '八把飛刀', 'Throw it and it comes back': '丟出去會飛回來', 'Hold to draw. Slows time in solo': '按住拉弓，單人模式會放慢時間', 'Five exploding shots': '五發爆炸彈', 'Wear it and hold jump in the air to fly': '穿上後在空中按住跳躍飛行', 'Take': '拿取', 'Taken': '已拿取', 'Wear': '穿上', 'Wearing': '穿著中', 'Maxed': '已滿級', 'Earn coins by taking down soldiers (10), the Red Champion (60), players in versus (15) and smashing lanterns (2). Upgrades last between runs and power up the weapon whenever you hold it.': '擊倒士兵（10）、紅色冠軍（60）、對戰中的玩家（15）或打碎燈籠（2）都能賺金幣。升級會一直保留，只要拿著那把武器就會變強。', 'Tip: wall run': '提示：跑牆', 'Fly along a wall fast, close to it, to run on it': '貼著牆快速飛過，就能在牆上跑', 'Wall running!': '跑牆中！', 'Press right click or Ctrl to kick off the wall': '按右鍵或 Ctrl 蹬牆跳開', 'Press Jump to kick off the wall': '按跳躍鍵蹬牆跳開', 'Hit him from behind or the side': '從背後或側面攻擊他',
   boomerang: '迴旋鏢', longbow: '長弓', 'Space to throw · it comes back': '空白鍵投擲 · 會飛回來', 'Hold Space to draw and slow time · let go to shoot': '按住空白鍵拉弓並放慢時間 · 放開射擊',
   'No records yet. Win a run to set your best time.': '還沒有紀錄。贏一場就能留下最佳時間。', 'New records!': '新紀錄！', 'New record: best time!': '新紀錄：最佳時間！', 'New record: most takedowns!': '新紀錄：最多擊倒！', 'Fire': '發射', 'Fire the hook': '發射鉤爪', 'Hook': '鉤爪', 'Attack': '攻擊', 'Jump': '跳躍', 'Drop': '丟掉', 'Pause': '暫停', 'Turn your phone sideways': '請把手機轉成橫向',
   'Joystick': '搖桿', 'Drag the joystick on the left to move. Push all the way to sprint': '拖曳左邊的搖桿來移動，推到底就會衝刺', 'The button with your weapon on it. Shoot or swing the weapon in your right hand': '上面畫著你武器的按鈕。用右手的武器射擊或揮砍', 'Aim': '瞄準', 'Drag the orange joystick to turn the crosshair, tap it to fire your weapon. You can also drag on the screen to look around': '拖曳橘色搖桿來轉動準星，點一下就會用武器攻擊。也可以在畫面上拖曳來轉動視角', 'Touch and drag on the left side to move. Push all the way to sprint': '在左半邊按住拖曳來移動，推到底就會衝刺',
@@ -1869,7 +1872,7 @@ const MELEE = {
 };
 // ---------- the weapon shop: coins buy levels 2 and 3 of the sword, spear and crossbow (Kelevran) ----------
 const SHOP = { coins: 0, lv: { sword: 1, spear: 1, crossbow: 1 } };
-try { const o = JSON.parse(localStorage.getItem('sevenroofs-shop') || '{}'); if (o.coins) SHOP.coins = o.coins; if (o.lv) Object.assign(SHOP.lv, o.lv); } catch (e) {}
+try { const o = JSON.parse(localStorage.getItem('sevenroofs-shop') || '{}'); if (o.coins) SHOP.coins = o.coins; if (o.test) SHOP.test = true; if (o.lv) Object.assign(SHOP.lv, o.lv); } catch (e) {}
 const SHOP_ITEMS = {   // stats at level 1, 2, 3
   sword:    { price: [0, 50, 120], dmg: [55, 72, 95], reach: [2.6, 2.9, 3.2], dur: [0.42, 0.38, 0.33] },
   spear:    { price: [0, 50, 120], dmg: [45, 60, 80], reach: [3.7, 4.2, 4.7], dur: [0.5, 0.45, 0.4] },
@@ -3207,9 +3210,12 @@ function updateBow() {
 }
 
 function saveShop() { try { localStorage.setItem('sevenroofs-shop', JSON.stringify(SHOP)); } catch (e) {} }
+function canPay(n) { return SHOP.test || SHOP.coins >= n; }
+function pay(n) { if (!SHOP.test) SHOP.coins -= n; }
 function addCoins(n) { SHOP.coins += n; saveShop(); renderShop(); }
 function renderShop() {
-  $('shopCoins').textContent = SHOP.coins; $('sCoins').textContent = SHOP.coins;
+  const cv = SHOP.test ? '∞' : SHOP.coins; $('shopCoins').textContent = cv; $('sCoins').textContent = cv;
+  $('testCoins').classList.toggle('on', !!SHOP.test); $('testCoins').textContent = tr(SHOP.test ? 'Test mode: on' : 'Test: infinite coins');
   const list = $('shopList'); list.innerHTML = '';
   for (const type of ['sword', 'spear', 'crossbow']) {
     const I = SHOP_ITEMS[type], lv = lvOf(type), max = lv >= 3;
@@ -3223,10 +3229,10 @@ function renderShop() {
       : tr(max ? `Damage ${I.dmg[i]} · reach ${I.reach[i]} m` : `Damage ${I.dmg[i]} → ${I.dmg[j]} · reach ${I.reach[i]} → ${I.reach[j]} m`);
     const b = document.createElement('button'); b.type = 'button';
     b.textContent = max ? tr('Maxed') : tr(`Upgrade · ${I.price[j]} coins`);
-    b.disabled = max || SHOP.coins < I.price[j];
+    b.disabled = max || !canPay(I.price[j]);
     b.addEventListener('click', () => {
-      if (lvOf(type) >= 3 || SHOP.coins < I.price[j]) return;
-      SHOP.coins -= I.price[j]; SHOP.lv[type] = lv + 1; saveShop(); renderShop(); sfx.pickup();
+      if (lvOf(type) >= 3 || !canPay(I.price[j])) return;
+      pay(I.price[j]); SHOP.lv[type] = lv + 1; saveShop(); renderShop(); sfx.pickup();
       if (P.held === type) equip(type);
     });
     row.append(nm, b, ef); list.append(row);
@@ -3239,12 +3245,12 @@ function renderShop() {
     const nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = tr(type);
     const ef = document.createElement('div'); ef.className = 'ef'; ef.textContent = tr(DESC[type]);
     const b = document.createElement('button'); b.type = 'button';
-    if (!own) { b.textContent = tr(`Buy · ${SHOP_BUY[type]} coins`); b.disabled = SHOP.coins < SHOP_BUY[type]; }
+    if (!own) { b.textContent = tr(`Buy · ${SHOP_BUY[type]} coins`); b.disabled = !canPay(SHOP_BUY[type]); }
     else { b.textContent = tr(used ? (type === 'jetpack' ? 'Wearing' : 'Taken') : (type === 'jetpack' ? 'Wear' : 'Take')); b.disabled = used || dead || ended; b.classList.add('take'); }
     b.addEventListener('click', () => {
       if (!SHOP.own[type]) {
-        if (SHOP.coins < SHOP_BUY[type]) return;
-        SHOP.coins -= SHOP_BUY[type]; SHOP.own[type] = true; saveShop(); sfx.pickup();
+        if (!canPay(SHOP_BUY[type])) return;
+        pay(SHOP_BUY[type]); SHOP.own[type] = true; saveShop(); sfx.pickup();
       } else {
         if (SHOP_USED.has(type) || dead || ended) return;
         SHOP_USED.add(type); sfx.pickup();
@@ -3257,6 +3263,7 @@ function renderShop() {
   }
 }
 renderShop();
+$('testCoins').addEventListener('click', () => { SHOP.test = !SHOP.test; saveShop(); renderShop(); sfx.pickup(); });
 // ================= Clone (shop weapon, Kelevran): up to 5 copies of you that fight beside you =================
 const clones = [], CLONE_MAX = 5, CLONE_HUE = 0.5;
 function cloneRig() {
